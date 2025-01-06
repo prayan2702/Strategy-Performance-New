@@ -51,13 +51,32 @@ previous_value = pd.to_numeric(previous_value_raw, errors='coerce')
 day_change = portfolio_value - previous_value
 day_change_percent = (day_change / previous_value * 100) if previous_value != 0 else 0
 
-# Set the locale for Indian numbering
-locale.setlocale(locale.LC_ALL, 'en_IN')
-
 def format_indian_currency(amount):
-    """Formats a number to Indian currency format (lakhs and crores)."""
-    return locale.format_string("%.0f", amount, grouping=True)
+    """Formats a number to Indian currency format (lakhs and crores) manually."""
+    amount = int(amount)  # Convert to integer
+    s = str(amount)
+    if len(s) <= 3:
+        return s
+    elif len(s) == 4:
+      return s[0]+","+s[1:]
+    elif len(s) == 5:
+      return s[:2]+","+s[2:]
+    elif len(s) == 6:
+        return s[:1] + "," + s[1:3] + "," + s[3:]
+    elif len(s) == 7:
+        return s[:2] + "," + s[2:4] + "," + s[4:]
+    elif len(s) == 8:
+        return s[:1] + "," + s[1:3] + "," + s[3:5] + "," + s[5:]
+    elif len(s) == 9:
+        return s[:2] + "," + s[2:4] + "," + s[4:6] + "," + s[6:]
+    else:
+        return "Value too big"
 
+# Try to set locale, but handle potential errors
+try:
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+except locale.Error:
+    print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
 # Total Account Overview Section
 st.write("### Total Account Overview", unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
