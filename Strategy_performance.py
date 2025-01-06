@@ -154,14 +154,12 @@ col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
 st.markdown(
     """
     <style>
-        /* Target only metrics inside the columns */
-        div[data-testid="column"] div[data-testid="metric-container"] {
-            margin-top: -25px;  /* Fine-tuned to reduce vertical space */
+        div[data-testid="metric-container"] {
+            margin-top: -20px; /* Adjust the value as needed */
         }
-        div[data-testid="column"] div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: -15px;  /* Close gap between markdown and metrics */
+        div[data-testid="stMarkdownContainer"] > p {
+            margin-bottom: 0px;
         }
-        
         /* Adjust st.info box margin to avoid misalignment */
         div.stAlert {
             margin-top: -5px;  /* Pull st.info upwards slightly */
