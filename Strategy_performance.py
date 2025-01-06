@@ -70,23 +70,23 @@ st.markdown(
 )
 
 with col1:
-    st.markdown("<b>Total Account Value</b>", unsafe_allow_html=True)
+    st.markdown("<b style='font-size: 18px;'>Total Account Value</b>", unsafe_allow_html=True)
     st.metric(label="", value=f"₹{portfolio_value:,.0f}")
 
 with col2:
-    st.markdown("<b>Absolute Gain</b>", unsafe_allow_html=True)
+    st.markdown("<b style='font-size: 18px;'>Absolute Gain</b>", unsafe_allow_html=True)
     st.metric(label="", value=f"₹{absolute_gain:,.0f}")
 
 with col3:
-    st.markdown("<b>Day Change</b>", unsafe_allow_html=True)
+    st.markdown("<b style='font-size: 18px;'>Day Change</b>", unsafe_allow_html=True)
     st.metric(label="", value=f"₹{day_change:,.0f}", delta=f"{day_change_percent:.2f}%")
 
 with col4:
-    st.markdown("<b>NIFTY50 Benchmark</b>", unsafe_allow_html=True)
+    st.markdown("<b style='font-size: 18px;'>NIFTY50 Benchmark</b>", unsafe_allow_html=True)
     st.metric(label="", value=f"{nifty50_value:,.0f}")
 
 with col5:
-    st.markdown("<b>Month Change</b>", unsafe_allow_html=True)
+    st.markdown("<b style='font-size: 18px;'>Month Change</b>", unsafe_allow_html=True)
     if len(data) > 30:
         month_change = data['current value'].iloc[-1] - data['current value'].iloc[-30]
         month_change_percent = (month_change / data['current value'].iloc[-30] * 100) if \
