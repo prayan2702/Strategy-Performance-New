@@ -4,6 +4,7 @@ import datetime
 import plotly.express as px
 import plotly.graph_objects as go
 import pytz
+import locale
 
 st.set_page_config(layout="wide")  # Set full-width layout
 
