@@ -155,7 +155,7 @@ st.markdown(
     <style>
         /* Apply to only columns (metrics inside columns) */
         div[data-testid="column"] div[data-testid="metric-container"] {
-            margin-top: -20px;  /* Reduce space for metrics */
+            margin-top: -30px;  /* Reduce space for metrics */
         }
         div[data-testid="stMarkdownContainer"] > p {
             margin-bottom: -20px; /* Minimize markdown space */
