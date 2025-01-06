@@ -158,7 +158,7 @@ st.markdown(
             margin-top: -20px; /* Adjust the value as needed */
         }
         div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: 0px;
+            margin-bottom: -10px;
         }
         /* Adjust st.info box margin to avoid misalignment */
         div.stAlert {
