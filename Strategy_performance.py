@@ -82,7 +82,7 @@ utc_now = datetime.datetime.now(pytz.utc)
 # Convert to the desired time zone
 local_now = utc_now.astimezone(desired_timezone)
 # Format the time for display
-formatted_time = local_now.strftime('%Y-%m-%d %H:%M:%S')
+formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')  # DD-MM-YYYY
 # Display the time in Streamlit
 st.info(f"Last Update: {formatted_time}")
 
