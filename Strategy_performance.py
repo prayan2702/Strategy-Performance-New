@@ -164,7 +164,7 @@ st.markdown(
 
         /* Padding below column to ensure st.info aligns correctly */
         .after-metrics {
-            padding-top: 20px;  /* Add space below metrics */
+            padding-top: 10px;  /* Add space below metrics */
         }
     </style>
     """,
