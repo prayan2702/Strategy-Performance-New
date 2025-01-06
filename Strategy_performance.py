@@ -150,21 +150,21 @@ except locale.Error:
 st.write("### Total Account Overview", unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
 
-# Custom CSS to reduce space between markdown and metric components
+# Custom CSS to fine-tune space between markdown and metric components
 st.markdown(
     """
     <style>
-        /* Apply only to metrics inside columns */
+        /* Target only metrics inside the columns */
         div[data-testid="column"] div[data-testid="metric-container"] {
-            margin-top: -35px;  /* Reduce space for metrics */
+            margin-top: -25px;  /* Fine-tuned to reduce vertical space */
         }
         div[data-testid="column"] div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: -30px; /* Minimize markdown space inside columns */
+            margin-bottom: -15px;  /* Close gap between markdown and metrics */
         }
-
-        /* Padding below column to ensure st.info aligns correctly */
-        .after-metrics {
-            padding-top: 0px;  /* Add space below metrics */
+        
+        /* Adjust st.info box margin to avoid misalignment */
+        div.stAlert {
+            margin-top: -15px;  /* Pull st.info upwards slightly */
         }
     </style>
     """,
@@ -198,9 +198,6 @@ with col5:
     else:
         st.metric(label="", value="Insufficient Data")
 
-# Add space below the metrics to prevent overlap with st.info
-st.markdown('<div class="after-metrics"></div>', unsafe_allow_html=True)
-
 # Display the Last Update Time
 desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
 utc_now = datetime.datetime.now(pytz.utc)
@@ -208,7 +205,7 @@ local_now = utc_now.astimezone(desired_timezone)
 formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
 
 # st.info for the Last Update
-st.info(f"Last Update: {formatted_time}")
+st.info(f"Last Update: {formatted_time}"))
 
 # Date Range Selector and Three-Column Layout
 col1, col2, col3 = st.columns([1, 4, 1])
