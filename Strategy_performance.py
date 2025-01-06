@@ -271,8 +271,8 @@ with col3:
     table_data.rename(columns={'date': 'Date','day change %': 'Strategy', 'nifty50 change %': 'Nifty50'}, inplace=True)
 
     # Round values to 2 decimal points (force format as string)
-    table_data['strategy'] = table_data['strategy'].apply(lambda x: f"{x:.2f}")
-    table_data['nifty50'] = table_data['nifty50'].apply(lambda x: f"{x:.2f}")
+    table_data['Strategy'] = table_data['Strategy'].apply(lambda x: f"{x:.2f}")
+    table_data['Nifty50'] = table_data['Nifty50'].apply(lambda x: f"{x:.2f}")
 
 
     # Apply conditional formatting
@@ -283,7 +283,7 @@ with col3:
 
 
     # Display the table with formatting using st.dataframe
-    styled_table = table_data.style.applymap(color_positive_negative, subset=['strategy', 'nifty50'])
+    styled_table = table_data.style.applymap(color_positive_negative, subset=['Strategy', 'Nifty50'])
 
     # Show dataframe properly in Streamlit
     st.dataframe(styled_table, hide_index=True)
