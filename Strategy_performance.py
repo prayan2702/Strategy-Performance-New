@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import plotly.express as px
 import plotly.graph_objects as go
+import pytz
 
 st.set_page_config(layout="wide")  # Set full-width layout
 
@@ -74,8 +75,16 @@ with col5:
     else:
         st.metric("Month Change", "Insufficient Data")
 
-st.info("Last Update: {}".format(
-    datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+# Define your desired time zone (replace with your actual time zone)
+desired_timezone = pytz.timezone('Asia/Kolkata')  # Example: India Standard Time (IST)
+# Get the current time in UTC
+utc_now = datetime.datetime.now(pytz.utc)
+# Convert to the desired time zone
+local_now = utc_now.astimezone(desired_timezone)
+# Format the time for display
+formatted_time = local_now.strftime('%Y-%m-%d %H:%M:%S')
+# Display the time in Streamlit
+st.info(f"Last Update: {formatted_time}")
 
 # Date Range Selector and Three-Column Layout
 col1, col2, col3 = st.columns([1, 4, 1])
