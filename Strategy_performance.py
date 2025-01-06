@@ -196,6 +196,11 @@ with col3:
 
     # Format the 'date' column to 'dd-mm-yyyy' format
     table_data = filtered_data[['date', 'day change %', 'nifty50 change %']].copy()
+
+    # Sort by 'date' in descending order (before formatting)
+    table_data.sort_values(by='date', ascending=False, inplace=True)
+
+    # Format the 'date' column to 'dd-mm-yyyy' format
     table_data['date'] = table_data['date'].dt.strftime('%d-%m-%Y')  # Format date
     table_data.rename(columns={'day change %': 'strategy', 'nifty50 change %': 'nifty50'}, inplace=True)
 
@@ -215,4 +220,4 @@ with col3:
     styled_table = table_data.style.applymap(color_positive_negative, subset=['strategy', 'nifty50'])
 
     # Show dataframe properly in Streamlit
-    st.dataframe(styled_table)
+    st.dataframe(styled_table, hide_index=True)
