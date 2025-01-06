@@ -149,7 +149,6 @@ except locale.Error:
 st.write("### Total Account Overview", unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
 
-
 # Custom CSS to reduce space between markdown and metric components
 st.markdown(
     """
@@ -159,7 +158,7 @@ st.markdown(
             margin-top: -20px;  /* Reduce space for metrics */
         }
         div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: -20px; /* Minimize markdown space */
+            margin-bottom: 0px; /* Minimize markdown space */
         }
 
         /* Ensure st.info doesn't shift below */
@@ -171,7 +170,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
+# Columns with metrics
 with col1:
     st.markdown("<b style='font-size: 18px;'>Total Account Value</b>", unsafe_allow_html=True)
     st.metric(label="", value=f"₹{format_indian_currency(portfolio_value)}")
@@ -198,15 +197,14 @@ with col5:
     else:
         st.metric(label="", value="Insufficient Data")
 
-# Define your desired time zone (replace with your actual time zone)
-desired_timezone = pytz.timezone('Asia/Kolkata')  # Example: India Standard Time (IST)
-# Get the current time in UTC
+# Display the Last Update Time
+desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
 utc_now = datetime.datetime.now(pytz.utc)
-# Convert to the desired time zone
 local_now = utc_now.astimezone(desired_timezone)
-# Format the time for display
-formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')  # DD-MM-YYYY
-# Display the time in Streamlit
+formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
+
+# Padding to prevent overlap with metrics
+st.markdown("<div style='padding-top: 20px;'></div>", unsafe_allow_html=True)
 st.info(f"Last Update: {formatted_time}")
 
 # Date Range Selector and Three-Column Layout
