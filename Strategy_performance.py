@@ -158,7 +158,7 @@ st.markdown(
             margin-top: -30px;  /* Pull metrics closer to markdown */
         }
         div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: 5px; /* Reduce space below the markdown text */
+            margin-bottom: 0px; /* Reduce space below the markdown text */
         }
 
         /* Ensure metric remains vertically centered */
