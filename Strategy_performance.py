@@ -205,7 +205,7 @@ local_now = utc_now.astimezone(desired_timezone)
 formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
 
 # st.info for the Last Update
-st.info(f"Last Update: {formatted_time}"))
+st.info(f"Last Update: {formatted_time}")
 
 # Date Range Selector and Three-Column Layout
 col1, col2, col3 = st.columns([1, 4, 1])
