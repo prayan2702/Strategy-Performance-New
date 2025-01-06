@@ -204,7 +204,7 @@ local_now = utc_now.astimezone(desired_timezone)
 formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
 
 # Padding to prevent overlap with metrics
-st.markdown("<div style='padding-top: -20px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='padding-top: 0px;'></div>", unsafe_allow_html=True)
 st.info(f"Last Update: {formatted_time}")
 
 # Date Range Selector and Three-Column Layout
