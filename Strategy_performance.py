@@ -154,7 +154,7 @@ st.markdown(
     """
     <style>
         div[data-testid="metric-container"] {
-            margin-top: -30px;  /* Reduce spacing between metric and markdown */
+            margin-top: -50px;  /* Reduce spacing between metric and markdown */
         }
         div[data-testid="stMarkdownContainer"] > p {
             margin-bottom: 10px; /* Reduce space below the markdown text */
