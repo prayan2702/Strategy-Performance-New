@@ -58,14 +58,23 @@ nifty_data = get_nifty50_data(yesterday, yesterday + timedelta(days=1))
 # Get current Nifty50 value
 nifty = yf.Ticker("^NSEI")
 nifty_info = nifty.info
-if "currentPrice" in nifty_info:
-  nifty_current = nifty_info["currentPrice"]
-else:
-  nifty_current = 0
 
-# Calculate Nifty50 percentage change
+# Get yesterday's closing price
 if len(nifty_data) >= 1:
     nifty_yesterday = nifty_data['Close'].iloc[-1]
+else:
+    nifty_yesterday = 0
+
+# Try to get current price, with fallbacks
+if "currentPrice" in nifty_info:
+    nifty_current = nifty_info["currentPrice"]
+elif "regularMarketPrice" in nifty_info:
+    nifty_current = nifty_info["regularMarketPrice"]
+else:
+    nifty_current = nifty_yesterday  # Fallback to yesterday's close
+
+# Calculate Nifty50 percentage change
+if nifty_yesterday != 0:
     nifty_change_percent = ((nifty_current - nifty_yesterday) / nifty_yesterday) * 100
 else:
     nifty_change_percent = 0
