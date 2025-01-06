@@ -159,7 +159,7 @@ st.markdown(
             margin-top: -35px;  /* Reduce space for metrics */
         }
         div[data-testid="column"] div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: -10px; /* Minimize markdown space inside columns */
+            margin-bottom: -30px; /* Minimize markdown space inside columns */
         }
 
         /* Padding below column to ensure st.info aligns correctly */
