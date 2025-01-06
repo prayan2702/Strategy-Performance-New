@@ -52,25 +52,35 @@ day_change = portfolio_value - previous_value
 day_change_percent = (day_change / previous_value * 100) if previous_value != 0 else 0
 
 def format_indian_currency(amount):
-    """Formats a number to Indian currency format (lakhs and crores) manually."""
+    """Formats a number to Indian currency format (lakhs and crores) manually, handling negatives."""
+    is_negative = False
+    if amount < 0:
+        is_negative = True
+        amount = abs(amount)  # Work with the absolute value
+
     amount = int(amount)  # Convert to integer
     s = str(amount)
     if len(s) <= 3:
-        return s
+        formatted_value = s
     elif len(s) == 4:
-      return s[0]+","+s[1:]
+      formatted_value = s[0]+","+s[1:]
     elif len(s) == 5:
-      return s[:2]+","+s[2:]
+      formatted_value = s[:2]+","+s[2:]
     elif len(s) == 6:
-        return s[:1] + "," + s[1:3] + "," + s[3:]
+        formatted_value = s[:1] + "," + s[1:3] + "," + s[3:]
     elif len(s) == 7:
-        return s[:2] + "," + s[2:4] + "," + s[4:]
+        formatted_value = s[:2] + "," + s[2:4] + "," + s[4:]
     elif len(s) == 8:
-        return s[:1] + "," + s[1:3] + "," + s[3:5] + "," + s[5:]
+        formatted_value = s[:1] + "," + s[1:3] + "," + s[3:5] + "," + s[5:]
     elif len(s) == 9:
-        return s[:2] + "," + s[2:4] + "," + s[4:6] + "," + s[6:]
+        formatted_value = s[:2] + "," + s[2:4] + "," + s[4:6] + "," + s[6:]
     else:
-        return "Value too big"
+        formatted_value = "Value too big"
+
+    if is_negative:
+        return "-" + formatted_value  # Reattach the negative sign
+    else:
+        return formatted_value
 
 # Try to set locale, but handle potential errors
 try:
