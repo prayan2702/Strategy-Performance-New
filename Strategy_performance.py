@@ -50,6 +50,13 @@ previous_value = pd.to_numeric(previous_value_raw, errors='coerce')
 day_change = portfolio_value - previous_value
 day_change_percent = (day_change / previous_value * 100) if previous_value != 0 else 0
 
+# Set the locale for Indian numbering
+locale.setlocale(locale.LC_ALL, 'en_IN')
+
+def format_indian_currency(amount):
+    """Formats a number to Indian currency format (lakhs and crores)."""
+    return locale.format_string("%.0f", amount, grouping=True)
+
 # Total Account Overview Section
 st.write("### Total Account Overview", unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
@@ -71,19 +78,19 @@ st.markdown(
 
 with col1:
     st.markdown("<b style='font-size: 18px;'>Total Account Value</b>", unsafe_allow_html=True)
-    st.metric(label="", value=f"₹{portfolio_value:,.0f}")
+    st.metric(label="", value=f"₹{format_indian_currency(portfolio_value)}")
 
 with col2:
     st.markdown("<b style='font-size: 18px;'>Absolute Gain</b>", unsafe_allow_html=True)
-    st.metric(label="", value=f"₹{absolute_gain:,.0f}")
+    st.metric(label="", value=f"₹{format_indian_currency(absolute_gain)}")
 
 with col3:
     st.markdown("<b style='font-size: 18px;'>Day Change</b>", unsafe_allow_html=True)
-    st.metric(label="", value=f"₹{day_change:,.0f}", delta=f"{day_change_percent:.2f}%")
+    st.metric(label="", value=f"₹{format_indian_currency(day_change)}", delta=f"{day_change_percent:.2f}%")
 
 with col4:
     st.markdown("<b style='font-size: 18px;'>NIFTY50 Benchmark</b>", unsafe_allow_html=True)
-    st.metric(label="", value=f"{nifty50_value:,.0f}")
+    st.metric(label="", value=f"{format_indian_currency(nifty50_value)}")
 
 with col5:
     st.markdown("<b style='font-size: 18px;'>Month Change</b>", unsafe_allow_html=True)
@@ -91,7 +98,7 @@ with col5:
         month_change = data['current value'].iloc[-1] - data['current value'].iloc[-30]
         month_change_percent = (month_change / data['current value'].iloc[-30] * 100) if \
             data['current value'].iloc[-30] != 0 else 0
-        st.metric(label="", value=f"₹{month_change:,.0f}", delta=f"{month_change_percent:.2f}%")
+        st.metric(label="", value=f"₹{format_indian_currency(month_change)}", delta=f"{month_change_percent:.2f}%")
     else:
         st.metric(label="", value="Insufficient Data")
 
