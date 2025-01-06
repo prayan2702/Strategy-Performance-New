@@ -163,7 +163,7 @@ st.markdown(
 
         /* Ensure st.info doesn't shift below */
         div.stAlert {
-            margin-top: 0px;
+            margin-top: -10px;
         }
     </style>
     """,
