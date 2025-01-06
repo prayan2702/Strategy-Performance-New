@@ -268,7 +268,7 @@ with col3:
 
     # Format the 'date' column to 'dd-mm-yyyy' format
     table_data['date'] = table_data['date'].dt.strftime('%d-%m-%Y')  # Format date
-    table_data.rename(columns={'day change %': 'strategy', 'nifty50 change %': 'nifty50'}, inplace=True)
+    table_data.rename(columns={'date': 'Date','day change %': 'Strategy', 'nifty50 change %': 'Nifty50'}, inplace=True)
 
     # Round values to 2 decimal points (force format as string)
     table_data['strategy'] = table_data['strategy'].apply(lambda x: f"{x:.2f}")
