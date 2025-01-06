@@ -149,15 +149,16 @@ except locale.Error:
 st.write("### Total Account Overview", unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
 
-# Custom CSS to reduce space between st.markdown and st.metric
+# Custom CSS to reduce space between markdown and metric components
 st.markdown(
     """
     <style>
         div[data-testid="metric-container"] {
-            margin-top: -20px; /* Adjust the value as needed */
+            margin-top: -30px;  /* Reduce spacing between metric and markdown */
+            padding-bottom: 0px;
         }
         div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: 0px;
+            margin-bottom: -15px; /* Reduce space below the markdown text */
         }
     </style>
     """,
