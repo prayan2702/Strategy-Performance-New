@@ -191,28 +191,31 @@ with col3:
     if performance is not None:
         st.write(f"{return_type} Performance: {performance:.2f}%")
 
-    # Add performance table
-    st.info("##### Performance Table")
+# Add performance table
+st.info("##### Performance Table")
 
-    # Format the 'date' column to 'dd-mm-yyyy' format
-    table_data = filtered_data[['date', 'day change %', 'nifty50 change %']].copy()
-    table_data['date'] = table_data['date'].dt.strftime('%d-%m-%Y')  # Format date
-    table_data.rename(columns={'day change %': 'strategy', 'nifty50 change %': 'nifty50'}, inplace=True)
+# Copy the required data and make the date a Datetime object
+table_data = filtered_data[['date', 'day change %', 'nifty50 change %']].copy()
 
-    # Round values to 2 decimal points (force format as string)
-    table_data['strategy'] = table_data['strategy'].apply(lambda x: f"{x:.2f}")
-    table_data['nifty50'] = table_data['nifty50'].apply(lambda x: f"{x:.2f}")
+# Sort by 'date' in descending order (before formatting)
+table_data.sort_values(by='date', ascending=False, inplace=True)
 
+# Format the 'date' column to 'dd-mm-yyyy' format
+table_data['date'] = table_data['date'].dt.strftime('%d-%m-%Y')  # Format date
+table_data.rename(columns={'day change %': 'strategy', 'nifty50 change %': 'nifty50'}, inplace=True)
 
-    # Apply conditional formatting
-    def color_positive_negative(val):
-        """Style positive values green and negative values light red."""
-        color = '#caf1b0' if float(val) > 0 else '#f7e3e5'
-        return f'background-color: {color}'
+# Round values to 2 decimal points (force format as string)
+table_data['strategy'] = table_data['strategy'].apply(lambda x: f"{x:.2f}")
+table_data['nifty50'] = table_data['nifty50'].apply(lambda x: f"{x:.2f}")
 
+# Apply conditional formatting
+def color_positive_negative(val):
+    """Style positive values green and negative values light red."""
+    color = '#caf1b0' if float(val) > 0 else '#f7e3e5'
+    return f'background-color: {color}'
 
-    # Display the table with formatting using st.dataframe
-    styled_table = table_data.style.applymap(color_positive_negative, subset=['strategy', 'nifty50'])
+# Display the table with formatting using st.dataframe
+styled_table = table_data.style.applymap(color_positive_negative, subset=['strategy', 'nifty50'])
 
-    # Show dataframe properly in Streamlit
-    st.dataframe(styled_table)
+# Show dataframe properly in Streamlit
+st.dataframe(styled_table, hide_index=True)
