@@ -174,20 +174,23 @@ with col2:
             showgrid=True,  # Enable grid lines
             gridcolor='white',  # Set grid lines to white
             showline=True,  # Show axis lines
-            linecolor='white'  # Axis line color
+            linecolor='white',  # Axis line color
+            tickfont=dict(size=14)  # Increase x-axis font size
         ),
         yaxis=dict(
             showgrid=True,  # Enable grid lines
             gridcolor='white',  # Set grid lines to white
             showline=True,  # Show axis lines
-            linecolor='white'  # Axis line color
+            linecolor='white',  # Axis line color
+            tickfont=dict(size=14)  # Increase y-axis font size
         ),
         legend=dict(
             orientation="h",  # Horizontal orientation
             yanchor="bottom",  # Align to bottom of the legend box
             y=1.02,  # Place above the chart
             xanchor="center",
-            x=0.5  # Center the legend horizontally
+            x=0.5,  # Center the legend horizontally
+            font=dict(size=14)  # Increase legend font size
         )
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -202,25 +205,27 @@ with col2:
     fig_dd.update_layout(
         plot_bgcolor='#f0f2f6',
         xaxis=dict(
-            showgrid=True,  # Enable grid lines
-            gridcolor='white',  # Set grid lines to white
-            showline=True,  # Show axis lines
-            linecolor='white'  # Axis line color
+            showgrid=True,
+            gridcolor='white',
+            showline=True,
+            linecolor='white',
+            tickfont=dict(size=14)  # Increase x-axis font size
         ),
         yaxis=dict(
-            showgrid=True,  # Enable grid lines
-            gridcolor='white',  # Set grid lines to white
-            showline=True,  # Show axis lines
-            linecolor='white'  # Axis line color
+            showgrid=True,
+            gridcolor='white',
+            showline=True,
+            linecolor='white',
+            tickfont=dict(size=14)  # Increase y-axis font size
         ),
         legend=dict(
-            orientation="h",  # Horizontal orientation
-            yanchor="bottom",  # Align to bottom of the legend box
-            y=1.02,  # Place above the chart
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
             xanchor="center",
-            x=0.5  # Center the legend horizontally
+            x=0.5,
+            font=dict(size=14)  # Increase legend font size
         )
-
     )
     st.plotly_chart(fig_dd, use_container_width=True)
 
