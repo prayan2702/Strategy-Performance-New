@@ -145,6 +145,7 @@ try:
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 except locale.Error:
     print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
+    
 # Total Account Overview Section
 st.write("### Total Account Overview", unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
@@ -153,17 +154,17 @@ col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
 st.markdown(
     """
     <style>
-        /* Apply to only columns (metrics inside columns) */
+        /* Apply only to metrics inside columns */
         div[data-testid="column"] div[data-testid="metric-container"] {
-            margin-top: -30px;  /* Reduce space for metrics */
+            margin-top: -35px;  /* Reduce space for metrics */
         }
-        div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: -20px; /* Minimize markdown space */
+        div[data-testid="column"] div[data-testid="stMarkdownContainer"] > p {
+            margin-bottom: -10px; /* Minimize markdown space inside columns */
         }
 
-        /* Ensure st.info doesn't shift below */
-        div.stAlert {
-            margin-top: 0px;
+        /* Padding below column to ensure st.info aligns correctly */
+        .after-metrics {
+            padding-top: 20px;  /* Add space below metrics */
         }
     </style>
     """,
@@ -197,14 +198,16 @@ with col5:
     else:
         st.metric(label="", value="Insufficient Data")
 
+# Add space below the metrics to prevent overlap with st.info
+st.markdown('<div class="after-metrics"></div>', unsafe_allow_html=True)
+
 # Display the Last Update Time
 desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
 utc_now = datetime.datetime.now(pytz.utc)
 local_now = utc_now.astimezone(desired_timezone)
 formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
 
-# Padding to prevent overlap with metrics
-st.markdown("<div style='padding-top: 10px;'></div>", unsafe_allow_html=True)
+# st.info for the Last Update
 st.info(f"Last Update: {formatted_time}")
 
 # Date Range Selector and Three-Column Layout
