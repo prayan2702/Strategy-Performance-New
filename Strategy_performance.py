@@ -164,7 +164,7 @@ st.markdown(
         
         /* Adjust st.info box margin to avoid misalignment */
         div.stAlert {
-            margin-top: -15px;  /* Pull st.info upwards slightly */
+            margin-top: -25px;  /* Pull st.info upwards slightly */
         }
     </style>
     """,
