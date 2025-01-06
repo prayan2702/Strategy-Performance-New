@@ -55,25 +55,30 @@ st.write("### Total Account Overview", unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
 
 with col1:
-    st.metric("Total Account Value", f"₹{portfolio_value:,.0f}")
+    st.markdown("<b>Total Account Value</b>", unsafe_allow_html=True)
+    st.metric(label="", value=f"₹{portfolio_value:,.0f}")
 
 with col2:
-    st.metric("Absolute Gain", f"₹{absolute_gain:,.0f}")
+    st.markdown("<b>Absolute Gain</b>", unsafe_allow_html=True)
+    st.metric(label="", value=f"₹{absolute_gain:,.0f}")
 
 with col3:
-    st.metric("Day Change", f"₹{day_change:,.0f}", f"{day_change_percent:.2f}%")
+    st.markdown("<b>Day Change</b>", unsafe_allow_html=True)
+    st.metric(label="", value=f"₹{day_change:,.0f}", delta=f"{day_change_percent:.2f}%")
 
 with col4:
-    st.metric("NIFTY50 Benchmark", f"{nifty50_value:,.0f}")
+    st.markdown("<b>NIFTY50 Benchmark</b>", unsafe_allow_html=True)
+    st.metric(label="", value=f"{nifty50_value:,.0f}")
 
 with col5:
+    st.markdown("<b>Month Change</b>", unsafe_allow_html=True)
     if len(data) > 30:
         month_change = data['current value'].iloc[-1] - data['current value'].iloc[-30]
         month_change_percent = (month_change / data['current value'].iloc[-30] * 100) if \
             data['current value'].iloc[-30] != 0 else 0
-        st.metric("Month Change", f"₹{month_change:,.0f}", f"{month_change_percent:.2f}%")
+        st.metric(label="", value=f"₹{month_change:,.0f}", delta=f"{month_change_percent:.2f}%")
     else:
-        st.metric("Month Change", "Insufficient Data")
+        st.metric(label="", value="Insufficient Data")
 
 # Define your desired time zone (replace with your actual time zone)
 desired_timezone = pytz.timezone('Asia/Kolkata')  # Example: India Standard Time (IST)
