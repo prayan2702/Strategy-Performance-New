@@ -159,6 +159,7 @@ if filtered_data.empty:
     st.stop()
 
 # Live Charts Section in col2
+# Live Charts Section in col2
 with col2:
     st.info("##### Model Live Chart")
     fig = go.Figure()
@@ -175,14 +176,14 @@ with col2:
             gridcolor='white',  # Set grid lines to white
             showline=True,  # Show axis lines
             linecolor='white',  # Axis line color
-            tickfont=dict(size=14)  # Increase x-axis font size
+            tickfont=dict(size=16)  # Increase x-axis font size to 16
         ),
         yaxis=dict(
             showgrid=True,  # Enable grid lines
             gridcolor='white',  # Set grid lines to white
             showline=True,  # Show axis lines
             linecolor='white',  # Axis line color
-            tickfont=dict(size=14)  # Increase y-axis font size
+            tickfont=dict(size=16)  # Increase y-axis font size to 16
         ),
         legend=dict(
             orientation="h",  # Horizontal orientation
@@ -190,7 +191,7 @@ with col2:
             y=1.02,  # Place above the chart
             xanchor="center",
             x=0.5,  # Center the legend horizontally
-            font=dict(size=14)  # Increase legend font size
+            font=dict(size=16)  # Increase legend font size to 16
         )
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -209,14 +210,14 @@ with col2:
             gridcolor='white',
             showline=True,
             linecolor='white',
-            tickfont=dict(size=14)  # Increase x-axis font size
+            tickfont=dict(size=16)  # Increase x-axis font size to 16
         ),
         yaxis=dict(
             showgrid=True,
             gridcolor='white',
             showline=True,
             linecolor='white',
-            tickfont=dict(size=14)  # Increase y-axis font size
+            tickfont=dict(size=16)  # Increase y-axis font size to 16
         ),
         legend=dict(
             orientation="h",
@@ -224,7 +225,7 @@ with col2:
             y=1.02,
             xanchor="center",
             x=0.5,
-            font=dict(size=14)  # Increase legend font size
+            font=dict(size=16)  # Increase legend font size to 16
         )
     )
     st.plotly_chart(fig_dd, use_container_width=True)
