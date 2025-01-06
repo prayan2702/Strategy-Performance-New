@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import datetime
+import yfinance as yf
+from datetime import date, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 import pytz
@@ -34,6 +36,40 @@ def load_data(url):
 
 # Load data
 data = load_data(google_sheets_url)
+
+#*******************************************
+# Helper function to fetch Nifty50 data
+def get_nifty50_data(start_date, end_date):
+    """Fetches Nifty50 data from Yahoo Finance."""
+    nifty = yf.Ticker("^NSEI")  # Nifty50 ticker symbol
+    hist = nifty.history(start=start_date, end=end_date)
+    return hist
+
+# Get yesterday's date
+yesterday = date.today() - timedelta(days=1)
+
+# Ensure yesterday is not Saturday or Sunday
+if yesterday.weekday() >= 5:
+    yesterday -= timedelta(days=yesterday.weekday() - 4)
+
+# Get Nifty50 data for yesterday
+nifty_data = get_nifty50_data(yesterday, yesterday + timedelta(days=1))
+
+# Get current Nifty50 value
+nifty = yf.Ticker("^NSEI")
+nifty_info = nifty.info
+if "currentPrice" in nifty_info:
+  nifty_current = nifty_info["currentPrice"]
+else:
+  nifty_current = 0
+
+# Calculate Nifty50 percentage change
+if len(nifty_data) >= 1:
+    nifty_yesterday = nifty_data['Close'].iloc[-1]
+    nifty_change_percent = ((nifty_current - nifty_yesterday) / nifty_yesterday) * 100
+else:
+    nifty_change_percent = 0
+#******************************************
 
 portfolio_value_raw = data.iloc[0, 0]  # Portfolio value from cell [0,0]
 nifty50_value_raw = data.iloc[0, 2]  # Nifty50 value from cell [0,2]
@@ -120,7 +156,7 @@ with col3:
 
 with col4:
     st.markdown("<b style='font-size: 18px;'>NIFTY50 Benchmark</b>", unsafe_allow_html=True)
-    st.metric(label="", value=f"{format_indian_currency(nifty50_value)}")
+    st.metric(label="", value=f"{format_indian_currency(nifty_current)}", delta=f"{nifty_change_percent:.2f}%")
 
 with col5:
     st.markdown("<b style='font-size: 18px;'>Month Change</b>", unsafe_allow_html=True)
