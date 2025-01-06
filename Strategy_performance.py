@@ -158,7 +158,7 @@ st.markdown(
             margin-top: -20px;  /* Reduce space for metrics */
         }
         div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: 0px; /* Minimize markdown space */
+            margin-bottom: -20px; /* Minimize markdown space */
         }
 
         /* Ensure st.info doesn't shift below */
