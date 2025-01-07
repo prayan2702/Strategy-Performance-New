@@ -193,15 +193,14 @@ with col5:
         current_nav = data['nav'].iloc[-1]  # Get the latest NAV value
         drawdown_percent = (current_drawdown / current_nav * 100) if current_nav != 0 else 0
 
-        # Format the drawdown and percentage
-        formatted_drawdown = f"₹{format_indian_currency(current_drawdown)}"
-        formatted_percent = f"{drawdown_percent:.2f}%"
+        # Format the percentage with the down arrow
+        formatted_percent = f"↓{abs(drawdown_percent):.2f}%"
 
         # Display the metric with red color for negative percentages
         st.metric(
             label="",
-            value=formatted_drawdown,
-            delta=f"{formatted_percent} ↓" if drawdown_percent < 0 else f"{formatted_percent}",
+            value=formatted_percent,
+            delta=None,  # No delta field required
             delta_color="inverse" if drawdown_percent < 0 else "normal"  # Red for negative values
         )
     else:
