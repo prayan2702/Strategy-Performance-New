@@ -323,7 +323,7 @@ with col3:
     performance = calculate_performance(return_type)
     if performance is not None:
         st.write(f"{return_type} Performance: {performance:.2f}%")
-    #******************
+    
     # Add performance table
     st.info("##### Performance Table")
     
@@ -354,6 +354,6 @@ with col3:
     
     # Show dataframe properly in Streamlit
     st.dataframe(styled_table, hide_index=True)
-    #*****************
+    
 
    
