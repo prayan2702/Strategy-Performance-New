@@ -191,18 +191,25 @@ with col5:
     if 'dd' in data.columns:  # Ensure 'dd' column exists
         current_drawdown_percent = data['dd'].iloc[-1]  # Get the latest drawdown percentage
 
-        # Format the value with the down arrow and percentage symbol
-        formatted_percent = f"↓{abs(current_drawdown_percent):.2f}%"
+        if current_drawdown_percent == 0:
+            # For 0% drawdown, no minus sign or arrow
+            formatted_percent = "0.00%"
+            color = "black"  # Neutral color for 0%
+        else:
+            # Format the value with the down arrow, negative sign, and percentage symbol
+            formatted_percent = f"(↓)-{abs(current_drawdown_percent):.2f}%" if current_drawdown_percent < 0 else f"{abs(current_drawdown_percent):.2f}%"
+            color = "red" if current_drawdown_percent < 0 else "green"
 
-        # Display the metric with red color for negative drawdown
-        st.metric(
-            label="",
-            value=formatted_percent,
-            delta=None,  # No delta field required
-            delta_color="inverse" if current_drawdown_percent > 0 else "normal"  # Red if drawdown < 0
+        # Use custom HTML for the drawdown display
+        st.markdown(
+            f"<div style='font-size: 20px; color: {color};'>{formatted_percent}</div>",
+            unsafe_allow_html=True
         )
     else:
-        st.metric(label="", value="Drawdown data unavailable")
+        st.markdown(
+            "<div style='font-size: 20px; color: gray;'>Drawdown data unavailable</div>",
+            unsafe_allow_html=True
+        )
 
 # Display the Last Update Time
 desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
