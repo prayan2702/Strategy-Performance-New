@@ -199,7 +199,7 @@ with col5:
             label="",
             value=formatted_percent,
             delta=None,  # No delta field required
-            delta_color="inverse" if current_drawdown_percent < 0 else "normal"  # Red if drawdown < 0
+            delta_color="inverse" if current_drawdown_percent > 0 else "normal"  # Red if drawdown < 0
         )
     else:
         st.metric(label="", value="Drawdown data unavailable")
