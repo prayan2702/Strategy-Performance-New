@@ -190,26 +190,17 @@ with col5:
     st.markdown("<b style='font-size: 18px;'>Current Drawdown</b>", unsafe_allow_html=True)
     if 'dd' in data.columns:  # Ensure 'dd' column exists
         current_drawdown_percent = data['dd'].iloc[-1]  # Get the latest drawdown percentage
-
+        
         if current_drawdown_percent == 0:
-            # For 0% drawdown, no minus sign or arrow
-            formatted_percent = "0.00%"
-            color = "black"  # Neutral color for 0%
+            # For 0% drawdown
+            st.metric(label="", value="0.00%")
         else:
-            # Format the value with the down arrow, negative sign, and percentage symbol
-            formatted_percent = f"↓-{abs(current_drawdown_percent):.2f}%" if current_drawdown_percent < 0 else f"{abs(current_drawdown_percent):.2f}%"
-            color = "red" if current_drawdown_percent < 0 else "green"
-
-        # Use custom HTML for the drawdown display
-        st.markdown(
-            f"<div style='font-size: 30px; color: {color};'>{formatted_percent}</div>",
-            unsafe_allow_html=True
-        )
+            # Format with down arrow and red color for negative drawdown
+            formatted_percent = f"↓{abs(current_drawdown_percent):.2f}%"  # Ensure arrow and value
+            st.metric(label="", value=formatted_percent, delta="", delta_color="inverse")
     else:
-        st.markdown(
-            "<div style='font-size: 20px; color: gray;'>Drawdown data unavailable</div>",
-            unsafe_allow_html=True
-        )
+        # Handle missing data case
+        st.metric(label="", value="Data Unavailable")
 # Display the Last Update Time
 desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
 utc_now = datetime.datetime.now(pytz.utc)
