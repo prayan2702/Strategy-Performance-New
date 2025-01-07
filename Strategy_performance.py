@@ -200,12 +200,16 @@ with col5:
             formatted_percent = f"(↓)-{abs(current_drawdown_percent):.2f}%" if current_drawdown_percent < 0 else f"{abs(current_drawdown_percent):.2f}%"
             color = "red" if current_drawdown_percent < 0 else "green"
 
+        # Use custom HTML for the drawdown display
+        st.markdown(
+            f"<div style='font-size: 40px; color: {color};'>{formatted_percent}</div>",
+            unsafe_allow_html=True
+        )
     else:
         st.markdown(
             "<div style='font-size: 20px; color: gray;'>Drawdown data unavailable</div>",
             unsafe_allow_html=True
         )
-
 # Display the Last Update Time
 desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
 utc_now = datetime.datetime.now(pytz.utc)
