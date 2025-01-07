@@ -187,14 +187,12 @@ with col4:
     st.metric(label="", value=f"{format_indian_currency(nifty_current)}", delta=f"{nifty_change_percent:.2f}%")
 
 with col5:
-    st.markdown("<b style='font-size: 18px;'>Month Change</b>", unsafe_allow_html=True)
-    if len(data) > 30:
-        month_change = data['current value'].iloc[-1] - data['current value'].iloc[-30]
-        month_change_percent = (month_change / data['current value'].iloc[-30] * 100) if \
-            data['current value'].iloc[-30] != 0 else 0
-        st.metric(label="", value=f"₹{format_indian_currency(month_change)}", delta=f"{month_change_percent:.2f}%")
+    st.markdown("<b style='font-size: 18px;'>Current Drawdown</b>", unsafe_allow_html=True)
+    if 'dd' in data.columns:  # Ensure drawdown ('dd') column exists in the data
+        current_drawdown = data['dd'].iloc[-1]  # Get the latest value in the 'dd' column
+        st.metric(label="", value=f"₹{format_indian_currency(current_drawdown)}")
     else:
-        st.metric(label="", value="Insufficient Data")
+        st.metric(label="", value="Drawdown data unavailable")
 
 # Display the Last Update Time
 desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
