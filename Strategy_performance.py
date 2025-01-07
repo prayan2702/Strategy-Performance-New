@@ -188,9 +188,22 @@ with col4:
 
 with col5:
     st.markdown("<b style='font-size: 18px;'>Current Drawdown</b>", unsafe_allow_html=True)
-    if 'dd' in data.columns:  # Ensure drawdown ('dd') column exists in the data
+    if 'dd' in data.columns and 'nav' in data.columns:  # Ensure both 'dd' and 'nav' columns exist
         current_drawdown = data['dd'].iloc[-1]  # Get the latest value in the 'dd' column
-        st.metric(label="", value=f"₹{format_indian_currency(current_drawdown)}")
+        current_nav = data['nav'].iloc[-1]  # Get the latest NAV value
+        drawdown_percent = (current_drawdown / current_nav * 100) if current_nav != 0 else 0
+
+        # Format the drawdown and percentage
+        formatted_drawdown = f"₹{format_indian_currency(current_drawdown)}"
+        formatted_percent = f"{drawdown_percent:.2f}%"
+
+        # Display the metric with red color for negative percentages
+        st.metric(
+            label="",
+            value=formatted_drawdown,
+            delta=f"{formatted_percent} ↓" if drawdown_percent < 0 else f"{formatted_percent}",
+            delta_color="inverse" if drawdown_percent < 0 else "normal"  # Red for negative values
+        )
     else:
         st.metric(label="", value="Drawdown data unavailable")
 
