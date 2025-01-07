@@ -220,37 +220,37 @@ if filtered_data.empty:
     st.error("No data available for the selected date range.")
     st.stop()
 #******************
-    # Add performance table
-    st.info("##### Performance Table")
+# Add performance table
+st.info("##### Performance Table")
 
-    # Format the 'date' column to 'dd-mm-yyyy' format
-    table_data = filtered_data[['date', 'day change %', 'nifty50 change %']].copy()
+# Format the 'date' column to 'dd-mm-yyyy' format
+table_data = filtered_data[['date', 'day change %', 'nifty50 change %']].copy()
 
-    # Sort by 'date' in descending order (before formatting)
-    table_data.sort_values(by='date', ascending=False, inplace=True)
+# Sort by 'date' in descending order (before formatting)
+table_data.sort_values(by='date', ascending=False, inplace=True)
 
-    # Format the 'date' column to 'dd-mm-yyyy' format
-    table_data['date'] = table_data['date'].dt.strftime('%d-%m-%Y')  # Format date
-    table_data.rename(columns={'date': 'Date','day change %': 'Strategy', 'nifty50 change %': 'Nifty50'}, inplace=True)
+# Format the 'date' column to 'dd-mm-yyyy' format
+table_data['date'] = table_data['date'].dt.strftime('%d-%m-%Y')  # Format date
+table_data.rename(columns={'date': 'Date','day change %': 'Strategy', 'nifty50 change %': 'Nifty50'}, inplace=True)
 
-    # Round values to 2 decimal points (force format as string)
-    table_data['Strategy'] = table_data['Strategy'].apply(lambda x: f"{x:.2f}")
-    table_data['Nifty50'] = table_data['Nifty50'].apply(lambda x: f"{x:.2f}")
-
-
-    # Apply conditional formatting
-    def color_positive_negative(val):
-        """Style positive values green and negative values light red."""
-        color = '#caf1b0' if float(val) > 0 else '#f7e3e5'
-        return f'background-color: {color}'
+# Round values to 2 decimal points (force format as string)
+table_data['Strategy'] = table_data['Strategy'].apply(lambda x: f"{x:.2f}")
+table_data['Nifty50'] = table_data['Nifty50'].apply(lambda x: f"{x:.2f}")
 
 
-    # Display the table with formatting using st.dataframe
-    styled_table = table_data.style.applymap(color_positive_negative, subset=['Strategy', 'Nifty50'])
+# Apply conditional formatting
+def color_positive_negative(val):
+    """Style positive values green and negative values light red."""
+    color = '#caf1b0' if float(val) > 0 else '#f7e3e5'
+    return f'background-color: {color}'
 
-    # Show dataframe properly in Streamlit
-    st.dataframe(styled_table, hide_index=True)
-    #*****************
+
+# Display the table with formatting using st.dataframe
+styled_table = table_data.style.applymap(color_positive_negative, subset=['Strategy', 'Nifty50'])
+
+# Show dataframe properly in Streamlit
+st.dataframe(styled_table, hide_index=True)
+#*****************
 
 # Live Charts Section in col2
 # Live Charts Section in col2
