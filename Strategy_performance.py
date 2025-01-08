@@ -38,6 +38,7 @@ def load_data(url):
 data = load_data(google_sheets_url)
 
 #************
+print(data.columns)  # Print the column names for debugging
 # Prepare Top 10 Gainers and Losers (moved here, outside of any function)
 top_gainers = data[['Symbol', 'CMP', 'Today Change%']].head(10).copy()
 top_gainers.columns = ['Symbol', 'LTP', 'Change']
