@@ -155,14 +155,14 @@ st.markdown(
     """
     <style>
         div[data-testid="metric-container"] {
-            margin-top: -20px; /* Adjust to reduce space between metric and markdown */
+            margin-top: -50px; /* Adjust to reduce space between metric and markdown */
         }
         div[data-testid="stMarkdownContainer"] > p {
             margin-bottom: -50px; /* Tighter gap between markdown text and metric */
         }
         /* Fine-tuning st.info box alignment */
         div.stAlert {
-            margin-top: 20px;  /* Pull st.info upwards */
+            margin-top: 10px;  /* Pull st.info upwards */
         }
     </style>
     """,
