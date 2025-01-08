@@ -39,10 +39,10 @@ data = load_data(google_sheets_url)
 
 #************
 # Prepare Top 10 Gainers and Losers (moved here, outside of any function)
-top_gainers = df[['O', 'P', 'Q']].head(10).copy()
+top_gainers = data[['O', 'P', 'Q']].head(10).copy()
 top_gainers.columns = ['Symbol', 'LTP', 'Change']
 
-top_losers = df[['S', 'T', 'U']].head(10).copy()
+top_losers = data[['S', 'T', 'U']].head(10).copy()
 top_losers.columns = ['Symbol', 'LTP', 'Change']
 
 #*******************************************
