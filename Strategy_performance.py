@@ -227,14 +227,7 @@ if filtered_data.empty:
 # Live Charts Section in col2
 # Live Charts Section in col2
 with col2:
-    st.markdown(
-    """
-    <div style='text-align: center;'>
-        <p>##### Model Live Chart</p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-    )
+    st.info("##### Model Live Chart")
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['nav'], mode='lines', name='Strategy',
                              line=dict(color='#244bef', width=1)))
