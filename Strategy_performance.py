@@ -39,12 +39,11 @@ data = load_data(google_sheets_url)
 
 #************
 # Prepare Top 10 Gainers and Losers (moved here, outside of any function)
-top_gainers = data[['O', 'P', 'Q']].head(10).copy()
+top_gainers = data[['o', 'p', 'q']].head(10).copy()
 top_gainers.columns = ['Symbol', 'LTP', 'Change']
 
-top_losers = data[['S', 'T', 'U']].head(10).copy()
+top_losers = data[['s', 't', 'u']].head(10).copy()
 top_losers.columns = ['Symbol', 'LTP', 'Change']
-
 #*******************************************
 # Helper function to fetch Nifty50 data
 def get_nifty50_data(start_date, end_date):
