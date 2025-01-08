@@ -37,6 +37,14 @@ def load_data(url):
 # Load data
 data = load_data(google_sheets_url)
 
+#************
+# Prepare Top 10 Gainers and Losers (moved here, outside of any function)
+top_gainers = df[['O', 'P', 'Q']].head(10).copy()
+top_gainers.columns = ['Symbol', 'LTP', 'Change']
+
+top_losers = df[['S', 'T', 'U']].head(10).copy()
+top_losers.columns = ['Symbol', 'LTP', 'Change']
+
 #*******************************************
 # Helper function to fetch Nifty50 data
 def get_nifty50_data(start_date, end_date):
@@ -225,19 +233,13 @@ if filtered_data.empty:
     st.error("No data available for the selected date range.")
     st.stop()
 # *******************************
-# Prepare Top 10 Gainers (after date filter for better error handling if necessary)
-top_gainers = df[['O', 'P', 'Q']].head(10).copy()
-top_gainers.columns = ['Symbol', 'LTP', 'Change']
-# Prepare Top 10 Losers (after date filter for better error handling if necessary)
-top_losers = df[['S', 'T', 'U']].head(10).copy()
-top_losers.columns = ['Symbol', 'LTP', 'Change']
-
-# Display Tables Side-by-Side in col1
+# Display Tables Side-by-Side in col1 (using the already-prepared tables)
 st.markdown("<h5 style='text-align: center;'>Top 10 Gainers</h5>", unsafe_allow_html=True)
 st.dataframe(top_gainers)
 
 st.markdown("<h5 style='text-align: center;'>Top 10 Losers</h5>", unsafe_allow_html=True)
 st.dataframe(top_losers)
+
 #************************
 # Live Charts Section in col2
 with col2:
