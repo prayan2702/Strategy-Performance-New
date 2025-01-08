@@ -158,7 +158,7 @@ st.markdown(
             margin-top: -70px; /* Adjust to reduce space between metric and markdown */
         }
         div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: -50px; /* Tighter gap between markdown text and metric */
+            margin-bottom: -70px; /* Tighter gap between markdown text and metric */
         }
         /* Fine-tuning st.info box alignment */
         div.stAlert {
