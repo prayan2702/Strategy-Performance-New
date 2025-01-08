@@ -224,7 +224,21 @@ filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] 
 if filtered_data.empty:
     st.error("No data available for the selected date range.")
     st.stop()
-# Live Charts Section in col2
+# *******************************
+# Prepare Top 10 Gainers (after date filter for better error handling if necessary)
+top_gainers = df[['O', 'P', 'Q']].head(10).copy()
+top_gainers.columns = ['Symbol', 'LTP', 'Change']
+# Prepare Top 10 Losers (after date filter for better error handling if necessary)
+top_losers = df[['S', 'T', 'U']].head(10).copy()
+top_losers.columns = ['Symbol', 'LTP', 'Change']
+
+# Display Tables Side-by-Side in col1
+st.markdown("<h5 style='text-align: center;'>Top 10 Gainers</h5>", unsafe_allow_html=True)
+st.dataframe(top_gainers)
+
+st.markdown("<h5 style='text-align: center;'>Top 10 Losers</h5>", unsafe_allow_html=True)
+st.dataframe(top_losers)
+#************************
 # Live Charts Section in col2
 with col2:
     st.info("##### Model Live Chart")
