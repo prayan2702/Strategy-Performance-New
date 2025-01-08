@@ -37,15 +37,6 @@ def load_data(url):
 # Load data
 data = load_data(google_sheets_url)
 
-#************
-print(data.columns)  # Print the column names for debugging
-# Prepare Top 10 Gainers and Losers (moved here, outside of any function)
-top_gainers = data[['Symbol', 'CMP', 'Today Change%']].head(10).copy()
-top_gainers.columns = ['Symbol', 'LTP', 'Change']
-
-top_losers = data[['Symbol', 'CMP', 'Today Change%']].head(10).copy()
-top_losers.columns = ['Symbol', 'LTP', 'Change']
-#*******************************************
 # Helper function to fetch Nifty50 data
 def get_nifty50_data(start_date, end_date):
     """Fetches Nifty50 data from Yahoo Finance."""
@@ -232,14 +223,6 @@ filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] 
 if filtered_data.empty:
     st.error("No data available for the selected date range.")
     st.stop()
-# *******************************
-# Display Tables Side-by-Side in col1 (using the already-prepared tables)
-st.markdown("<h5 style='text-align: center;'>Top 10 Gainers</h5>", unsafe_allow_html=True)
-st.dataframe(top_gainers)
-
-st.markdown("<h5 style='text-align: center;'>Top 10 Losers</h5>", unsafe_allow_html=True)
-st.dataframe(top_losers)
-
 #************************
 # Live Charts Section in col2
 with col2:
