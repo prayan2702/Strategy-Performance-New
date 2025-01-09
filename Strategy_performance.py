@@ -214,7 +214,7 @@ with col5:
 col1, col2, col3 = st.columns([1, 4, 1])
 
 with col1:
-    st.info("##### Filter by Date Range")
+    st.info("##### Date Range")
     start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
 
