@@ -161,14 +161,14 @@ st.markdown(
     """
     <style>
         div[data-testid="metric-container"] {
-            margin-top: -70px; /* Adjust to reduce space between metric and markdown */
+            margin-top: -90px; /* Adjust to reduce space between metric and markdown */
         }
         div[data-testid="stMarkdownContainer"] > p {
-            margin-bottom: -70px; /* Tighter gap between markdown text and metric */
+            margin-bottom: -90px; /* Tighter gap between markdown text and metric */
         }
         /* Fine-tuning st.info box alignment */
         div.stAlert {
-            margin-top: -10px;  /* Pull st.info upwards */
+            margin-top: -15px;  /* Pull st.info upwards */
         }
     </style>
     """,
