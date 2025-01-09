@@ -151,6 +151,7 @@ local_now = utc_now.astimezone(desired_timezone)
 formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
 # st.info for the Last Update
 st.write(f"Last Update: {formatted_time}")
+st.markdown("<br><br>", unsafe_allow_html=True)
 
     
 # Total Account Overview Section
