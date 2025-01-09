@@ -144,6 +144,11 @@ try:
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 except locale.Error:
     print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
+# Display the Last Update Time
+desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
+utc_now = datetime.datetime.now(pytz.utc)
+local_now = utc_now.astimezone(desired_timezone)
+formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
     
 # Total Account Overview Section
 st.write("### Total Account Overview", unsafe_allow_html=True)
@@ -200,11 +205,7 @@ with col5:
     else:
         # Handle missing data case
         st.metric(label="", value="Data Unavailable")
-# Display the Last Update Time
-desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
-utc_now = datetime.datetime.now(pytz.utc)
-local_now = utc_now.astimezone(desired_timezone)
-formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
+
 
 # st.info for the Last Update
 st.write(f"Last Update: {formatted_time}")
