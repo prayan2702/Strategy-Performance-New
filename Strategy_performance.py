@@ -166,7 +166,7 @@ st.markdown(
         }
         /* Fine-tuning st.info box alignment */
         div.stAlert {
-            margin-top: 10px;  /* Pull st.info upwards */
+            margin-top: -10px;  /* Pull st.info upwards */
         }
     </style>
     """,
