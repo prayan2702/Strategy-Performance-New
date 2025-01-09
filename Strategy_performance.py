@@ -149,6 +149,8 @@ desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
 utc_now = datetime.datetime.now(pytz.utc)
 local_now = utc_now.astimezone(desired_timezone)
 formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
+# st.info for the Last Update
+st.write(f"Last Update: {formatted_time}")
     
 # Total Account Overview Section
 st.write("### Total Account Overview", unsafe_allow_html=True)
@@ -205,10 +207,6 @@ with col5:
     else:
         # Handle missing data case
         st.metric(label="", value="Data Unavailable")
-
-
-# st.info for the Last Update
-st.write(f"Last Update: {formatted_time}")
 
 # Date Range Selector and Three-Column Layout
 col1, col2, col3 = st.columns([1, 4, 1])
