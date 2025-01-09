@@ -326,6 +326,7 @@ with col3:
     performance = calculate_performance(return_type)
     if performance is not None:
         st.write(f"{return_type} Performance: {performance:.2f}%")
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
     
     # Add performance table
     st.info("##### Performance Table")
