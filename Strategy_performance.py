@@ -351,7 +351,7 @@ with col3:
     # Apply conditional formatting
     def color_positive_negative(val):
         """Style positive values green and negative values light red."""
-        color = '#caf1b0' if float(val) > 0 else '#FB3234'
+        color = '#caf1b0' if float(val) > 0 else '#FF7F7F'
         return f'background-color: {color}'
     
     
