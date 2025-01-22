@@ -251,12 +251,12 @@ with col1:
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
 
     # Add "Top 10 Gainers" table with color grading
-    st.info("##### Today Top 10 Gainers")
+    st.info("##### Today's Gainers")
     # Display the table with index hidden
     st.dataframe(styled_gainers, hide_index=True)
 
     # Add "Top 10 Losers" table with color grading
-    st.info("##### Today Top 10 Losers")
+    st.info("##### Today's Losers")
     # Display the table with index hidden
     st.dataframe(styled_loosers, hide_index=True)
     
@@ -398,7 +398,7 @@ with col3:
     
     
     # Display the table with formatting using st.dataframe
-    styled_table = table_data.style.applymap(color_positive_negative, subset=['Strategy', 'Nifty50'])
+    styled_table = table_data.style.map(color_positive_negative, subset=['Strategy', 'Nifty50'])
     
     # Show dataframe properly in Streamlit
     st.dataframe(styled_table, hide_index=True)
