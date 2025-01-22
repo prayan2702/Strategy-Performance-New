@@ -252,12 +252,16 @@ with col1:
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
 
     # Add "Top 10 Gainers" table with color grading
-    st.info("##### Today Top 10 Gainers")
-    st.dataframe(styled_gainers.hide(axis="index"), use_container_width=True)
+    st.info("##### Top 10 Gainers")
+    # Reset index and hide it
+    top_10_gainers_reset = top_10_gainers.reset_index(drop=True)
+    st.dataframe(styled_gainers.hide(axis='index').data, use_container_width=True)
 
     # Add "Top 10 Losers" table with color grading
-    st.info("##### Today Top 10 Losers")
-    st.dataframe(styled_loosers.hide(axis="index"), use_container_width=True)
+    st.info("##### Top 10 Losers")
+    # Reset index and hide it
+    top_10_loosers_reset = top_10_loosers.reset_index(drop=True)
+    st.dataframe(styled_loosers.hide(axis='index').data, use_container_width=True)
     
 # Apply the date filter
 filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
