@@ -213,18 +213,18 @@ with col5:
 #**************
 # Extract the required columns for gainers and losers
 top_10_gainers = data.iloc[:, [14, 15, 16]].head(10)  # Columns O, P, Q
-top_10_gainers.columns = ["Symbol", "CMP", "Today Change %"]
+top_10_gainers.columns = ["Symbol", "CMP", "Change%"]
 
 top_10_loosers = data.iloc[:, [18, 19, 20]].head(10)  # Columns S, T, U
-top_10_loosers.columns = ["Symbol", "CMP", "Today Change %"]
+top_10_loosers.columns = ["Symbol", "CMP", "Change%"]
 
-# Ensure "Today Change %" column is numeric
-top_10_gainers["Today Change %"] = pd.to_numeric(top_10_gainers["Today Change %"], errors="coerce")
-top_10_loosers["Today Change %"] = pd.to_numeric(top_10_loosers["Today Change %"], errors="coerce")
+# Ensure "Change%" column is numeric after removing '%'
+top_10_gainers["Change%"] = top_10_gainers["Change%"].str.replace('%', '').astype(float)
+top_10_loosers["Change%"] = top_10_loosers["Change%"].str.replace('%', '').astype(float)
 
 # Define a function to apply color formatting
 def color_grading(val):
-    """Color grading for 'Today Change %' column."""
+    """Color grading for 'Change%' column."""
     if val > 0:
         color = "green"
     elif val < 0:
@@ -235,12 +235,12 @@ def color_grading(val):
 
 # Apply formatting using Pandas Styler
 styled_gainers = top_10_gainers.style.applymap(
-    color_grading, subset=["Today Change %"]
-).format({"Today Change %": "{:.2f}%"})  # Format percentage
+    color_grading, subset=["Change%"]
+).format({"Change%": "{:.2f}%"})  # Format percentage
 
 styled_loosers = top_10_loosers.style.applymap(
-    color_grading, subset=["Today Change %"]
-).format({"Today Change %": "{:.2f}%"})  # Format percentage
+    color_grading, subset=["Change%"]
+).format({"Change%": "{:.2f}%"})  # Format percentage
 #***********
 
 # Date Range Selector and Three-Column Layout
@@ -252,12 +252,12 @@ with col1:
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
 
     # Add "Top 10 Gainers" table with color grading
-    st.info("##### Top 10 Gainers")
-    st.dataframe(styled_gainers, use_container_width=True)
+    st.info("##### Today Top 10 Gainers")
+    st.dataframe(styled_gainers.hide(axis="index"), use_container_width=True)
 
     # Add "Top 10 Losers" table with color grading
-    st.info("##### Top 10 Loosers")
-    st.dataframe(styled_loosers, use_container_width=True)
+    st.info("##### Today Top 10 Losers")
+    st.dataframe(styled_loosers.hide(axis="index"), use_container_width=True)
     
 # Apply the date filter
 filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
