@@ -220,7 +220,7 @@ top_10_loosers.columns = ["Symbol", "CMP", "Today Change %"]
 #***********
 
 # Date Range Selector and Three-Column Layout
-col1, col2, col3 = st.columns([1, 4, 1])
+col1, col2, col3 = st.columns([1.5, 4, 1])
 
 with col1:
     st.info("##### Date Range")
