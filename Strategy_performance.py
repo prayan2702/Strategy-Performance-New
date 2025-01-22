@@ -222,25 +222,25 @@ top_10_loosers.columns = ["Symbol", "CMP", "Change%"]
 top_10_gainers["Change%"] = top_10_gainers["Change%"].str.replace('%', '').astype(float)
 top_10_loosers["Change%"] = top_10_loosers["Change%"].str.replace('%', '').astype(float)
 
-# Define a function to apply color formatting
-def color_grading(val):
-    """Color grading for 'Change%' column."""
+# Function to apply bold formatting and color grading
+def style_change_percent(val):
+    """Style 'Change%' column with bold and color grading"""
+    # Apply color grading
     if val > 0:
-        color = "green"
+        color = 'background-color: #caf1b0'  # green
     elif val < 0:
-        color = "red"
+        color = 'background-color: #FFD6D7'  # red
     else:
-        color = "black"
-    return f"color: {color}"
-
-# Apply bold formatting and color grading using Pandas Styler
-styled_gainers = top_10_gainers.style.applymap(lambda x: 'font-weight: bold', subset=["Change%"]) \
-                                    .map(color_grading, subset=["Change%"]) \
-                                    .format({"Change%": "{:.2f}%"})
-
-styled_loosers = top_10_loosers.style.applymap(lambda x: 'font-weight: bold', subset=["Change%"]) \
-                                     .map(color_grading, subset=["Change%"]) \
-                                     .format({"Change%": "{:.2f}%"})
+        color = 'background-color: white'  # neutral color
+    
+    # Apply bold formatting
+    bold = 'font-weight: bold'
+    
+    return f'{color}; {bold}'
+    
+# Apply both styles to the 'Change%' column
+styled_gainers = top_10_gainers.style.applymap(style_change_percent, subset=["Change%"]).format({"Change%": "{:.2f}%"})
+styled_loosers = top_10_loosers.style.applymap(style_change_percent, subset=["Change%"]).format({"Change%": "{:.2f}%"})
 
 # Hide index from the tables
 styled_gainers = styled_gainers.hide(axis='index')
