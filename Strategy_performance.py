@@ -213,7 +213,7 @@ with col5:
         st.metric(label="", value="Data Unavailable")
 
 with col6:
-    st.markdown("<b style='font-size: 18px;'>XIRR</b>", unsafe_allow_html=True)
+    st.markdown("<b style='font-size: 18px;'>XIRR Return</b>", unsafe_allow_html=True)
     st.metric(label="", value=f"{xirr_value:.2f}%")  # Display XIRR value with 2 decimal points
 
 #**************
