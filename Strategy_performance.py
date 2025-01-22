@@ -249,6 +249,7 @@ with col1:
     st.info("##### Date Range")
     start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
+    st.markdown("<br><br><br><br>", unsafe_allow_html=True)
 
     # Add "Top 10 Gainers" table with color grading
     st.info("##### Today's Gainers")
