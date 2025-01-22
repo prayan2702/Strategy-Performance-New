@@ -11,7 +11,7 @@ import locale
 st.set_page_config(layout="wide")  # Set full-width layout
 
 # Replace with your actual Google Sheets CSV URL
-google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyGRVZuafIk2s7moScIn5PAUcPYEyYIOOYJj54RXYUeugWmOP0iIToljSEMhHrg_Zp8Vab6YvBJDV/pub?output=csv"
+google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTsrrgpxeUhvPSMut74cBGH8lLKJFQMKzQ789FhYs51peqb-MdiMd_ANl4aT4HzOL2hnnxTXSHx9sLJ/pub?gid=2079785878&single=true&output=csv"
 
 @st.cache_data(ttl=0)  # Caching har baar bypass hoga
 def load_data(url):
