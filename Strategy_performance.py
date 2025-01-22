@@ -237,6 +237,10 @@ def color_grading(val):
 styled_gainers = top_10_gainers.style.map(color_grading, subset=["Change%"]).format({"Change%": "{:.2f}%"})
 styled_loosers = top_10_loosers.style.map(color_grading, subset=["Change%"]).format({"Change%": "{:.2f}%"})
 
+# Apply bold formatting to the 'Change%' column along with color grading
+styled_gainers = styled_gainers.set_properties(subset=["Change%"], **{'font-weight': 'bold'})
+styled_loosers = styled_loosers.set_properties(subset=["Change%"], **{'font-weight': 'bold'})
+
 # Hide index from the tables
 styled_gainers = styled_gainers.hide(axis='index')
 styled_loosers = styled_loosers.hide(axis='index')
