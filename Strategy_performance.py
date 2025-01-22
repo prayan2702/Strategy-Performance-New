@@ -233,9 +233,15 @@ def color_grading(val):
         color = "black"
     return f"color: {color}"
 
-# Apply formatting using Pandas Styler with color grading and bold text for 'Change%' column
-styled_gainers = top_10_gainers.style.applymap(lambda x: 'font-weight: bold', subset=["Change%"]).map(color_grading, subset=["Change%"]).format({"Change%": "{:.2f}%"})
-styled_loosers = top_10_loosers.style.applymap(lambda x: 'font-weight: bold', subset=["Change%"]).map(color_grading, subset=["Change%"]).format({"Change%": "{:.2f}%"})
+# Apply bold formatting and color grading using Pandas Styler
+styled_gainers = top_10_gainers.style.applymap(lambda x: 'font-weight: bold', subset=["Change%"]) \
+                                    .map(color_grading, subset=["Change%"]) \
+                                    .format({"Change%": "{:.2f}%"})
+
+styled_loosers = top_10_loosers.style.applymap(lambda x: 'font-weight: bold', subset=["Change%"]) \
+                                     .map(color_grading, subset=["Change%"]) \
+                                     .format({"Change%": "{:.2f}%"})
+
 # Hide index from the tables
 styled_gainers = styled_gainers.hide(axis='index')
 styled_loosers = styled_loosers.hide(axis='index')
