@@ -217,6 +217,26 @@ top_10_gainers.columns = ["Symbol", "CMP", "Today Change %"]
 
 top_10_loosers = data.iloc[:, [18, 19, 20]].head(10)  # Columns S, T, U
 top_10_loosers.columns = ["Symbol", "CMP", "Today Change %"]
+
+# Define a function to apply color formatting
+def color_grading(val):
+    """Color grading for 'Today Change %' column."""
+    if val > 0:
+        color = "green"
+    elif val < 0:
+        color = "red"
+    else:
+        color = "black"
+    return f"color: {color}"
+
+# Apply formatting using Pandas Styler
+styled_gainers = top_10_gainers.style.applymap(
+    color_grading, subset=["Today Change %"]
+).format({"Today Change %": "{:.2f}%"})  # Format percentage
+
+styled_loosers = top_10_loosers.style.applymap(
+    color_grading, subset=["Today Change %"]
+).format({"Today Change %": "{:.2f}%"})  # Format percentage
 #***********
 
 # Date Range Selector and Three-Column Layout
@@ -227,13 +247,13 @@ with col1:
     start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
 
-    # Add the "Top 10 Gainers" table without the index
+    # Add "Top 10 Gainers" table with color grading
     st.info("##### Top 10 Gainers")
-    st.write(top_10_gainers.to_html(index=False), unsafe_allow_html=True)
+    st.dataframe(styled_gainers, use_container_width=True)
 
-    # Add the "Top 10 Loosers" table without the index
+    # Add "Top 10 Losers" table with color grading
     st.info("##### Top 10 Loosers")
-    st.write(top_10_loosers.to_html(index=False), unsafe_allow_html=True)
+    st.dataframe(styled_loosers, use_container_width=True)
     
 # Apply the date filter
 filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
