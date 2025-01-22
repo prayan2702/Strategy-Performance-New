@@ -210,6 +210,15 @@ with col5:
         # Handle missing data case
         st.metric(label="", value="Data Unavailable")
 
+#**************
+# Extract the required columns for gainers and losers
+top_10_gainers = data.iloc[:, [14, 15, 16]].head(10)  # Columns O, P, Q
+top_10_gainers.columns = ["Symbol", "CMP", "Today Change %"]
+
+top_10_loosers = data.iloc[:, [18, 19, 20]].head(10)  # Columns S, T, U
+top_10_loosers.columns = ["Symbol", "CMP", "Today Change %"]
+#***********
+
 # Date Range Selector and Three-Column Layout
 col1, col2, col3 = st.columns([1, 4, 1])
 
@@ -217,6 +226,13 @@ with col1:
     st.info("##### Date Range")
     start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
+
+    # Add the "Top 10 Gainers" and "Top 10 Loosers" tables
+    st.info("##### Top 10 Gainers")
+    st.table(top_10_gainers)
+
+    st.info("##### Top 10 Loosers")
+    st.table(top_10_loosers)
 
 # Apply the date filter
 filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
