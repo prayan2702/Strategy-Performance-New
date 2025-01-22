@@ -97,12 +97,14 @@ nifty50_value_raw = data.iloc[0, 2]  # Nifty50 value from cell [0,2]
 day_change_raw = data.iloc[2, 0]  # Day Change from cell [0,3]
 absolute_gain_raw = data.iloc[0, 1]
 previous_value_raw = data.iloc[4, 0]
+xirr_raw = data.iloc[2, 1]  # XIRR value from cell [2,1]
 
 portfolio_value = pd.to_numeric(portfolio_value_raw, errors='coerce')
 nifty50_value = pd.to_numeric(nifty50_value_raw, errors='coerce')
 day_change = pd.to_numeric(day_change_raw, errors='coerce')
 absolute_gain = pd.to_numeric(absolute_gain_raw, errors='coerce')
 previous_value = pd.to_numeric(previous_value_raw, errors='coerce')
+xirr_value = pd.to_numeric(xirr_raw, errors='coerce')
 
 # Calculate instant day change
 day_change = portfolio_value - previous_value
@@ -156,7 +158,7 @@ st.markdown("<br><br>", unsafe_allow_html=True)
     
 # Total Account Overview Section
 # st.write("### Total Account Overview", unsafe_allow_html=True)
-col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])  # 5 equal columns
+col1, col2, col3, col4, col5, col6 = st.columns([2, 2, 2, 2, 2, 2])  # 6 equal columns
 
 # Custom CSS to reduce space between markdown and metric components
 st.markdown(
@@ -209,6 +211,10 @@ with col5:
     else:
         # Handle missing data case
         st.metric(label="", value="Data Unavailable")
+
+with col6:
+    st.markdown("<b style='font-size: 18px;'>XIRR</b>", unsafe_allow_html=True)
+    st.metric(label="", value=f"{xirr_value:.2f}%")  # Display XIRR value with 2 decimal points
 
 #**************
 # Extract the required columns for gainers and losers
