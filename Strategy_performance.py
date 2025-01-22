@@ -233,18 +233,19 @@ def color_grading(val):
         color = "black"
     return f"color: {color}"
 
-# Apply formatting using Pandas Styler
-styled_gainers = top_10_gainers.style.applymap(
-    color_grading, subset=["Change%"]
-).format({"Change%": "{:.2f}%"})  # Format percentage
+# Apply the formatting to the DataFrame without using Styler
+top_10_gainers["Change%"] = top_10_gainers["Change%"].apply(lambda x: f"{x:.2f}%")
+top_10_loosers["Change%"] = top_10_loosers["Change%"].apply(lambda x: f"{x:.2f}%")
 
-styled_loosers = top_10_loosers.style.applymap(
-    color_grading, subset=["Change%"]
-).format({"Change%": "{:.2f}%"})  # Format percentage
+# Apply color formatting
+top_10_gainers["Change%"] = top_10_gainers["Change%"].apply(
+    lambda val: f"<span style='color: {'green' if float(val[:-1]) > 0 else 'red' if float(val[:-1]) < 0 else 'black'}'>{val}</span>"
+)
 
-# Hide index from the tables
-styled_gainers = styled_gainers.hide(axis='index')
-styled_loosers = styled_loosers.hide(axis='index')
+top_10_loosers["Change%"] = top_10_loosers["Change%"].apply(
+    lambda val: f"<span style='color: {'green' if float(val[:-1]) > 0 else 'red' if float(val[:-1]) < 0 else 'black'}'>{val}</span>"
+)
+
 #***********
 
 # Date Range Selector and Three-Column Layout
@@ -257,13 +258,11 @@ with col1:
 
     # Add "Top 10 Gainers" table with color grading
     st.info("##### Top 10 Gainers")
-    # Display the table with index hidden
-    st.dataframe(styled_gainers, use_container_width=True)
+    st.markdown(top_10_gainers.to_html(escape=False), unsafe_allow_html=True)
 
     # Add "Top 10 Losers" table with color grading
     st.info("##### Top 10 Losers")
-    # Display the table with index hidden
-    st.dataframe(styled_loosers, use_container_width=True)
+    st.markdown(top_10_loosers.to_html(escape=False), unsafe_allow_html=True)
     
 # Apply the date filter
 filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
