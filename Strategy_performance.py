@@ -218,6 +218,10 @@ top_10_gainers.columns = ["Symbol", "CMP", "Today Change %"]
 top_10_loosers = data.iloc[:, [18, 19, 20]].head(10)  # Columns S, T, U
 top_10_loosers.columns = ["Symbol", "CMP", "Today Change %"]
 
+# Ensure "Today Change %" column is numeric
+top_10_gainers["Today Change %"] = pd.to_numeric(top_10_gainers["Today Change %"], errors="coerce")
+top_10_loosers["Today Change %"] = pd.to_numeric(top_10_loosers["Today Change %"], errors="coerce")
+
 # Define a function to apply color formatting
 def color_grading(val):
     """Color grading for 'Today Change %' column."""
