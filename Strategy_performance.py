@@ -213,9 +213,8 @@ with col5:
         st.metric(label="", value="Data Unavailable")
 
 with col6:
-    st.markdown("<div class='xirr-container'><b style='font-size: 18px;'>XIRR</b>", unsafe_allow_html=True)
-    st.markdown(f"<h3 style='font-size: 24px;'>{xirr_value:.2f}%</h3>", unsafe_allow_html=True)  # Display XIRR value centered
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("<b style='font-size: 18px;'>XIRR</b>", unsafe_allow_html=True)
+    st.metric(label="", value=f"{xirr_value:.2f}%")  # Display XIRR value with 2 decimal points
 
 #**************
 # Extract the required columns for gainers and losers
