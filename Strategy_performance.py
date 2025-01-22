@@ -257,7 +257,7 @@ with col1:
     st.dataframe(styled_gainers, hide_index=True)
 
     # Add "Top 10 Losers" table with color grading
-    st.info("##### Today's Losers")
+    st.info("##### Today's Loosers")
     # Display the table with index hidden
     st.dataframe(styled_loosers, hide_index=True)
     
