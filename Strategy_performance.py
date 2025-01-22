@@ -253,7 +253,7 @@ with col1:
 
     # Add "Top 10 Gainers" table with color grading
     st.info("##### Top 10 Gainers")
-     st.dataframe(styled_gainers.hide(axis="index"), use_container_width=True)
+    st.dataframe(styled_gainers.hide(axis="index"), use_container_width=True)
 
     # Add "Top 10 Losers" table with color grading
     st.info("##### Top 10 Losers")
