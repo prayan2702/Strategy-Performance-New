@@ -234,13 +234,8 @@ def color_grading(val):
     return f"color: {color}"
 
 # Apply formatting using Pandas Styler
-styled_gainers = top_10_gainers.style.applymap(
-    color_grading, subset=["Change%"]
-).format({"Change%": "{:.2f}%"})  # Format percentage
-
-styled_loosers = top_10_loosers.style.applymap(
-    color_grading, subset=["Change%"]
-).format({"Change%": "{:.2f}%"})  # Format percentage
+styled_gainers = top_10_gainers.style.map(color_grading, subset=["Change%"]).format({"Change%": "{:.2f}%"})
+styled_loosers = top_10_loosers.style.map(color_grading, subset=["Change%"]).format({"Change%": "{:.2f}%"})
 
 # Hide index from the tables
 styled_gainers = styled_gainers.hide(axis='index')
@@ -248,7 +243,7 @@ styled_loosers = styled_loosers.hide(axis='index')
 #***********
 
 # Date Range Selector and Three-Column Layout
-col1, col2, col3 = st.columns([1.15, 4, 1])
+col1, col2, col3 = st.columns([1, 4, 1])
 
 with col1:
     st.info("##### Date Range")
