@@ -227,13 +227,13 @@ with col1:
     start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
 
-    # Add the "Top 10 Gainers" and "Top 10 Loosers" tables
+    # Add the "Top 10 Gainers" and "Top 10 Loosers" tables without the index
     st.info("##### Top 10 Gainers")
-    st.table(top_10_gainers)
+    st.table(top_10_gainers.style.hide(axis='index'))
 
     st.info("##### Top 10 Loosers")
-    st.table(top_10_loosers)
-
+    st.table(top_10_loosers.style.hide(axis='index'))
+    
 # Apply the date filter
 filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
 
