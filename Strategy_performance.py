@@ -242,9 +242,9 @@ styled_loosers = top_10_loosers.style.applymap(
     color_grading, subset=["Change%"]
 ).format({"Change%": "{:.2f}%"})  # Format percentage
 
-# # Hide index from the tables
-# styled_gainers = styled_gainers.hide(axis='index')
-# styled_loosers = styled_loosers.hide(axis='index')
+# Hide index from the tables
+styled_gainers = styled_gainers.hide(axis='index')
+styled_loosers = styled_loosers.hide(axis='index')
 #***********
 
 # Date Range Selector and Three-Column Layout
