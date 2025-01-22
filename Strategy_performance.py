@@ -242,9 +242,9 @@ styled_loosers = top_10_loosers.style.applymap(
     color_grading, subset=["Change%"]
 ).format({"Change%": "{:.2f}%"})  # Format percentage
 
-# Hide index from the tables
-styled_gainers = styled_gainers.hide(axis='index')
-styled_loosers = styled_loosers.hide(axis='index')
+# # Hide index from the tables
+# styled_gainers = styled_gainers.hide(axis='index')
+# styled_loosers = styled_loosers.hide(axis='index')
 #***********
 
 # Date Range Selector and Three-Column Layout
@@ -256,14 +256,14 @@ with col1:
     end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
 
     # Add "Top 10 Gainers" table with color grading
-    st.info("##### Top 10 Gainers")
+    st.info("##### Today Top 10 Gainers")
     # Display the table with index hidden
     st.dataframe(styled_gainers, hide_index=True)
 
     # Add "Top 10 Losers" table with color grading
-    st.info("##### Top 10 Losers")
+    st.info("##### Today Top 10 Losers")
     # Display the table with index hidden
-    st.dataframe(styled_loosers, use_container_width=True)
+    st.dataframe(styled_loosers, hide_index=True)
     
 # Apply the date filter
 filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
