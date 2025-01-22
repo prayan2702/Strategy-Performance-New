@@ -233,10 +233,6 @@ def color_grading(val):
         color = "black"
     return f"color: {color}"
 
-# Apply the formatting to the DataFrame without using Styler
-top_10_gainers["Change%"] = top_10_gainers["Change%"].apply(lambda x: f"{x:.2f}%")
-top_10_loosers["Change%"] = top_10_loosers["Change%"].apply(lambda x: f"{x:.2f}%")
-
 # Apply formatting using Pandas Styler
 styled_gainers = top_10_gainers.style.applymap(
     color_grading, subset=["Change%"]
