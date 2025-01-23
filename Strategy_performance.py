@@ -386,12 +386,15 @@ with col2:
     if stock_list:
         st.info("##### Portfolio Heatmap")
         heatmap_code = generate_tradingview_widget(stock_list)
-        html(heatmap_code, height=600)
+        heatmap_height = min(600, 50 * len(stock_list))  # Dynamic height
+        html(heatmap_code, height=heatmap_height)
     else:
-        st.warning("No stocks available for the heatmap.")
-
-    st.write("Fetched Stock List:", stock_list)
-    st.write("TradingView Symbols:", symbols)
+        st.warning("No stocks available for the heatmap. Please check or update your Google Sheet.")
+    
+    # Debug Information
+    st.write("### Debug Information")
+    st.write("Fetched Stock List:", ", ".join(stock_list))
+    st.write("TradingView Symbols:", ", ".join(symbols))
 #*****************
 
 # Model Performance Section in col3
