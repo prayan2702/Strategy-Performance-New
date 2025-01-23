@@ -382,12 +382,19 @@ with col2:
     st.plotly_chart(fig_dd, use_container_width=True)
 
 #**********************
-     # Add Heatmap below the charts
+    # Add Heatmap below the charts
     if stock_list:
         st.info("##### Portfolio Heatmap")
     
+        # Debugging fetched stock list
+        st.write("Fetched Stock List:", stock_list)
+    
         # Generate TradingView heatmap widget code
         symbols = [[f"NSE:{stock.strip().upper()}", stock.strip().upper()] for stock in stock_list]
+    
+        # Debugging generated symbols
+        st.write("Generated Symbols for Heatmap:", symbols)
+    
         heatmap_code = f"""
         <div class="tradingview-widget-container">
             <div id="tradingview_heatmap"></div>
@@ -403,12 +410,13 @@ with col2:
             }}
             </script>
         </div>
-        """.replace("{symbols}", str(symbols))  # Ensure correct symbols are added
+        """
     
         # Render the HTML content
         components.html(heatmap_code, height=600)
     else:
         st.warning("No stocks available for the heatmap.")
+
 #*****************
 
 # Model Performance Section in col3
