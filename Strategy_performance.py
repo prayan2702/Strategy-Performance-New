@@ -448,8 +448,8 @@ with col2:
           </div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
           {{
-            "width": "100%",
-            "height": "100%",
+            "width": "1000",
+            "height": "1000",
             "symbolsGroups": [
               {{
                 "name": "Portfolio",
@@ -470,7 +470,7 @@ with col2:
         """
     
         # Render the HTML content
-        components.html(tradingview_widget, height=1600)
+        components.html(tradingview_widget, height=600)
     else:
         st.warning("No stocks available for the symbol overview widget.")
 
