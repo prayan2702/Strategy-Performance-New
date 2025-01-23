@@ -279,7 +279,7 @@ def generate_tradingview_widget(stock_list):
         </script>
     </div>
     """
-    return widget_code
+    return widget_code, symbols
 # Fetch stock list from Google Sheet
 stock_list = fetch_stock_list()
 #**********************
