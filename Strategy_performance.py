@@ -382,14 +382,14 @@ with col2:
     st.plotly_chart(fig_dd, use_container_width=True)
 
 #**********************
-    # Add Heatmap below the charts
+    # Add Symbol Overview Widget below the charts
     if stock_list:
-        st.info("##### Portfolio Heatmap")
+        st.info("##### Portfolio Symbol Overview")
     
-        # Generate TradingView heatmap widget code
-        symbols = [f"NSE:{stock.strip().upper()}" for stock in stock_list]  # Create symbol list
+        # Generate TradingView Symbol Overview widget code
+        symbols = [[stock.strip().upper(), f"NSE:{stock.strip().upper()}|1D"] for stock in stock_list]
     
-        heatmap_code = f"""
+        symbol_overview_code = f"""
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
@@ -398,31 +398,52 @@ with col2:
               <span class="blue-text">Track all markets on TradingView</span>
             </a>
           </div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
           {{
-          "symbols": {symbols},  // Your custom portfolio symbols
-          "grouping": "sector",
-          "blockSize": "market_cap_basic",
-          "blockColor": "change",
+          "symbols": {symbols},
+          "chartOnly": false,
+          "width": "100%",
+          "height": "600",
           "locale": "en",
           "colorTheme": "light",
-          "hasTopBar": false,
-          "isDataSetEnabled": false,
-          "isZoomEnabled": true,
-          "hasSymbolTooltip": true,
-          "isMonoSize": false,
-          "width": "100%",
-          "height": "600"
+          "autosize": true,
+          "showVolume": false,
+          "showMA": false,
+          "hideDateRanges": false,
+          "hideMarketStatus": false,
+          "hideSymbolLogo": false,
+          "scalePosition": "right",
+          "scaleMode": "Normal",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+          "fontSize": "10",
+          "noTimeScale": false,
+          "valuesTracking": "1",
+          "changeMode": "price-and-percent",
+          "chartType": "area",
+          "maLineColor": "#2962FF",
+          "maLineWidth": 1,
+          "maLength": 9,
+          "headerFontSize": "medium",
+          "lineWidth": 2,
+          "lineType": 0,
+          "dateRanges": [
+            "1d|1",
+            "1m|30",
+            "3m|60",
+            "12m|1D",
+            "60m|1W",
+            "all|1M"
+          ]
           }}
           </script>
         </div>
         <!-- TradingView Widget END -->
-        """.replace("{symbols}", str(symbols))  # Dynamically replace symbols list
+        """.replace("{symbols}", str(symbols))  # Dynamically replace symbols
     
         # Render the HTML content
-        components.html(heatmap_code, height=600)
+        components.html(symbol_overview_code, height=600)
     else:
-        st.warning("No stocks available for the heatmap.")
+        st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
 
