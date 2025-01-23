@@ -7,6 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pytz
 import locale
+from streamlit.components.v1 import html
 
 st.set_page_config(layout="wide")  # Set full-width layout
 
@@ -246,7 +247,40 @@ styled_loosers = top_10_loosers.style.map(color_grading, subset=["Change%"]).for
 # Hide index from the tables
 styled_gainers = styled_gainers.hide(axis='index')
 styled_loosers = styled_loosers.hide(axis='index')
-#***********
+#***************************
+# Function to fetch portfolio stock list dynamically
+def fetch_stock_list():
+    df = pd.read_csv(google_sheets_url)
+    if "Portfolio" in df.columns:
+        return df["Portfolio"].dropna().tolist()[:30]  # Fetch first 30 stock names
+    else:
+        st.error("Portfolio column not found in Google Sheet.")
+        return []
+
+# Function to generate TradingView widget code
+def generate_tradingview_widget(stock_list):
+    symbols = [[f"NSE:{stock.strip()}", stock.strip()] for stock in stock_list]
+    widget_code = f"""
+    <div class="tradingview-widget-container">
+      <div id="tradingview_heatmap"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js">
+      {{
+      "symbols": {symbols},
+      "width": "100%",
+      "height": "600",
+      "locale": "en",
+      "theme": "light",
+      "showVolume": true,
+      "showName": true
+      }}
+      </script>
+    </div>
+    """
+    return widget_code
+
+# Fetch stock list from Google Sheet
+stock_list = fetch_stock_list()
+#**********************
 
 # Date Range Selector and Three-Column Layout
 col1, col2, col3 = st.columns([1, 4, 1])
@@ -344,6 +378,16 @@ with col2:
         )
     )
     st.plotly_chart(fig_dd, use_container_width=True)
+
+#**********************
+    # Add Heatmap below the charts
+    if stock_list:
+        st.info("##### Portfolio Heatmap")
+        heatmap_code = generate_tradingview_widget(stock_list)
+        html(heatmap_code, height=600)
+    else:
+        st.warning("No stocks available for the heatmap.")
+#*****************
 
 # Model Performance Section in col3
 with col3:
