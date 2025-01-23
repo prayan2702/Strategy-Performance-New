@@ -260,7 +260,7 @@ def fetch_stock_list():
 # Function to generate TradingView widget code
 def generate_tradingview_widget(stock_list):
     # Ensure stock symbols are formatted as NSE:STOCK
-    symbols = [[f"NSE:{stock.strip().upper()}", stock.strip().upper()] for stock in stock_list]
+    symbols = [[f"BSE:{stock.strip().upper()}", stock.strip().upper()] for stock in stock_list]
     
     # Generate TradingView heatmap widget HTML code
     widget_code = f"""
