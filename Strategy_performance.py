@@ -470,7 +470,7 @@ with col2:
         """
     
         # Render the HTML content
-        components.html(tradingview_widget, height=600)
+        components.html(tradingview_widget, height=1600)
     else:
         st.warning("No stocks available for the symbol overview widget.")
 
