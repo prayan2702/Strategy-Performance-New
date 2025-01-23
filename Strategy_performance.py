@@ -280,8 +280,8 @@ def fetch_stock_list():
 #     </div>
 #     """
 #     return widget_code, symbols
-# # Fetch stock list from Google Sheet
-# stock_list = fetch_stock_list()
+# Fetch stock list from Google Sheet
+stock_list = fetch_stock_list()
 #**********************
 
 # Date Range Selector and Three-Column Layout
