@@ -259,25 +259,27 @@ def fetch_stock_list():
 
 # Function to generate TradingView widget code
 def generate_tradingview_widget(stock_list):
-    symbols = [[f"NSE:{stock.strip()}", stock.strip()] for stock in stock_list]
+    # Ensure stock symbols are formatted as NSE:STOCK
+    symbols = [[f"NSE:{stock.strip().upper()}", stock.strip().upper()] for stock in stock_list]
+    
+    # Generate TradingView heatmap widget HTML code
     widget_code = f"""
     <div class="tradingview-widget-container">
-      <div id="tradingview_heatmap"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js">
-      {{
-      "symbols": {symbols},
-      "width": "100%",
-      "height": "600",
-      "locale": "en",
-      "theme": "light",
-      "showVolume": true,
-      "showName": true
-      }}
-      </script>
+        <div id="tradingview_heatmap"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js">
+        {{
+            "symbols": {symbols},
+            "width": "100%",
+            "height": "600",
+            "locale": "en",
+            "theme": "light",
+            "showVolume": true,
+            "showName": true
+        }}
+        </script>
     </div>
     """
     return widget_code
-
 # Fetch stock list from Google Sheet
 stock_list = fetch_stock_list()
 #**********************
