@@ -438,7 +438,7 @@ with col2:
           </script>
         </div>
         <!-- TradingView Widget END -->
-        """.replace("{symbols}", str(symbols))  # Dynamically replace symbols
+        """.replace("'", '"')  # Replace single quotes with double quotes for JSON compliance
     
         # Render the HTML content
         components.html(symbol_overview_code, height=600)
