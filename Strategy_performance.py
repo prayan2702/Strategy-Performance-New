@@ -448,8 +448,8 @@ with col2:
           </div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
           {{
-            "width": "550",
-            "height": "550",
+            "width": "100%",
+            "height": "100%",
             "symbolsGroups": [
               {{
                 "name": "Portfolio",
