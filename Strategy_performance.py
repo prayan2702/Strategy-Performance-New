@@ -386,31 +386,38 @@ with col2:
     if stock_list:
         st.info("##### Portfolio Heatmap")
     
-        # Debugging fetched stock list
-        st.write("Fetched Stock List:", stock_list)
-    
         # Generate TradingView heatmap widget code
-        symbols = [[f"NSE:{stock.strip().upper()}", stock.strip().upper()] for stock in stock_list]
-    
-        # Debugging generated symbols
-        st.write("Generated Symbols for Heatmap:", symbols)
+        symbols = [f"NSE:{stock.strip().upper()}" for stock in stock_list]  # Create symbol list
     
         heatmap_code = f"""
+        <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
-            <div id="tradingview_heatmap"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js">
-            {{
-                "symbols": {symbols},
-                "width": "100%",
-                "height": "600",
-                "locale": "en",
-                "theme": "light",
-                "showVolume": true,
-                "showName": true
-            }}
-            </script>
+          <div class="tradingview-widget-container__widget"></div>
+          <div class="tradingview-widget-copyright">
+            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+              <span class="blue-text">Track all markets on TradingView</span>
+            </a>
+          </div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+          {{
+          "symbols": {symbols},  // Your custom portfolio symbols
+          "grouping": "sector",
+          "blockSize": "market_cap_basic",
+          "blockColor": "change",
+          "locale": "en",
+          "colorTheme": "light",
+          "hasTopBar": false,
+          "isDataSetEnabled": false,
+          "isZoomEnabled": true,
+          "hasSymbolTooltip": true,
+          "isMonoSize": false,
+          "width": "100%",
+          "height": "600"
+          }}
+          </script>
         </div>
-        """
+        <!-- TradingView Widget END -->
+        """.replace("{symbols}", str(symbols))  # Dynamically replace symbols list
     
         # Render the HTML content
         components.html(heatmap_code, height=600)
