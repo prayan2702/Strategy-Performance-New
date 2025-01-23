@@ -389,6 +389,9 @@ with col2:
         html(heatmap_code, height=600)
     else:
         st.warning("No stocks available for the heatmap.")
+
+    st.write("Fetched Stock List:", stock_list)
+    st.write("TradingView Symbols:", symbols)
 #*****************
 
 # Model Performance Section in col3
