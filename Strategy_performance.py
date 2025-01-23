@@ -387,7 +387,7 @@ with col2:
         st.info("##### Portfolio Symbol Overview")
     
         # Generate TradingView Symbol Overview widget code
-        symbols = [[stock.strip().upper(), f"NSE:{stock.strip().upper()}|1D"] for stock in stock_list]
+        symbols = [[stock.strip().upper(), f"BSE:{stock.strip().upper()}|1D"] for stock in stock_list]
     
         symbol_overview_code = f"""
         <!-- TradingView Widget BEGIN -->
