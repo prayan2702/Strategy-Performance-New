@@ -7,7 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pytz
 import locale
-from streamlit.components.v1 import html
+import streamlit.components.v1 as components  # Import the components module
 
 st.set_page_config(layout="wide")  # Set full-width layout
 
@@ -385,13 +385,17 @@ with col2:
     # Add Heatmap below the charts
     if stock_list:
         st.info("##### Portfolio Heatmap")
-        heatmap_code = generate_tradingview_widget(stock_list)
-        html(heatmap_code, height=600)
+        heatmap_code, symbols = generate_tradingview_widget(stock_list)
+        # Use st.components.v1.html() to render the HTML content
+        components.html(heatmap_code, height=600)
     else:
         st.warning("No stocks available for the heatmap.")
-
-    # st.write("Fetched Stock List:", stock_list)
-    st.write("TradingView Symbols:", symbols)
+    
+    # Debugging Information
+    if symbols:
+        st.write("TradingView Symbols:", symbols)
+    else:
+        st.warning("No TradingView symbols available.")
 #*****************
 
 # Model Performance Section in col3
