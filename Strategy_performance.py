@@ -424,58 +424,7 @@ with col2:
         st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
-    # Add Market Data Widget below the charts
-    if stock_list:
-        st.info("##### Market Data Portfolio")
-    
-        # Generate TradingView Symbol Overview widget code
-        symbols = [[stock.strip().upper(), f"BSE:{stock.strip().upper()}|1D"] for stock in stock_list]
 
-        # Generate TradingView Symbol Overview widget code dynamically
-        symbol_entries = [
-            f'{{"name": "{symbol[1].split("|")[0]}", "displayName": "{symbol[0]}"}}'
-            for symbol in symbols
-        ]
-        symbols_code = ", ".join(symbol_entries)
-    
-        tradingview_widget = f"""
-        <!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <div class="tradingview-widget-copyright">
-            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-              <span class="blue-text">Track all markets on TradingView</span>
-            </a>
-          </div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-          {{
-            "width": "500",
-            "height": "1000",
-            "symbolsGroups": [
-              {{
-                "name": "Portfolio",
-                "symbols": [
-                  {symbols_code}
-                ]
-              }}
-            ],
-            "showSymbolLogo": true,
-            "isTransparent": false,
-            "colorTheme": "light",
-            "locale": "en",
-            "backgroundColor": "#ffffff"
-          }}
-          </script>
-        </div>
-        <!-- TradingView Widget END -->
-        """
-    
-        # Render the HTML content
-        components.html(tradingview_widget, height=600)
-    else:
-        st.warning("No stocks available for the symbol overview widget.")
-
-#**********************************
 
 # Model Performance Section in col3
 with col3:
