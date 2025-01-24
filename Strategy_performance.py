@@ -490,7 +490,7 @@ with col2:
     """
     
     # Embed the widget in your Streamlit app using markdown
-    st.markdown(widget_html, unsafe_allow_html=True)
+    components.html(widget_html, height=400)
 #**********************************************
 
 # Model Performance Section in col3
