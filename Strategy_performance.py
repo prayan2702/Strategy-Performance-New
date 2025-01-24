@@ -284,7 +284,7 @@ with col1:
         start_date = st.date_input("Start Date", key='start_date')
         end_date = st.date_input("End Date", key='end_date')
     
-    st.markdown("<br><br><br>", unsafe_allow_html=True))
+    st.markdown("<br><br><br>", unsafe_allow_html=True)
 
     # Add "Top 10 Gainers" table with color grading
     st.info("##### Today's Gainers")
