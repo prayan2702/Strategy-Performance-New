@@ -453,6 +453,7 @@ with col2:
         st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
+    widget_html = f"""
     <!-- TradingView Widget BEGIN -->
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
