@@ -202,7 +202,6 @@ tradingview_widget = f"""
 """
 
 # Integrate the widget into Streamlit
-st.markdown("### Portfolio Overview")
 components.html(tradingview_widget, height=100)
 #***********************************
 
