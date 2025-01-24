@@ -190,7 +190,7 @@ tradingview_widget = f"""
     "symbols": [
       {symbols_code}
     ],
-    "showSymbolLogo": false,
+    "showSymbolLogo": true,
     "isTransparent": false,
     "displayMode": "adaptive",
     "colorTheme": "light",
