@@ -453,7 +453,7 @@ with col2:
         st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
-    # Static TradingView widget HTML code
+    # Static TradingView widget HTML code for global indices
     widget_html = """
     <!-- TradingView Widget BEGIN -->
     <div class="tradingview-widget-container">
@@ -490,7 +490,7 @@ with col2:
     """
     
     # Embed the widget in your Streamlit app using markdown
-    components.html(widget_html, height=400)
+    components.html(widget_html, height=200)
 #**********************************************
 
 # Model Performance Section in col3
