@@ -453,7 +453,41 @@ with col2:
         st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
-
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
+      {
+      "symbols": [
+        {
+          "proName": "FOREXCOM:SPXUSD",
+          "title": "S&P 500 Index"
+        },
+        {
+          "description": "NASDAQ",
+          "proName": "NASDAQ:NDX"
+        },
+        {
+          "description": "Gold",
+          "proName": "TVC:GOLD"
+        },
+        {
+          "description": "CRUIDE OIL",
+          "proName": "BLACKBULL:BRENT"
+        }
+      ],
+      "isTransparent": false,
+      "showSymbolLogo": true,
+      "colorTheme": "light",
+      "locale": "en"
+    }
+      </script>
+    </div>
+    <!-- TradingView Widget END -->
+    # Embed the widget in Streamlit using markdown
+    st.markdown(widget_html, unsafe_allow_html=True)
+#**********************************************
 
 # Model Performance Section in col3
 with col3:
