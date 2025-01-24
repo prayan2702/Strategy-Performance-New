@@ -202,7 +202,7 @@ tradingview_widget = f"""
 """
 
 # Integrate the widget into Streamlit
-components.html(tradingview_widget, height=60)
+components.html(tradingview_widget, height=100)
 #***********************************
 
     
