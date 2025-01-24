@@ -298,8 +298,6 @@ styled_gainers = styled_gainers.hide(axis='index')
 styled_loosers = styled_loosers.hide(axis='index')
 #***************************
 
-#**********************
-
 # Date Range Selector and Three-Column Layout
 col1, col2, col3 = st.columns([1, 4, 1])
 
@@ -420,7 +418,7 @@ with col2:
           "symbols": {symbols},
           "chartOnly": false,
           "width": "100%",
-          "height": "600",
+          "height": "500",
           "locale": "en",
           "colorTheme": "light",
           "autosize": true,
