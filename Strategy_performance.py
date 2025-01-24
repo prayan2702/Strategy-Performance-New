@@ -265,25 +265,9 @@ stock_list = fetch_stock_list()
 col1, col2, col3 = st.columns([1, 4, 1])
 
 with col1:
-    # st.info("##### Date Range")
-    # start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
-    # end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
-    # st.markdown("<br><br><br>", unsafe_allow_html=True)
     st.info("##### Date Range")
-
-    # Get min/max and handle potential errors:
-    min_date = data['date'].min()
-    max_date = data['date'].max()
-    
-    try:
-        # Try converting to datetime if possible
-        start_date = st.date_input("Start Date", value=pd.to_datetime(min_date).date(), key='start_date')
-        end_date = st.date_input("End Date", value=pd.to_datetime(max_date).date(), key='end_date')
-    except (ValueError, TypeError):
-        # Fallback to default if conversion fails
-        start_date = st.date_input("Start Date", key='start_date')
-        end_date = st.date_input("End Date", key='end_date')
-    
+    start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
+    end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 
     # Add "Top 10 Gainers" table with color grading
