@@ -155,6 +155,56 @@ formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
 # st.info for the Last Update
 st.write(f"Last Update: {formatted_time}")
 st.markdown("<br><br>", unsafe_allow_html=True)
+#**********************************
+# Function to fetch portfolio stock list dynamically
+def fetch_stock_list():
+    df = pd.read_csv(google_sheets_url)
+    if "Portfolio" in df.columns:
+        return df["Portfolio"].dropna().tolist()[:30]  # Fetch first 30 stock names
+    else:
+        st.error("Portfolio column not found in Google Sheet.")
+        return []
+
+# Fetch stock list from Google Sheet
+stock_list = fetch_stock_list()
+#******************************
+# Dynamically generate the symbols for the TradingView widget
+symbols = [
+    f'{{"proName": "BSE:{stock.strip().upper()}", "title": "{stock.strip().upper()}"}}'
+    for stock in stock_list
+]
+symbols_code = ", ".join(symbols)
+
+# Updated TradingView widget code with dynamic symbols
+tradingview_widget = f"""
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright">
+    <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+      <span class="blue-text">Track all markets on TradingView</span>
+    </a>
+  </div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {{
+    "symbols": [
+      {symbols_code}
+    ],
+    "showSymbolLogo": true,
+    "isTransparent": false,
+    "displayMode": "adaptive",
+    "colorTheme": "light",
+    "locale": "en"
+  }}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+"""
+
+# Integrate the widget into Streamlit
+st.markdown("### Portfolio Overview")
+components.html(tradingview_widget, height=100)
+#***********************************
 
     
 # Total Account Overview Section
@@ -248,17 +298,7 @@ styled_loosers = top_10_loosers.style.map(color_grading, subset=["Change%"]).for
 styled_gainers = styled_gainers.hide(axis='index')
 styled_loosers = styled_loosers.hide(axis='index')
 #***************************
-# Function to fetch portfolio stock list dynamically
-def fetch_stock_list():
-    df = pd.read_csv(google_sheets_url)
-    if "Portfolio" in df.columns:
-        return df["Portfolio"].dropna().tolist()[:30]  # Fetch first 30 stock names
-    else:
-        st.error("Portfolio column not found in Google Sheet.")
-        return []
 
-# Fetch stock list from Google Sheet
-stock_list = fetch_stock_list()
 #**********************
 
 # Date Range Selector and Three-Column Layout
