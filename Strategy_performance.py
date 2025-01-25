@@ -514,6 +514,7 @@ with col2:
         )
         fig.update_layout(
             margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
+            height=600,  # Fix height to control the chart’s size
             coloraxis_colorbar=dict(
                 title="Change (%)",
                 tickformat=".1f",
