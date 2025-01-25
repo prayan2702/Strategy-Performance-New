@@ -513,7 +513,7 @@ with col2:
             insidetextfont=dict(size=20),  # Adjust inside text font properties if needed
         )
         fig.update_layout(
-            margin=dict(t=50, l=25, r=25, b=25),  # Adjust margins
+            margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
             coloraxis_colorbar=dict(
                 title="Change (%)",
                 tickformat=".1f",
