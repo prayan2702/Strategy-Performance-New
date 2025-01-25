@@ -422,7 +422,7 @@ with col2:
     #     st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
-    # Dropdown to select a stock
+   # Dropdown to select a stock
     if stock_list:
         selected_stock = st.selectbox("Select a Stock:", stock_list)
         
@@ -430,8 +430,8 @@ with col2:
         if selected_stock:
             widget_code = f"""
             <!-- TradingView Widget BEGIN -->
-            <div class="tradingview-widget-container" style="height:100%;width:100%">
-              <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+            <div class="tradingview-widget-container" style="height:600px; width:100%;">
+              <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
               <div class="tradingview-widget-copyright">
                 <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
                   <span class="blue-text">Track all markets on TradingView</span>
@@ -440,7 +440,7 @@ with col2:
               <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
               {{
               "autosize": true,
-              "symbol": "BSE:{selected_stock}",
+              "symbol": "NSE:{selected_stock}",
               "interval": "D",
               "timezone": "Etc/UTC",
               "theme": "light",
@@ -455,8 +455,8 @@ with col2:
             </div>
             <!-- TradingView Widget END -->
             """
-            # Render the widget in Streamlit
-            st.components.v1.html(widget_code, height=600)
+            # Render the widget in Streamlit with increased height
+            st.components.v1.html(widget_code, height=700)  # Adjust height here
     else:
         st.warning("No stocks available in the portfolio.")
 
