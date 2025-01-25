@@ -168,23 +168,17 @@ def fetch_stock_list():
 # Fetch stock list from Google Sheet
 stock_list = fetch_stock_list()
 #******************************
-# Function to fetch portfolio data from Google Sheets for heatmap
+# Function to fetch portfolio data from Google Sheets
 def fetch_portfolio_data():
+    google_sheets_url = "YOUR_GOOGLE_SHEET_CSV_LINK"  # Replace with your Google Sheet's CSV link
     try:
         df = pd.read_csv(google_sheets_url)
         if "Portfolio" in df.columns and "Today Change" in df.columns:
-            # Extracting the required columns
+            # Extract and preprocess the data
             df = df[["Portfolio", "Today Change"]].dropna()
-            
-            # Clean "Today Change" column by removing '%' and converting to float
-            df["Today Change"] = df["Today Change"].str.replace('%', '', regex=False).astype(float)
-            
-            # Limit to the first 30 stocks
-            df = df.head(30)
+            df["Today Change"] = df["Today Change"].str.replace('%', '', regex=False).astype(float)  # Remove '%' and convert to float
+            df = df.head(30)  # Limit to the first 30 stocks
             df["Size"] = df["Today Change"].abs()  # Add column for box sizing
-
-            # Add a new column for formatted values
-            df["Formatted Change"] = df["Today Change"].apply(lambda x: f"{x:+.2f}%")
             return df
         else:
             st.error("Required columns ('Portfolio', 'Today Change') not found in the Google Sheet.")
@@ -498,7 +492,7 @@ with col2:
         fig = px.treemap(
             portfolio_data,
             path=["Portfolio"],  # Stock names as labels
-            values="Size",  # Dynamic sizing based on absolute percentage change
+            values="Size",  # Dynamic sizing based on percentage change
             color="Today Change",  # Values for coloring
             color_continuous_scale=[
                 "#8B0000",  # Dark Red
@@ -510,26 +504,20 @@ with col2:
                 "#006400"   # Dark Green
             ],  # Custom color grading
             range_color=[-5, 5],  # Fix color scale range
+            title="Stock Performance Heatmap (Today's Change)"
         )
     
-        # Update trace to use formatted values for display
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
-            textfont=dict(color="white"),  # Ensure all text is white
-            textfont_size=20,  # Increase font size
-            texttemplate="<b>%{label}</b><br>%{customdata}",  # Use formatted values
-            customdata=portfolio_data["Formatted Change"],  # Pass formatted values for display
+            textfont_size=18,        # Increase font size
+            texttemplate="<b>%{label}</b><br>%{value}",  # Format text to show label and value
+            insidetextfont=dict(size=18),  # Adjust inside text font properties if needed
         )
-        
         fig.update_layout(
-            margin=dict(t=25, l=0, r=0, b=25),  # Adjust margins
+            margin=dict(t=50, l=25, r=25, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
                 title="Change (%)",
                 tickformat=".1f",
-                orientation="h",  # Horizontal alignment
-                x=0.5,  # Move to bottom center
-                y=-0.2,  # Move below chart
-                tickvals=[-5, 0, 5],  # Example tick values
             )
         )
     
