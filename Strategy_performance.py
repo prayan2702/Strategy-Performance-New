@@ -456,7 +456,7 @@ with col2:
             <!-- TradingView Widget END -->
             """
             # Render the widget in Streamlit
-            st.components.v1.html(widget_code, height=1000)
+            st.components.v1.html(widget_code, height=600)
     else:
         st.warning("No stocks available in the portfolio.")
 
