@@ -497,12 +497,27 @@ with col2:
             path=["Portfolio"],  # Stock names as labels
             values="Size",  # Dynamic sizing based on percentage change
             color="Today Change",  # Values for coloring
-            color_continuous_scale="RdYlGn",  # Red for negative, Green for positive
-            range_color=[-5, 5],  # Fix color scale range for better visibility
+            color_continuous_scale=[
+                "#8B0000",  # Dark Red
+                "#FF4500",  # Red-Orange
+                "#FF6347",  # Tomato Red
+                "#F0F0F0",  # Neutral Gray
+                "#90EE90",  # Light Green
+                "#32CD32",  # Lime Green
+                "#006400"   # Dark Green
+            ],  # Custom color grading
+            range_color=[-5, 5],  # Fix color scale range
             title="Stock Performance Heatmap (Today's Change)"
         )
     
-        # Update layout to ensure better visibility
+        # Update layout for font size and alignment
+        fig.update_traces(
+            textinfo="label+value",  # Show stock name and value
+            textfont_size=18,  # Increase font size
+            texttemplate="<b>%{label}</b><br>%{color:.2f}%",  # Format stock name and change percentage
+            insidetextorientation="auto",  # Center text inside boxes
+        )
+    
         fig.update_layout(
             margin=dict(t=50, l=25, r=25, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
