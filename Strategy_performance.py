@@ -494,13 +494,14 @@ with col2:
         fig = px.treemap(
             portfolio_data,
             path=["Portfolio"],  # Stock names as labels
-            values="Today Change",  # Values for sizing
+            values="Size",  # Dynamic sizing based on percentage change
             color="Today Change",  # Values for coloring
             color_continuous_scale="RdYlGn",  # Red for negative, Green for positive
+            range_color=[-5, 5],  # Fix color scale range for better visibility
             title="Stock Performance Heatmap (Today's Change)"
         )
     
-        # Update layout to match the style of your example
+        # Update layout to ensure better visibility
         fig.update_layout(
             margin=dict(t=50, l=25, r=25, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
