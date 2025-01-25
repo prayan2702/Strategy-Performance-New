@@ -485,7 +485,20 @@ with col2:
         st.warning("No stocks available in the portfolio.")
     #**********************************
     # Streamlit App Layout
-    st.info("##### Heatmap")
+    st.markdown("<h3 style='text-align: center;'>Heatmap</h3>", unsafe_allow_html=True)
+    
+    # Custom CSS to set background of Streamlit container to white
+    st.markdown("""
+        <style>
+            .reportview-container .main .block-container {
+                background-color: white;
+            }
+            .css-1y4v0b4 {
+                background-color: white;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+    
     if not portfolio_data.empty:
         # Create a treemap heatmap using Plotly
         fig = px.treemap(
