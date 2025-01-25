@@ -425,6 +425,7 @@ with col2:
    # Dropdown to select a stock
     if stock_list:
         selected_stock = st.selectbox("Select a Stock:", stock_list)
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
     
         # TradingView widget code
         if selected_stock:
