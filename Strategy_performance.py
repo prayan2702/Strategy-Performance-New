@@ -520,7 +520,7 @@ with col2:
         )
             
         fig.update_layout(
-            margin=dict(t=25, l=0, r=0, b=25),  # Adjust margins
+            margin=dict(t=10, l=0, r=0, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
                 title="Change (%)",
                 tickformat=".1f",
