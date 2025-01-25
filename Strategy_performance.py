@@ -503,20 +503,24 @@ with col2:
                 "#006400"   # Dark Green
             ],  # Custom color grading
             range_color=[-5, 5],  # Fix color scale range
-            title="Stock Performance Heatmap (Today's Change)"
         )
     
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
+            textfont=dict(color="white")
             textfont_size=18,        # Increase font size
             texttemplate="<b>%{label}</b><br>%{value}",  # Format text to show label and value
-            insidetextfont=dict(size=18),  # Adjust inside text font properties if needed
+            insidetextfont=dict(size=20),  # Adjust inside text font properties if needed
         )
         fig.update_layout(
             margin=dict(t=50, l=25, r=25, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
                 title="Change (%)",
                 tickformat=".1f",
+                orientation="h",  # Horizontal alignment
+                x=0.5,  # Move to bottom center
+                y=-0.2,  # Move below chart
+                tickvals=[-5, 0, 5],  # Example tick values
             )
         )
     
