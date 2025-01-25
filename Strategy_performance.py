@@ -426,45 +426,40 @@ with col2:
     if stock_list:
         selected_stock = st.selectbox("Select a Stock:", stock_list)
     
-       # Dropdown to select a stock
-        if stock_list:
-            selected_stock = st.selectbox("Select a Stock:", stock_list)
-        
-            # TradingView widget code
-            if selected_stock:
-                widget_code = f"""
-                <!-- TradingView Widget BEGIN -->
-                <div class="tradingview-widget-container" style="width: 100%; max-width: 980px; margin: 0 auto;">
-                    <div class="tradingview-widget-container__widget" style="height: 610px; width: 100%;"></div>
-                    <div class="tradingview-widget-copyright">
-                        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                            <span class="blue-text">Track all markets on TradingView</span>
-                        </a>
-                    </div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {{
-                        "width": "980",
-                        "height": "610",
-                        "symbol": "{selected_stock}",
-                        "interval": "D",
-                        "timezone": "Etc/UTC",
-                        "theme": "light",
-                        "style": "1",
-                        "locale": "en",
-                        "allow_symbol_change": true,
-                        "calendar": false,
-                        "hide_volume": true,
-                        "support_host": "https://www.tradingview.com"
-                    }}
-                    </script>
+        # TradingView widget code
+        if selected_stock:
+            widget_code = f"""
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container" style="width: 100%; max-width: 980px; margin: 0 auto;">
+                <div class="tradingview-widget-container__widget" style="height: 610px; width: 100%;"></div>
+                <div class="tradingview-widget-copyright">
+                    <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                        <span class="blue-text">Track all markets on TradingView</span>
+                    </a>
                 </div>
-                <!-- TradingView Widget END -->
-                """
-                # Render the widget in Streamlit
-                st.components.v1.html(widget_code, height=650)  # Height slightly more for padding
-        else:
-            st.warning("No stocks available in the portfolio.")
-
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                {{
+                    "width": "980",
+                    "height": "610",
+                    "symbol": "{selected_stock}",
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "en",
+                    "allow_symbol_change": true,
+                    "calendar": false,
+                    "hide_volume": true,
+                    "support_host": "https://www.tradingview.com"
+                }}
+                </script>
+            </div>
+            <!-- TradingView Widget END -->
+            """
+            # Render the widget in Streamlit
+            st.components.v1.html(widget_code, height=650)  # Height slightly more for padding
+    else:
+        st.warning("No stocks available in the portfolio.")
     #**********************************
     # Dynamically generate the symbols for the TradingView widget
     symbols = [
