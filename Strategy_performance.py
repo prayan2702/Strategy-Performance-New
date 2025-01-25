@@ -188,7 +188,7 @@ tradingview_widget = f"""
     ],
     "showSymbolLogo": true,
     "isTransparent": false,
-    "displayMode": "adaptive",
+    "displayMode": "compact",
     "colorTheme": "light",
     "locale": "en"
   }}
