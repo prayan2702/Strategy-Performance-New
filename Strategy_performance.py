@@ -440,7 +440,7 @@ with col2:
               <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
               {{
               "autosize": true,
-              "symbol": "NSE:{selected_stock}",
+              "symbol": "BSE:{selected_stock}",
               "interval": "D",
               "timezone": "Etc/UTC",
               "theme": "light",
@@ -456,7 +456,7 @@ with col2:
             <!-- TradingView Widget END -->
             """
             # Render the widget in Streamlit with increased height
-            st.components.v1.html(widget_code, height=700)  # Adjust height here
+            st.components.v1.html(widget_code, height=1700)  # Adjust height here
     else:
         st.warning("No stocks available in the portfolio.")
 
