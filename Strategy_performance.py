@@ -175,7 +175,12 @@ def fetch_portfolio_data():
         if "Portfolio" in df.columns and "Today Change" in df.columns:
             # Extracting the required columns
             df = df[["Portfolio", "Today Change"]].dropna()
-            df = df.head(30)  # Limiting to the first 30 stocks
+            
+            # Clean "Today Change" column by removing '%' and converting to float
+            df["Today Change"] = df["Today Change"].str.replace('%', '', regex=False).astype(float)
+            
+            # Limit to the first 30 stocks
+            df = df.head(30)
             return df
         else:
             st.error("Required columns ('Portfolio', 'Today Change') not found in the Google Sheet.")
@@ -485,9 +490,6 @@ with col2:
     # Streamlit App Layout
     st.title("Dynamic Portfolio Heatmap")
     if not portfolio_data.empty:
-        # Convert percentage change to numeric if it's in string format
-        portfolio_data["Today Change"] = pd.to_numeric(portfolio_data["Today Change"], errors="coerce")
-    
         # Create a heatmap using Plotly
         fig = px.imshow(
             [portfolio_data["Today Change"]],  # Heatmap data
@@ -511,7 +513,6 @@ with col2:
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.warning("No data available to display.")
-
     #********************************
     # Dynamically generate the symbols for the TradingView widget
     symbols = [
