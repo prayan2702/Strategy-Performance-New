@@ -168,6 +168,26 @@ def fetch_stock_list():
 # Fetch stock list from Google Sheet
 stock_list = fetch_stock_list()
 #******************************
+# Function to fetch portfolio data from Google Sheets for heatmap
+def fetch_portfolio_data():
+    try:
+        df = pd.read_csv(google_sheets_url)
+        if "Portfolio" in df.columns and "Today Change" in df.columns:
+            # Extracting the required columns
+            df = df[["Portfolio", "Today Change"]].dropna()
+            df = df.head(30)  # Limiting to the first 30 stocks
+            return df
+        else:
+            st.error("Required columns ('Portfolio', 'Today Change') not found in the Google Sheet.")
+            return pd.DataFrame()
+    except Exception as e:
+        st.error(f"Error fetching data: {e}")
+        return pd.DataFrame()
+
+# Fetch data
+portfolio_data = fetch_portfolio_data()
+
+#******************************
 
 
     
@@ -462,6 +482,37 @@ with col2:
     else:
         st.warning("No stocks available in the portfolio.")
     #**********************************
+    # Streamlit App Layout
+    st.title("Dynamic Portfolio Heatmap")
+    if not portfolio_data.empty:
+        # Convert percentage change to numeric if it's in string format
+        portfolio_data["Today Change"] = pd.to_numeric(portfolio_data["Today Change"], errors="coerce")
+    
+        # Create a heatmap using Plotly
+        fig = px.imshow(
+            [portfolio_data["Today Change"]],  # Heatmap data
+            labels=dict(color="Today Change (%)"),
+            x=portfolio_data["Portfolio"],  # Stock names as X-axis
+            y=[""],  # A single-row heatmap
+            color_continuous_scale="RdYlGn",  # Red-Yellow-Green for positive/negative change
+            zmin=-5,  # Set minimum range for color scale
+            zmax=5,   # Set maximum range for color scale
+        )
+    
+        # Update heatmap layout
+        fig.update_layout(
+            title="Stock Performance Heatmap (Today's Change)",
+            xaxis_title="Stocks",
+            yaxis_visible=False,
+            coloraxis_colorbar=dict(title="Change (%)"),
+        )
+    
+        # Display the heatmap
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.warning("No data available to display.")
+
+    #********************************
     # Dynamically generate the symbols for the TradingView widget
     symbols = [
         f'{{"proName": "BSE:{stock.strip().upper()}", "title": "{stock.strip().upper()}"}}'
