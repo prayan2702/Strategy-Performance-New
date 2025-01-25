@@ -168,38 +168,7 @@ def fetch_stock_list():
 # Fetch stock list from Google Sheet
 stock_list = fetch_stock_list()
 #******************************
-# Dynamically generate the symbols for the TradingView widget
-symbols = [
-    f'{{"proName": "BSE:{stock.strip().upper()}", "title": "{stock.strip().upper()}"}}'
-    for stock in stock_list
-]
-symbols_code = ", ".join(symbols)
 
-# Updated TradingView widget code without the text span
-tradingview_widget = f"""
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"></div>  <!-- Removed the unnecessary text -->
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {{
-    "symbols": [
-      {symbols_code}
-    ],
-    "showSymbolLogo": true,
-    "isTransparent": false,
-    "displayMode": "compact",
-    "colorTheme": "light",
-    "locale": "en"
-  }}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-"""
-
-# Integrate the widget into Streamlit
-components.html(tradingview_widget, height=85)
-#***********************************
 
     
 # Total Account Overview Section
@@ -453,6 +422,38 @@ with col2:
         st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
+    # Dynamically generate the symbols for the TradingView widget
+    symbols = [
+        f'{{"proName": "BSE:{stock.strip().upper()}", "title": "{stock.strip().upper()}"}}'
+        for stock in stock_list
+    ]
+    symbols_code = ", ".join(symbols)
+    
+    # Updated TradingView widget code without the text span
+    tradingview_widget = f"""
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <div class="tradingview-widget-copyright"></div>  <!-- Removed the unnecessary text -->
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {{
+        "symbols": [
+          {symbols_code}
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": false,
+        "displayMode": "compact",
+        "colorTheme": "light",
+        "locale": "en"
+      }}
+      </script>
+    </div>
+    <!-- TradingView Widget END -->
+    """
+    
+    # Integrate the widget into Streamlit
+    components.html(tradingview_widget, height=85)
+#***********************************
     # Static TradingView widget HTML code for global indices
     widget_html = """
     <!-- TradingView Widget BEGIN -->
