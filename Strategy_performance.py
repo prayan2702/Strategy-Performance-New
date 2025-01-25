@@ -498,7 +498,7 @@ with col2:
         fig = px.treemap(
             portfolio_data,
             path=["Portfolio"],  # Stock names as labels
-            values="Size",  # Dynamic sizing based on percentage change
+            values="Size",  # Dynamic sizing based on absolute percentage change
             color="Today Change",  # Values for coloring
             color_continuous_scale=[
                 "#8B0000",  # Dark Red
@@ -512,13 +512,13 @@ with col2:
             range_color=[-5, 5],  # Fix color scale range
         )
     
-        # Update layout for font size and alignment
+        # Update trace to use formatted values for display
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
             textfont=dict(color="white"),  # Ensure all text is white
             textfont_size=20,  # Increase font size
-            texttemplate="<b>%{label}</b><br>%{customdata}",  # Use formatted values for display
-            customdata=portfolio_data["Formatted Change"],  # Pass the preformatted column for display
+            texttemplate="<b>%{label}</b><br>%{customdata}",  # Use formatted values
+            customdata=portfolio_data["Formatted Change"],  # Pass formatted values for display
         )
         
         fig.update_layout(
