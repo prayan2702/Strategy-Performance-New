@@ -504,6 +504,17 @@ with col2:
             ],  # Custom color grading
             range_color=[-5, 5],  # Fix color scale range
         )
+        # Custom CSS to change the background color of the container
+        st.markdown("""
+            <style>
+                .reportview-container {
+                    background-color: white;  /* Set the background color to white */
+                }
+                .block-container {
+                    background-color: white;  /* Ensure the content block container also has a white background */
+                }
+            </style>
+        """, unsafe_allow_html=True)
     
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
