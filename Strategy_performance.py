@@ -510,12 +510,11 @@ with col2:
             # title="Stock Performance Heatmap (Today's Change)"
         )
     
-        # Update layout for font size and alignment
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
             textfont=dict(color="white"),  # Ensure all text is white
-            textfont_size=20,        # Increase font size
-            texttemplate="<b>%{label}</b><br>%{value}",  # Format text to show label and value
+            textfont_size=20,  # Increase font size
+            texttemplate="<b>%{label}</b><br>%{value:+.2f}%",  # Format text to show label, value with +/-, and % symbol
             insidetextfont=dict(size=18),  # Adjust inside text font properties if needed
         )
             
