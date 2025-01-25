@@ -510,13 +510,16 @@ with col2:
             # title="Stock Performance Heatmap (Today's Change)"
         )
     
+        # Add a custom column for formatted values (with sign and % symbol)
+        portfolio_data["Formatted Change"] = portfolio_data["Today Change"].apply(lambda x: f"{x:+.2f}%")
+        
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
             textfont=dict(color="white"),  # Ensure all text is white
             textfont_size=20,  # Increase font size
-            texttemplate="<b>%{label}</b><br>%{customdata:+.2f}%",  # Display sign and add % symbol
+            texttemplate="<b>%{label}</b><br>%{customdata}",  # Use preformatted data for text
             insidetextfont=dict(size=18),  # Adjust inside text font properties if needed
-            customdata=portfolio_data["Today Change"].to_numpy(),  # Pass the values explicitly for texttemplate
+            customdata=portfolio_data["Formatted Change"],  # Pass the preformatted column for display
         )
             
         fig.update_layout(
