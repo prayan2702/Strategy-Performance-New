@@ -182,6 +182,9 @@ def fetch_portfolio_data():
             # Limit to the first 30 stocks
             df = df.head(30)
             df["Size"] = df["Today Change"].abs()  # Add column for box sizing
+
+            # Add a new column for formatted values
+            df["Formatted Change"] = df["Today Change"].apply(lambda x: f"{x:+.2f}%")
             return df
         else:
             st.error("Required columns ('Portfolio', 'Today Change') not found in the Google Sheet.")
