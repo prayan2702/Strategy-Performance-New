@@ -423,44 +423,40 @@ with col2:
 
 #*****************
 
+    # Dropdown to select a stock
     if stock_list:
-        # Dropdown to select a stock
         selected_stock = st.selectbox("Select a Stock:", stock_list)
     
-        # Generate the TradingView widget HTML dynamically
-        widget_code = f"""
-        <!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container" style="width: 100%; max-width: 980px; margin: 0 auto;">
-            <div id="tradingview_widget" style="height: 610px; width: 100%;"></div>
-            <div class="tradingview-widget-copyright">
-                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                    <span class="blue-text">Track all markets on TradingView</span>
-                </a>
-            </div>
-            <script type="text/javascript">
-                new TradingView.widget({{
-                    "width": "980",
-                    "height": "610",
+        # TradingView widget code
+        if selected_stock:
+            widget_code = f"""
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container" style="width: 100%; max-width: 980px; margin: 0 auto;">
+                <div class="tradingview-widget-container__widget" style="height: 610px; width: 100%;"></div>
+                <div class="tradingview-widget-copyright"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                {{
+                    "width": "935",
+                    "height": "530",
                     "symbol": "{selected_stock}",
                     "interval": "D",
                     "timezone": "Etc/UTC",
                     "theme": "light",
                     "style": "1",
                     "locale": "en",
-                    "allow_symbol_change": false,
+                    "allow_symbol_change": true,
                     "calendar": false,
                     "hide_volume": true,
-                    "container_id": "tradingview_widget"
-                }});
-            </script>
-        </div>
-        <!-- TradingView Widget END -->
-        """
-    
-        # Render the widget in Streamlit
-        st.components.v1.html(widget_code, height=700)
+                    "support_host": "https://www.tradingview.com"
+                }}
+                </script>
+            </div>
+            <!-- TradingView Widget END -->
+            """
+            # Render the widget in Streamlit
+            st.components.v1.html(widget_code, height=550)  # Height slightly more for padding
     else:
-        st.error("No stocks found in the Portfolio column of the Google Sheet.")
+        st.warning("No stocks available in the portfolio.")
     #**********************************
     # Dynamically generate the symbols for the TradingView widget
     symbols = [
