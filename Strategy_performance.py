@@ -379,7 +379,7 @@ with col2:
           "symbols": {symbols},
           "chartOnly": false,
           "width": "100%",
-          "height": "500",
+          "height": "300",
           "locale": "en",
           "colorTheme": "light",
           "autosize": true,
