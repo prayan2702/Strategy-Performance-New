@@ -422,7 +422,7 @@ with col2:
     #     st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
-  # Generate the HTML for the TradingView widget with a dynamic dropdown
+# Generate the HTML for the TradingView widget with a dynamic dropdown
     if stock_list:
         # Build the options for the dropdown dynamically
         options_html = "\n".join([f'<option value="{symbol}">{symbol}</option>' for symbol in stock_list])
@@ -430,25 +430,23 @@ with col2:
         widget_code = f"""
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container" style="width: 100%; max-width: 980px; margin: 0 auto;">
-            <div class="tradingview-widget-container__widget" id="tradingview_widget" style="height: 610px; width: 100%;"></div>
-            <div class="tradingview-widget-dropdown" style="margin: 10px 0; text-align: center;">
+            <div style="margin-bottom: 10px; text-align: center;">
                 <select id="symbol_dropdown" style="padding: 10px; font-size: 16px; width: 300px;">
                     {options_html}
                 </select>
             </div>
+            <div id="tradingview_widget" style="height: 610px; width: 100%;"></div>
             <div class="tradingview-widget-copyright">
                 <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
                     <span class="blue-text">Track all markets on TradingView</span>
                 </a>
             </div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async></script>
-            <script>
-                document.getElementById('symbol_dropdown').addEventListener('change', function(event) {{
-                    const newSymbol = event.target.value;
+            <script type="text/javascript">
+                function loadWidget(symbol) {{
                     new TradingView.widget({{
                         "width": "980",
                         "height": "610",
-                        "symbol": newSymbol,
+                        "symbol": symbol,
                         "interval": "D",
                         "timezone": "Etc/UTC",
                         "theme": "light",
@@ -459,6 +457,17 @@ with col2:
                         "hide_volume": true,
                         "container_id": "tradingview_widget"
                     }});
+                }}
+    
+                // Initial widget load with the first stock in the list
+                const defaultSymbol = "{stock_list[0]}";
+                loadWidget(defaultSymbol);
+    
+                // Update widget when dropdown selection changes
+                document.getElementById('symbol_dropdown').addEventListener('change', function(event) {{
+                    const newSymbol = event.target.value;
+                    document.getElementById('tradingview_widget').innerHTML = "";  // Clear the widget container
+                    loadWidget(newSymbol);  // Reload the widget with the new symbol
                 }});
             </script>
         </div>
