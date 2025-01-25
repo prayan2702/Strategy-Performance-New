@@ -523,7 +523,7 @@ with col2:
             textfont=dict(color="white"),
             textfont_size=1,        # Increase font size
             texttemplate="%{label}<br>%{value}",  # Format text to show label and value
-            insidetextfont=dict(size=32),  # Adjust inside text font properties if needed
+            insidetextfont=dict(size=36),  # Adjust inside text font properties if needed
             textposition="middle center",  # Center the text inside the box
         )
         fig.update_layout(
