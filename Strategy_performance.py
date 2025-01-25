@@ -457,7 +457,7 @@ with col2:
             <!-- TradingView Widget END -->
             """
             # Render the widget in Streamlit
-            st.components.v1.html(widget_code, height=500)  # Height slightly more for padding
+            st.components.v1.html(widget_code, height=600)  # Height slightly more for padding
     else:
         st.warning("No stocks available in the portfolio.")
     #**********************************
