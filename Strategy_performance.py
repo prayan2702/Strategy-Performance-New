@@ -170,7 +170,6 @@ stock_list = fetch_stock_list()
 #******************************
 # Function to fetch portfolio data from Google Sheets
 def fetch_portfolio_data():
-    google_sheets_url = "YOUR_GOOGLE_SHEET_CSV_LINK"  # Replace with your Google Sheet's CSV link
     try:
         df = pd.read_csv(google_sheets_url)
         if "Portfolio" in df.columns and "Today Change" in df.columns:
