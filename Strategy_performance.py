@@ -453,8 +453,8 @@ with col2:
         """
         # Render the widget in Streamlit with forced height
         st.components.v1.html(widget_code, height=800)  # Height forced to 800px
-else:
-    st.warning("No stocks available in the portfolio.")
+    else:
+        st.warning("No stocks available in the portfolio.")
 
     #**********************************
     # Dynamically generate the symbols for the TradingView widget
