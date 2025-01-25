@@ -485,7 +485,7 @@ with col2:
         st.warning("No stocks available in the portfolio.")
     #**********************************
     # Streamlit App Layout
-    st.title("Dynamic Portfolio Heatmap")
+    st.info("##### Heatmap")
     if not portfolio_data.empty:
         # Create a treemap heatmap using Plotly
         fig = px.treemap(
