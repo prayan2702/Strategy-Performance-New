@@ -513,11 +513,11 @@ with col2:
         # Update layout for font size and alignment
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
-            textfont_size=18,  # Increase font size
-            texttemplate="<b>%{label}</b><br>%{color:.2f}%",  # Format stock name and change percentage
-            insidetextorientation="auto",  # Center text inside boxes
+            textfont_size=18,        # Increase font size
+            texttemplate="<b>%{label}</b><br>%{value}",  # Format text to show label and value
+            insidetextfont=dict(size=18),  # Adjust inside text font properties if needed
         )
-    
+            
         fig.update_layout(
             margin=dict(t=50, l=25, r=25, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
