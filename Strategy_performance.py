@@ -435,8 +435,8 @@ with col2:
                 <div class="tradingview-widget-copyright"></div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
                 {{
-                    "width": "940",
-                    "height": "500",
+                    "width": "935",
+                    "height": "530",
                     "symbol": "{selected_stock}",
                     "interval": "D",
                     "timezone": "Etc/UTC",
