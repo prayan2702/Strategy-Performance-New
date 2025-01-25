@@ -539,7 +539,6 @@ with col2:
             # Set background color of the Plotly chart container
             plot_bgcolor="white",  # Background inside the plot area
             paper_bgcolor="white",  # Background outside the plot area
-            height=600,
         )
     
         # Display the treemap heatmap
