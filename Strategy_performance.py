@@ -507,7 +507,7 @@ with col2:
                 "#006400"   # Dark Green
             ],  # Custom color grading
             range_color=[-5, 5],  # Fix color scale range
-            title="Stock Performance Heatmap (Today's Change)"
+            # title="Stock Performance Heatmap (Today's Change)"
         )
     
         # Update layout for font size and alignment
@@ -520,7 +520,7 @@ with col2:
         )
             
         fig.update_layout(
-            margin=dict(t=10, l=0, r=0, b=25),  # Adjust margins
+            margin=dict(t=25, l=0, r=0, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
                 title="Change (%)",
                 tickformat=".1f",
