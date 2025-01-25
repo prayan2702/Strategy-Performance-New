@@ -181,6 +181,7 @@ def fetch_portfolio_data():
             
             # Limit to the first 30 stocks
             df = df.head(30)
+            df["Size"] = df["Today Change"].abs()  # Add column for box sizing
             return df
         else:
             st.error("Required columns ('Portfolio', 'Today Change') not found in the Google Sheet.")
@@ -487,7 +488,7 @@ with col2:
     else:
         st.warning("No stocks available in the portfolio.")
     #**********************************
-    # Streamlit App Layout
+   # Streamlit App Layout
     st.title("Dynamic Portfolio Heatmap")
     if not portfolio_data.empty:
         # Create a treemap heatmap using Plotly
