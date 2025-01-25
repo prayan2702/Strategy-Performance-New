@@ -422,37 +422,41 @@ with col2:
     #     st.warning("No stocks available for the symbol overview widget.")
 
 #*****************
-   # TradingView widget code
-    if selected_stock:
-        widget_code = f"""
-        <!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container" style="width: 100%; height: 800px;">
-            <div class="tradingview-widget-container__widget" style="width: 100%; height: 100%;"></div>
-            <div class="tradingview-widget-copyright">
-                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                    <span class="blue-text">Track all markets on TradingView</span>
-                </a>
+   # Dropdown to select a stock
+    if stock_list:
+        selected_stock = st.selectbox("Select a Stock:", stock_list)
+    
+        # TradingView widget code
+        if selected_stock:
+            widget_code = f"""
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container" style="width: 100%; height: 800px;">
+                <div class="tradingview-widget-container__widget" style="width: 100%; height: 100%;"></div>
+                <div class="tradingview-widget-copyright">
+                    <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                        <span class="blue-text">Track all markets on TradingView</span>
+                    </a>
+                </div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                {{
+                "autosize": true,
+                "symbol": "{selected_stock}",
+                "interval": "D",
+                "timezone": "Etc/UTC",
+                "theme": "light",
+                "style": "1",
+                "locale": "en",
+                "allow_symbol_change": true,
+                "calendar": false,
+                "hide_volume": true,
+                "support_host": "https://www.tradingview.com"
+                }}
+                </script>
             </div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-            {{
-            "autosize": true,
-            "symbol": "{selected_stock}",
-            "interval": "D",
-            "timezone": "Etc/UTC",
-            "theme": "light",
-            "style": "1",
-            "locale": "en",
-            "allow_symbol_change": true,
-            "calendar": false,
-            "hide_volume": true,
-            "support_host": "https://www.tradingview.com"
-            }}
-            </script>
-        </div>
-        <!-- TradingView Widget END -->
-        """
-        # Render the widget in Streamlit with forced height
-        st.components.v1.html(widget_code, height=800)  # Height forced to 800px
+            <!-- TradingView Widget END -->
+            """
+            # Render the widget in Streamlit with forced height
+            st.components.v1.html(widget_code, height=800)  # Height forced to 800px
     else:
         st.warning("No stocks available in the portfolio.")
 
