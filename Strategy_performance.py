@@ -425,7 +425,8 @@ with col2:
 
     # Dropdown to select a stock
     if stock_list:
-        selected_stock = st.selectbox("Select a Stock:", stock_list)
+        st.info("##### Portfolio Symbol Overview")
+        selected_stock = st.selectbox(stock_list)
     
         # TradingView widget code
         if selected_stock:
