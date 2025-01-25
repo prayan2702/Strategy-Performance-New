@@ -521,7 +521,7 @@ with col2:
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
             textfont=dict(color="white"),
-            textfont_size=6,        # Increase font size
+            textfont_size=0,        # Increase font size
             texttemplate="%{label}<br>%{value}",  # Format text to show label and value
             insidetextfont=dict(size=32),  # Adjust inside text font properties if needed
             textposition="middle center",  # Center the text inside the box
