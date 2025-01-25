@@ -379,7 +379,7 @@ with col2:
           "symbols": {symbols},
           "chartOnly": false,
           "width": "100%",
-          "height": "300",
+          "height": "500",
           "locale": "en",
           "colorTheme": "light",
           "autosize": true,
@@ -417,7 +417,7 @@ with col2:
         """.replace("'", '"')  # Replace single quotes with double quotes for JSON compliance
     
         # Render the HTML content
-        components.html(symbol_overview_code, height=600)
+        components.html(symbol_overview_code, height=500)
     else:
         st.warning("No stocks available for the symbol overview widget.")
 
