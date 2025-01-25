@@ -441,26 +441,11 @@ with col2:
                     <span class="blue-text">Track all markets on TradingView</span>
                 </a>
             </div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-            {{
-                "width": "980",
-                "height": "610",
-                "symbol": "{stock_list[0]}",  // Default to the first stock in the list
-                "interval": "D",
-                "timezone": "Etc/UTC",
-                "theme": "light",
-                "style": "1",
-                "locale": "en",
-                "allow_symbol_change": false,
-                "calendar": false,
-                "hide_volume": true,
-                "container_id": "tradingview_widget"
-            }}
-            </script>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async></script>
             <script>
-                document.getElementById('symbol_dropdown').addEventListener('change', function(event) {
+                document.getElementById('symbol_dropdown').addEventListener('change', function(event) {{
                     const newSymbol = event.target.value;
-                    new TradingView.widget({
+                    new TradingView.widget({{
                         "width": "980",
                         "height": "610",
                         "symbol": newSymbol,
@@ -473,8 +458,8 @@ with col2:
                         "calendar": false,
                         "hide_volume": true,
                         "container_id": "tradingview_widget"
-                    });
-                });
+                    }});
+                }});
             </script>
         </div>
         <!-- TradingView Widget END -->
