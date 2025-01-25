@@ -514,8 +514,9 @@ with col2:
             textinfo="label+value",  # Show stock name and value
             textfont=dict(color="white"),  # Ensure all text is white
             textfont_size=20,  # Increase font size
-            texttemplate="<b>%{label}</b><br>%{value:+.2f}%",  # Format text to show label, value with +/-, and % symbol
+            texttemplate="<b>%{label}</b><br>%{customdata:+.2f}%",  # Display sign and add % symbol
             insidetextfont=dict(size=18),  # Adjust inside text font properties if needed
+            customdata=portfolio_data["Today Change"].to_numpy(),  # Pass the values explicitly for texttemplate
         )
             
         fig.update_layout(
