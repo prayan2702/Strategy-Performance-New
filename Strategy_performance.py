@@ -490,26 +490,26 @@ with col2:
     # Streamlit App Layout
     st.title("Dynamic Portfolio Heatmap")
     if not portfolio_data.empty:
-        # Create a heatmap using Plotly
-        fig = px.imshow(
-            [portfolio_data["Today Change"]],  # Heatmap data
-            labels=dict(color="Today Change (%)"),
-            x=portfolio_data["Portfolio"],  # Stock names as X-axis
-            y=[""],  # A single-row heatmap
-            color_continuous_scale="RdYlGn",  # Red-Yellow-Green for positive/negative change
-            zmin=-5,  # Set minimum range for color scale
-            zmax=5,   # Set maximum range for color scale
+        # Create a treemap heatmap using Plotly
+        fig = px.treemap(
+            portfolio_data,
+            path=["Portfolio"],  # Stock names as labels
+            values="Today Change",  # Values for sizing
+            color="Today Change",  # Values for coloring
+            color_continuous_scale="RdYlGn",  # Red for negative, Green for positive
+            title="Stock Performance Heatmap (Today's Change)"
         )
     
-        # Update heatmap layout
+        # Update layout to match the style of your example
         fig.update_layout(
-            title="Stock Performance Heatmap (Today's Change)",
-            xaxis_title="Stocks",
-            yaxis_visible=False,
-            coloraxis_colorbar=dict(title="Change (%)"),
+            margin=dict(t=50, l=25, r=25, b=25),  # Adjust margins
+            coloraxis_colorbar=dict(
+                title="Change (%)",
+                tickformat=".1f",
+            )
         )
     
-        # Display the heatmap
+        # Display the treemap heatmap
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.warning("No data available to display.")
