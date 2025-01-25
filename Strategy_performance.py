@@ -446,6 +446,9 @@ with col2:
                     "locale": "en",
                     "allow_symbol_change": true,
                     "calendar": false,
+                    "show_popup_button": true,
+                    "popup_width": "1000",
+                    "popup_height": "650",
                     "hide_volume": true,
                     "support_host": "https://www.tradingview.com"
                 }}
