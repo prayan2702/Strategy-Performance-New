@@ -488,18 +488,15 @@ with col2:
     else:
         st.warning("No stocks available in the portfolio.")
     #**********************************
-   # Streamlit App Layout
+    # Streamlit App Layout
     st.title("Dynamic Portfolio Heatmap")
     if not portfolio_data.empty:
-        # Add a custom column for formatted values (with sign and % symbol)
-        portfolio_data["Formatted Change"] = portfolio_data["Today Change"].apply(lambda x: f"{x:+.2f}%")
-        
-        # Use the original 'Today Change' for calculations and 'Formatted Change' for display
+        # Create a treemap heatmap using Plotly
         fig = px.treemap(
             portfolio_data,
             path=["Portfolio"],  # Stock names as labels
-            values="Size",  # Dynamic sizing based on absolute percentage change
-            color="Today Change",  # Use raw data for coloring
+            values="Size",  # Dynamic sizing based on percentage change
+            color="Today Change",  # Values for coloring
             color_continuous_scale=[
                 "#8B0000",  # Dark Red
                 "#FF4500",  # Red-Orange
@@ -508,20 +505,19 @@ with col2:
                 "#90EE90",  # Light Green
                 "#32CD32",  # Lime Green
                 "#006400"   # Dark Green
-            ],
+            ],  # Custom color grading
             range_color=[-5, 5],  # Fix color scale range
         )
-        
-        # Add formatted data for display
+    
+        # Update layout for font size and alignment
         fig.update_traces(
             textinfo="label+value",  # Show stock name and value
             textfont=dict(color="white"),  # Ensure all text is white
             textfont_size=20,  # Increase font size
             texttemplate="<b>%{label}</b><br>%{customdata}",  # Use formatted values for display
-            customdata=portfolio_data["Formatted Change"],  # Pass preformatted data
+            customdata=portfolio_data["Formatted Change"],  # Pass the preformatted column for display
         )
         
-        # Update layout for font size and alignment
         fig.update_layout(
             margin=dict(t=25, l=0, r=0, b=25),  # Adjust margins
             coloraxis_colorbar=dict(
@@ -533,7 +529,7 @@ with col2:
                 tickvals=[-5, 0, 5],  # Example tick values
             )
         )
-        
+    
         # Display the treemap heatmap
         st.plotly_chart(fig, use_container_width=True)
     else:
