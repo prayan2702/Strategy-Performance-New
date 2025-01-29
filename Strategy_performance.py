@@ -336,8 +336,15 @@ def app_content():
         # Display the table with index hidden
         st.dataframe(styled_loosers, hide_index=True)
         
-    # Apply the date filter
-    filtered_data = data[(data['date'] >= pd.Timestamp(start_date)) & (data['date'] <= pd.Timestamp(end_date))]
+    # Ensure data['date'] is in datetime format
+    data['date'] = pd.to_datetime(data['date'], errors='coerce')
+    
+    # Convert start_date and end_date to Timestamp
+    start_date = pd.Timestamp(start_date)
+    end_date = pd.Timestamp(end_date)
+    
+    # Apply the filter
+    filtered_data = data[(data['date'] >= start_date) & (data['date'] <= end_date)]
     
     if filtered_data.empty:
         st.error("No data available for the selected date range.")
