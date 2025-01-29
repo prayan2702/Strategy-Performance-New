@@ -178,7 +178,6 @@ def app_content():
         locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
     except locale.Error:
         print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
-
     # Display the Last Update Time
     desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
     utc_now = datetime.datetime.now(pytz.utc)
@@ -536,7 +535,7 @@ def app_content():
             fig = px.treemap(
                 portfolio_data,
                 path=["Portfolio"],  # Stock names as labels
-                values="Today Change",  # Use Today Change for sizing (optional, can be removed if not needed)
+                values="Size",  # Dynamic sizing based on percentage change
                 color="Today Change",  # Values for coloring
                 color_continuous_scale=[
                     "#8B0000",  # Dark Red
@@ -551,15 +550,13 @@ def app_content():
             )
         
             fig.update_traces(
-                textinfo="label+text",
-                texttemplate="<b>%{label}</b><br>%{text}",  # Directly show text
-                text=portfolio_data["Today Change"],  # Pass column directly
+                textinfo="label+value",  # Show stock name and value
                 textfont=dict(color="white"),
-                textfont_size=16,
-                insidetextfont=dict(size=16),
-                textposition="middle center",
+                textfont_size=1,        # Increase font size
+                texttemplate="%{label}<br>%{value}",  # Format text to show label and value
+                insidetextfont=dict(size=36),  # Adjust inside text font properties if needed
+                textposition="middle center",  # Center the text inside the box
             )
-        
             fig.update_layout(
                 margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
                 height=600,  # Fix height to control the chart’s size
@@ -717,33 +714,6 @@ def app_content():
         
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
-
-        # Custom CSS for full-width button
-        st.markdown(
-            """
-            <style>
-            .stButton > button {
-                width: 50%;
-                font-size: 28px;
-                font-weight: bold;
-                padding: 6px;
-                background-color: #acbfad;
-                color: white;
-                border-radius: 4px;
-                border: none;
-                cursor: pointer;
-            }
-            .stButton > button:hover {
-                background-color: #393b3a;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
-        
-        # Add Rerun Button at the top
-        if st.button("🔄 RERUN"):
-            st.rerun()
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
