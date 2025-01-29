@@ -179,9 +179,6 @@ def app_content():
     except locale.Error:
         print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
 
-    # Add Rerun Button at the top
-    if st.button("🔄 Rerun"):
-        st.rerun()
     # Display the Last Update Time
     desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
     utc_now = datetime.datetime.now(pytz.utc)
@@ -718,6 +715,11 @@ def app_content():
         
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
+
+        
+        # Add Rerun Button at the top
+        if st.button("🔄 Rerun"):
+            st.rerun()
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
