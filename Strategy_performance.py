@@ -530,9 +530,6 @@ def app_content():
                 }
             </style>
         """, unsafe_allow_html=True)
-
-        # Ensure "Today Change" is numeric and handle NaN
-        portfolio_data["Today Change"] = pd.to_numeric(portfolio_data["Today Change"], errors="coerce").fillna(0)
         
         if not portfolio_data.empty:
             # Create a treemap heatmap using Plotly
@@ -555,8 +552,8 @@ def app_content():
         
             fig.update_traces(
                 textinfo="label+text",
-                texttemplate="<b>%{label}</b><br>%{customdata:.2f}%",  
-                customdata=portfolio_data["Today Change"],
+                texttemplate="<b>%{label}</b><br>%{text}",  # Directly show text
+                text=portfolio_data["Today Change"],  # Pass column directly
                 textfont=dict(color="white"),
                 textfont_size=16,
                 insidetextfont=dict(size=16),
