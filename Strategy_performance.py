@@ -321,8 +321,22 @@ def app_content():
     
     with col1:
         st.info("##### Date Range")
-        start_date = st.date_input("Start Date", value=pd.to_datetime(data['date'].min()).date(), key='start_date')
-        end_date = st.date_input("End Date", value=pd.to_datetime(data['date'].max()).date(), key='end_date')
+        # Ensure date column is in proper datetime format
+        data['date'] = pd.to_datetime(data['date'], errors='coerce')
+        
+        # Remove rows where date conversion failed (NaT values)
+        data = data.dropna(subset=['date'])
+        
+        # Check if data['date'] has valid values
+        if not data.empty:
+            min_date = data['date'].min().date()  # Get min date
+            max_date = data['date'].max().date()  # Get max date
+        else:
+            min_date = max_date = date.today()  # Fallback to today if no valid dates
+        
+        # Use min_date and max_date in date input
+        start_date = st.date_input("Start Date", value=min_date, key='start_date')
+        end_date = st.date_input("End Date", value=max_date, key='end_date')
         st.markdown("<br><br><br>", unsafe_allow_html=True)
         
     
