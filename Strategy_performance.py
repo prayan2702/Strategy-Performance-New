@@ -721,10 +721,10 @@ def app_content():
             """
             <style>
             .stButton > button {
-                width: 100%;
+                width: 50%;
                 font-size: 28px;
                 font-weight: bold;
-                padding: 10px;
+                padding: 6px;
                 background-color: #acbfad;
                 color: white;
                 border-radius: 4px;
@@ -732,7 +732,7 @@ def app_content():
                 cursor: pointer;
             }
             .stButton > button:hover {
-                background-color: #45a049;
+                background-color: #393b3a;
             }
             </style>
             """,
