@@ -178,6 +178,10 @@ def app_content():
         locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
     except locale.Error:
         print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
+
+    # Add Rerun Button at the top
+    if st.button("🔄 Rerun"):
+        st.rerun()
     # Display the Last Update Time
     desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
     utc_now = datetime.datetime.now(pytz.utc)
