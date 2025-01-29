@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 import pytz
 import locale
 import streamlit.components.v1 as components  # Import the components module
+
 #***********************
 # Hard-coded credentials
 USERNAME = "prayan"
@@ -717,6 +718,6 @@ def app_content():
 if not st.session_state.logged_in:
     login()
 else:
-    app_content()        
+    app_content()    
 
    
