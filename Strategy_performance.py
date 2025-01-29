@@ -531,7 +531,7 @@ def app_content():
             </style>
         """, unsafe_allow_html=True)
         
-            if not portfolio_data.empty:
+        if not portfolio_data.empty:
             # Create a treemap heatmap using Plotly
             fig = px.treemap(
                 portfolio_data,
