@@ -716,9 +716,31 @@ def app_content():
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
 
+        # Custom CSS for full-width button
+        st.markdown(
+            """
+            <style>
+            .stButton > button {
+                width: 100%;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+            }
+            .stButton > button:hover {
+                background-color: #45a049;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
         
         # Add Rerun Button at the top
-        if st.button("🔄 Rerun"):
+        if st.button("🔄 RERUN"):
             st.rerun()
     # ***************************************************************
 if not st.session_state.logged_in:
