@@ -321,8 +321,8 @@ def app_content():
     
     with col1:
         st.info("##### Date Range")
-        start_date = st.date_input("Start Date", value=data['date'].min(), key='start_date')
-        end_date = st.date_input("End Date", value=data['date'].max(), key='end_date')
+        start_date = st.date_input("Start Date", value=pd.to_datetime(data['date'].min()).date(), key='start_date')
+        end_date = st.date_input("End Date", value=pd.to_datetime(data['date'].max()).date(), key='end_date')
         st.markdown("<br><br><br>", unsafe_allow_html=True)
         
     
