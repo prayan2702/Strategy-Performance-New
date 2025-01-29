@@ -532,52 +532,53 @@ def app_content():
         """, unsafe_allow_html=True)
         
         if not portfolio_data.empty:
-            # Create a treemap heatmap using Plotly
-            fig = px.treemap(
-                portfolio_data,
-                path=["Portfolio"],  # Stock names as labels
-                values="Size",  # Dynamic sizing based on percentage change
-                color="Today Change",  # Values for coloring
-                color_continuous_scale=[
-                    "#8B0000",  # Dark Red
-                    "#FF4500",  # Red-Orange
-                    "#FF6347",  # Tomato Red
-                    "#F0F0F0",  # Neutral Gray
-                    "#90EE90",  # Light Green
-                    "#32CD32",  # Lime Green
-                    "#006400"   # Dark Green
-                ],  # Custom color grading
-                range_color=[-5, 5],  # Fix color scale range
-            )
-        
-            fig.update_traces(
-                textinfo="label+value",  # Show stock name and value
-                textfont=dict(color="white"),
-                textfont_size=1,        # Increase font size
-                texttemplate="%{label}<br>%{value}",  # Format text to show label and value
-                insidetextfont=dict(size=36),  # Adjust inside text font properties if needed
-                textposition="middle center",  # Center the text inside the box
-            )
-            fig.update_layout(
-                margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
-                height=600,  # Fix height to control the chart’s size
-                coloraxis_colorbar=dict(
-                    title="Change (%)",
-                    tickformat=".1f",
-                    orientation="h",  # Horizontal alignment
-                    x=0.5,  # Move to bottom center
-                    y=-0.2,  # Move below chart
-                    tickvals=[-5, 0, 5],  # Example tick values
-                ),
-                # Set background color of the Plotly chart container
-                plot_bgcolor="white",  # Background inside the plot area
-                paper_bgcolor="white",  # Background outside the plot area
-            )
-        
-            # Display the treemap heatmap
-            st.plotly_chart(fig, use_container_width=True)
-        else:
-            st.warning("No data available to display.")
+        # Create a treemap heatmap using Plotly
+        fig = px.treemap(
+            portfolio_data,
+            path=["Portfolio"],  # Stock names as labels
+            values="Today Change",  # Use Today Change for sizing (optional, can be removed if not needed)
+            color="Today Change",  # Values for coloring
+            color_continuous_scale=[
+                "#8B0000",  # Dark Red
+                "#FF4500",  # Red-Orange
+                "#FF6347",  # Tomato Red
+                "#F0F0F0",  # Neutral Gray
+                "#90EE90",  # Light Green
+                "#32CD32",  # Lime Green
+                "#006400"   # Dark Green
+            ],  # Custom color grading
+            range_color=[-5, 5],  # Fix color scale range
+        )
+    
+        fig.update_traces(
+            textinfo="label+text",  # Show stock name and percentage change
+            texttemplate="%{label}<br>%{color:.2f}%",  # Format text to show label and percentage change
+            textfont=dict(color="white"),
+            textfont_size=16,  # Increase font size
+            insidetextfont=dict(size=16),  # Adjust inside text font properties
+            textposition="middle center",  # Center the text inside the box
+        )
+    
+        fig.update_layout(
+            margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
+            height=600,  # Fix height to control the chart’s size
+            coloraxis_colorbar=dict(
+                title="Change (%)",
+                tickformat=".1f",
+                orientation="h",  # Horizontal alignment
+                x=0.5,  # Move to bottom center
+                y=-0.2,  # Move below chart
+                tickvals=[-5, 0, 5],  # Example tick values
+            ),
+            # Set background color of the Plotly chart container
+            plot_bgcolor="white",  # Background inside the plot area
+            paper_bgcolor="white",  # Background outside the plot area
+        )
+    
+        # Display the treemap heatmap
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.warning("No data available to display.")
         #********************************
         # Dynamically generate the symbols for the TradingView widget
         symbols = [
