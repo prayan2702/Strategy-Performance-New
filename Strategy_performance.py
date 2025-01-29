@@ -725,9 +725,9 @@ def app_content():
                 font-size: 28px;
                 font-weight: bold;
                 padding: 10px;
-                background-color: #4CAF50;
+                background-color: #acbfad;
                 color: white;
-                border-radius: 8px;
+                border-radius: 4px;
                 border: none;
                 cursor: pointer;
             }
