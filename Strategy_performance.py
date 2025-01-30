@@ -563,7 +563,7 @@ def app_content():
                 texttemplate="%{label}<br>%{customdata[0]:.2f}%",  # Format text to show label and percentage change
                 textfont=dict(color="white"),
                 textfont_size=1,  # Increase font size
-                insidetextfont=dict(size=36, family="Arial"),  # Adjust inside text font properties
+                insidetextfont=dict(size=30, family="Arial"),  # Adjust inside text font properties
                 textposition="middle center",  # Center the text inside the box
             )
         
