@@ -562,8 +562,8 @@ def app_content():
                 textinfo="label+text",  # Show stock name and percentage change
                 texttemplate="%{label}<br>%{customdata[0]:.2f}%",  # Format text to show label and percentage change
                 textfont=dict(color="white"),
-                textfont_size=16,  # Increase font size
-                insidetextfont=dict(size=16),  # Adjust inside text font properties
+                textfont_size=1,  # Increase font size
+                insidetextfont=dict(size=36),  # Adjust inside text font properties
                 textposition="middle center",  # Center the text inside the box
             )
         
@@ -587,8 +587,6 @@ def app_content():
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning("No data available to display.")
-
-        st.write(portfolio_data)
         #********************************
         # Dynamically generate the symbols for the TradingView widget
         symbols = [
