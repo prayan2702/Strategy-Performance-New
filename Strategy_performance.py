@@ -531,11 +531,18 @@ def app_content():
         """, unsafe_allow_html=True)
         
         if not portfolio_data.empty:
+            # Remove '%' sign and convert "Today Change" to numeric
+            portfolio_data["Today Change"] = (
+                portfolio_data["Today Change"]
+                .str.replace('%', '', regex=False)  # Remove '%' sign
+                .astype(float)  # Convert to float
+            )
+        
             # Create a treemap heatmap using Plotly
             fig = px.treemap(
                 portfolio_data,
                 path=["Portfolio"],  # Stock names as labels
-                values="Size",  # Dynamic sizing based on percentage change
+                values="Today Change",  # Use Today Change for sizing (optional, can be removed if not needed)
                 color="Today Change",  # Values for coloring
                 color_continuous_scale=[
                     "#8B0000",  # Dark Red
@@ -550,13 +557,14 @@ def app_content():
             )
         
             fig.update_traces(
-                textinfo="label+value",  # Show stock name and value
+                textinfo="label+text",  # Show stock name and percentage change
+                texttemplate="%{label}<br>%{value:.2f}%",  # Format text to show label and percentage change
                 textfont=dict(color="white"),
-                textfont_size=1,        # Increase font size
-                texttemplate="%{label}<br>%{value}",  # Format text to show label and value
-                insidetextfont=dict(size=36),  # Adjust inside text font properties if needed
+                textfont_size=16,  # Increase font size
+                insidetextfont=dict(size=16),  # Adjust inside text font properties
                 textposition="middle center",  # Center the text inside the box
             )
+        
             fig.update_layout(
                 margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
                 height=600,  # Fix height to control the chart’s size
