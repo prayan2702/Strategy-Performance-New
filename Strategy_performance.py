@@ -531,9 +531,10 @@ def app_content():
         """, unsafe_allow_html=True)
         
         if not portfolio_data.empty:
-            # Remove '%' sign and convert "Today Change" to numeric
+            # Ensure "Today Change" is treated as a string, remove '%', and convert to numeric
             portfolio_data["Today Change"] = (
                 portfolio_data["Today Change"]
+                .astype(str)  # Convert to string
                 .str.replace('%', '', regex=False)  # Remove '%' sign
                 .astype(float)  # Convert to float
             )
