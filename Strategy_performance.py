@@ -530,7 +530,7 @@ def app_content():
             </style>
         """, unsafe_allow_html=True)
         
-       if not portfolio_data.empty:
+        if not portfolio_data.empty:
             # Ensure "Today Change" is treated as a string, remove '%', and convert to numeric
             portfolio_data["Today Change"] = (
                 portfolio_data["Today Change"]
