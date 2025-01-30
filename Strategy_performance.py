@@ -555,11 +555,12 @@ def app_content():
                     "#006400"   # Dark Green
                 ],  # Custom color grading
                 range_color=[-5, 5],  # Fix color scale range to include negative values
+                custom_data=["Today Change"],  # Pass "Today Change" as custom data
             )
         
             fig.update_traces(
                 textinfo="label+text",  # Show stock name and percentage change
-                texttemplate="%{label}<br>%{color:.2f}%",  # Format text to show label and percentage change
+                texttemplate="%{label}<br>%{customdata[0]:.2f}%",  # Format text to show label and percentage change
                 textfont=dict(color="white"),
                 textfont_size=16,  # Increase font size
                 insidetextfont=dict(size=16),  # Adjust inside text font properties
