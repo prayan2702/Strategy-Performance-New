@@ -568,15 +568,18 @@ def app_content():
             )
         
             fig.update_layout(
-                margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
+                margin=dict(t=0, l=0, r=0, b=50),  # Adjust margins to make space for the color bar
                 height=600,  # Fix height to control the chart’s size
                 coloraxis_colorbar=dict(
                     title="Change (%)",
-                    tickformat=".1f",
+                    tickvals=[-5, -3, -2, -1, 0, 1, 2, 3, 5],  # Custom tick values
+                    ticktext=["-5%", "-3%", "-2%", "-1%", "0%", "+1%", "+2%", "+3%", "+5%"],  # Custom tick labels
                     orientation="h",  # Horizontal alignment
                     x=0.5,  # Move to bottom center
-                    y=-0.2,  # Move below chart
-                    tickvals=[-5, 0, 5],  # Example tick values
+                    y=-0.1,  # Move below chart
+                    len=0.8,  # Length of the color bar
+                    thickness=10,  # Thickness of the color bar
+                    tickfont=dict(size=12, family="Arial"),  # Match font style
                 ),
                 # Set background color of the Plotly chart container
                 plot_bgcolor="white",  # Background inside the plot area
