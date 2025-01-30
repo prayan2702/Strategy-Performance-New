@@ -530,13 +530,21 @@ def app_content():
             </style>
         """, unsafe_allow_html=True)
         
-        if not portfolio_data.empty:
+       if not portfolio_data.empty:
+            # Ensure "Today Change" is treated as a string, remove '%', and convert to numeric
+            portfolio_data["Today Change"] = (
+                portfolio_data["Today Change"]
+                .astype(str)  # Convert to string
+                .str.replace('%', '', regex=False)  # Remove '%' sign
+                .astype(float)  # Convert to float
+            )
+        
             # Create a treemap heatmap using Plotly
             fig = px.treemap(
                 portfolio_data,
                 path=["Portfolio"],  # Stock names as labels
-                values="Size",  # Dynamic sizing based on percentage change
-                color="Today Change",  # Values for coloring
+                values="Size",  # Use "Size" column for box sizing
+                color="Today Change",  # Use "Today Change" for coloring
                 color_continuous_scale=[
                     "#8B0000",  # Dark Red
                     "#FF4500",  # Red-Orange
@@ -546,17 +554,18 @@ def app_content():
                     "#32CD32",  # Lime Green
                     "#006400"   # Dark Green
                 ],  # Custom color grading
-                range_color=[-5, 5],  # Fix color scale range
+                range_color=[-5, 5],  # Fix color scale range to include negative values
             )
         
             fig.update_traces(
-                textinfo="label+value",  # Show stock name and value
+                textinfo="label+text",  # Show stock name and percentage change
+                texttemplate="%{label}<br>%{color:.2f}%",  # Format text to show label and percentage change
                 textfont=dict(color="white"),
-                textfont_size=1,        # Increase font size
-                texttemplate="%{label}<br>%{value}",  # Format text to show label and value
-                insidetextfont=dict(size=36),  # Adjust inside text font properties if needed
+                textfont_size=16,  # Increase font size
+                insidetextfont=dict(size=16),  # Adjust inside text font properties
                 textposition="middle center",  # Center the text inside the box
             )
+        
             fig.update_layout(
                 margin=dict(t=0, l=0, r=0, b=0),  # Adjust margins
                 height=600,  # Fix height to control the chart’s size
