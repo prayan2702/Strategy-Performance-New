@@ -586,6 +586,8 @@ def app_content():
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning("No data available to display.")
+
+        st.write(portfolio_data)
         #********************************
         # Dynamically generate the symbols for the TradingView widget
         symbols = [
