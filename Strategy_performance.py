@@ -538,6 +538,9 @@ def app_content():
                 .str.replace('%', '', regex=False)  # Remove '%' sign
                 .astype(float)  # Convert to float
             )
+            
+            # Replace zero values in "Size" column with a small non-zero value
+            portfolio_data["Size"] = portfolio_data["Size"].replace(0, 0.01)
         
             # Create a treemap heatmap using Plotly
             fig = px.treemap(
