@@ -480,25 +480,25 @@ def app_content():
         if stock_list:
             st.info("##### Portfolio Symbol Overview")
             
-        # Last selected stock store karne ke liye session state ka use karein
-        if "selected_stock" not in st.session_state:
-            st.session_state.selected_stock = stock_list[0]  # Default first stock
-    
-        # Random start index select karein (Next login pe naye stock se start karne ke liye)
-        if "last_stock_index" not in st.session_state:
-            st.session_state.last_stock_index = 0
-    
-        next_index = (st.session_state.last_stock_index + 1) % len(stock_list)
-        shuffled_list = stock_list[next_index:] + stock_list[:next_index]  # Shifted order
-    
-        # Dropdown ke selected stock ko session state me store karein
-        selected_stock = st.selectbox("", shuffled_list, index=shuffled_list.index(st.session_state.selected_stock))
-    
-        # User selection save karein
-        st.session_state.selected_stock = selected_stock
-    
-        # Update last selected index in session state (next login ke liye)
-        st.session_state.last_stock_index = next_index
+            # Last selected stock store karne ke liye session state ka use karein
+            if "selected_stock" not in st.session_state:
+                st.session_state.selected_stock = stock_list[0]  # Default first stock
+        
+            # Random start index select karein (Next login pe naye stock se start karne ke liye)
+            if "last_stock_index" not in st.session_state:
+                st.session_state.last_stock_index = 0
+        
+            next_index = (st.session_state.last_stock_index + 1) % len(stock_list)
+            shuffled_list = stock_list[next_index:] + stock_list[:next_index]  # Shifted order
+        
+            # Dropdown ke selected stock ko session state me store karein
+            selected_stock = st.selectbox("", shuffled_list, index=shuffled_list.index(st.session_state.selected_stock))
+        
+            # User selection save karein
+            st.session_state.selected_stock = selected_stock
+        
+            # Update last selected index in session state (next login ke liye)
+            st.session_state.last_stock_index = next_index
         
             # TradingView widget code
             if selected_stock:
