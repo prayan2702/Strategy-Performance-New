@@ -504,14 +504,14 @@ def app_content():
                         "popup_width": "1000",
                         "popup_height": "650",
                         "hide_volume": true,
-                        "studies": [
-                            {{
-                                "id": "MAExp@tv-basicstudies",  // Moving Average indicator
-                                "inputs": {{
-                                    "length": 200  // Set the length to 200 days
-                                }}
-                            }}
-                        ],
+                        # "studies": [
+                        #     {{
+                        #         "id": "MAExp@tv-basicstudies",  // Moving Average indicator
+                        #         "inputs": {{
+                        #             "length": 200  // Set the length to 200 days
+                        #         }}
+                        #     }}
+                        # ],
                         "support_host": "https://www.tradingview.com"
                     }}
                     </script>
