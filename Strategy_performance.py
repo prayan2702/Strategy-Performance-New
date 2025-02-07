@@ -479,7 +479,26 @@ def app_content():
         # Dropdown to select a stock
         if stock_list:
             st.info("##### Portfolio Symbol Overview")
-            selected_stock = st.selectbox("",stock_list)
+            # Load last selected stock from session state
+            if 'last_selected_stock' not in st.session_state:
+                st.session_state.last_selected_stock = stock_list[0]  # Default to first stock
+    
+            # Function to update dropdown sequence
+            def update_dropdown_sequence(selected_stock):
+                if selected_stock in stock_list:
+                    stock_list.remove(selected_stock)
+                    stock_list.insert(0, selected_stock)
+                return stock_list
+    
+            # Handle dropdown selection
+            selected_stock = st.selectbox(
+                "Select a stock",
+                update_dropdown_sequence(st.session_state.last_selected_stock),
+                index=0
+            )
+    
+            # Save the selected stock in session state
+            st.session_state.last_selected_stock = selected_stock
         
             # TradingView widget code
             if selected_stock:
