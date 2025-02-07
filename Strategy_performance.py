@@ -480,34 +480,7 @@ def app_content():
         # Dropdown to select a stock
         if stock_list:
             st.info("##### Portfolio Symbol Overview")
-            # selected_stock = st.selectbox("",stock_list)
-
-             # Session state me last selected stock store karein
-            if "selected_stock" not in st.session_state:
-                st.session_state.selected_stock = stock_list[0]  # Default stock on fresh login
-        
-            # Session state me last selected index store karein (next login ke liye reset hoga)
-            if "last_stock_index" not in st.session_state:
-                st.session_state.last_stock_index = 0
-        
-            # Next login pe naye stock se start karne ke liye index update karein
-            next_index = (st.session_state.last_stock_index + 1) % len(stock_list)
-            
-            # Selected stock fix rahe, baaki ka sequence change ho
-            remaining_stocks = [s for s in stock_list if s != st.session_state.selected_stock]
-            random.shuffle(remaining_stocks)
-        
-            # Final list: Selected stock + shuffled remaining stocks
-            updated_stock_list = [st.session_state.selected_stock] + remaining_stocks
-        
-            # Dropdown with updated sequence
-            selected_stock = st.selectbox("", updated_stock_list, index=0)
-        
-            # User selection save karein
-            st.session_state.selected_stock = selected_stock
-        
-            # Next login ke liye index update karein
-            st.session_state.last_stock_index = next_index
+            selected_stock = st.selectbox("",stock_list)
         
             # TradingView widget code
             if selected_stock:
