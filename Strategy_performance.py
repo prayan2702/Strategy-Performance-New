@@ -479,7 +479,19 @@ def app_content():
         # Dropdown to select a stock
         if stock_list:
             st.info("##### Portfolio Symbol Overview")
-            selected_stock = st.selectbox("",stock_list)
+            
+            # Session state me last selected index store kare
+            if "last_stock_index" not in st.session_state:
+                st.session_state.last_stock_index = 0
+        
+            # Next login pe naye stock se start karne ke liye index update kare
+            next_index = (st.session_state.last_stock_index + 1) % len(stock_list)
+            shuffled_list = stock_list[next_index:] + stock_list[:next_index]  # Shifted order
+            
+            selected_stock = st.selectbox("", shuffled_list)
+        
+            # Update last selected index in session state
+            st.session_state.last_stock_index = next_index
         
             # TradingView widget code
             if selected_stock:
