@@ -62,9 +62,9 @@ def app_content():
     st.write(st.session_state.data)
     
     # @st.cache_data(ttl=0)  # Caching har baar bypass hoga
-    def load_data(url):
-        data = pd.read_csv(url, header=0)
-        data.columns = data.columns.str.strip().str.lower()  # Normalize column names
+    # def load_data(url):
+    #     data = pd.read_csv(url, header=0)
+    #     data.columns = data.columns.str.strip().str.lower()  # Normalize column names
     
         date_col_candidates = [col for col in data.columns if 'date' in col.lower()]
         if date_col_candidates:
