@@ -37,6 +37,16 @@ def login():
             else:
                 st.error("Invalid username or password")
 
+# Initialize session state for data
+if "data" not in st.session_state:
+    st.session_state.data = None
+
+# Data loading function
+def load_data(url):
+    data = pd.read_csv(url, header=0)
+    data.columns = data.columns.str.strip().str.lower()
+    st.session_state.data = data  # Store data in session state
+
 # Main app content function
 def app_content():
 
@@ -44,8 +54,14 @@ def app_content():
     
     # Replace with your actual Google Sheets CSV URL
     google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyGRVZuafIk2s7moScIn5PAUcPYEyYIOOYJj54RXYUeugWmOP0iIToljSEMhHrg_Zp8Vab6YvBJDV/pub?output=csv"
+
+    if st.session_state.data is None:
+        load_data(google_sheets_url)  # Load data only if not already in session state
+
+    # App content using the fetched data
+    st.write(st.session_state.data)
     
-    @st.cache_data(ttl=0)  # Caching har baar bypass hoga
+    # @st.cache_data(ttl=0)  # Caching har baar bypass hoga
     def load_data(url):
         data = pd.read_csv(url, header=0)
         data.columns = data.columns.str.strip().str.lower()  # Normalize column names
