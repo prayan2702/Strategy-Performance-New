@@ -45,10 +45,10 @@ def app_content():
     # Replace with your actual Google Sheets CSV URL
     google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyGRVZuafIk2s7moScIn5PAUcPYEyYIOOYJj54RXYUeugWmOP0iIToljSEMhHrg_Zp8Vab6YvBJDV/pub?output=csv"
 
-    # Clear cache before fetching data to ensure fresh data on each run
-    st.cache_data.clear()
+    # # Clear cache before fetching data to ensure fresh data on each run
+    # st.cache_data.clear()
     
-    @st.cache_data(ttl=0)  # Caching har baar bypass hoga
+    # @st.cache_data(ttl=0)  # Caching har baar bypass hoga
     def load_data(url):
         data = pd.read_csv(url, header=0)
         data.columns = data.columns.str.strip().str.lower()  # Normalize column names
