@@ -91,10 +91,6 @@ def app_content():
     # Fetch fresh data without caching
     data = load_data(google_sheets_url)
     
-    # # If old data loads, force rerun once
-    # if st.button("Force Refresh"):
-    #     st.rerun()
-    
     # Helper function to fetch Nifty50 data
     def get_nifty50_data(start_date, end_date):
         """Fetches Nifty50 data from Yahoo Finance."""
