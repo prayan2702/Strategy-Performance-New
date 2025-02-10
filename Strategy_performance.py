@@ -8,6 +8,8 @@ import plotly.graph_objects as go
 import pytz
 import locale
 import streamlit.components.v1 as components  # Import the components module
+import time
+import random
 
 #***********************
 # Hard-coded credentials
