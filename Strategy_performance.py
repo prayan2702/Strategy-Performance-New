@@ -42,35 +42,56 @@ def app_content():
 
     st.set_page_config(layout="wide")  # Set full-width layout
     
-    # Replace with your actual Google Sheets CSV URL
-    google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyGRVZuafIk2s7moScIn5PAUcPYEyYIOOYJj54RXYUeugWmOP0iIToljSEMhHrg_Zp8Vab6YvBJDV/pub?output=csv"
+    # # Replace with your actual Google Sheets CSV URL
+    # google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyGRVZuafIk2s7moScIn5PAUcPYEyYIOOYJj54RXYUeugWmOP0iIToljSEMhHrg_Zp8Vab6YvBJDV/pub?output=csv"
 
     # # Clear cache before fetching data to ensure fresh data on each run
     # st.cache_data.clear()
     
     # @st.cache_data(ttl=0)  # Caching har baar bypass hoga
-    def load_data(url):
-        data = pd.read_csv(url, header=0)
-        data.columns = data.columns.str.strip().str.lower()  # Normalize column names
+    # Google Sheets CSV URL ko modify kar ke unique banayenge taaki cache na ho
+    def get_google_sheet_url(base_url):
+        return f"{base_url}&nocache={random.randint(1000, 9999)}"
+        
+    # Function to fetch fresh data with retry logic
+    def load_data(url, retries=3, delay=2):
+        for attempt in range(retries):
+            try:
+                data = pd.read_csv(get_google_sheet_url(url), header=0)
+                data.columns = data.columns.str.strip().str.lower()  # Normalize column names
     
-        date_col_candidates = [col for col in data.columns if 'date' in col.lower()]
-        if date_col_candidates:
-            data['date'] = pd.to_datetime(data[date_col_candidates[0]], errors='coerce')
+                date_col_candidates = [col for col in data.columns if 'date' in col.lower()]
+                if date_col_candidates:
+                    data['date'] = pd.to_datetime(data[date_col_candidates[0]], errors='coerce')
     
-        numeric_cols = ['nav', 'day change', 'day change %', 'nifty50 value', 'current value', 'nifty50 change %',
-                        'dd', 'dd_n50', 'portfolio value', 'absolute gain', 'nifty50']
-        for col in numeric_cols:
-            if col in data.columns:
-                data[col] = pd.to_numeric(data[col].astype(str).str.replace(',', '').str.replace('%', ''), errors='coerce')
+                numeric_cols = ['nav', 'day change', 'day change %', 'nifty50 value', 'current value', 
+                                'nifty50 change %', 'dd', 'dd_n50', 'portfolio value', 'absolute gain', 'nifty50']
+                for col in numeric_cols:
+                    if col in data.columns:
+                        data[col] = pd.to_numeric(data[col].astype(str).str.replace(',', '').str.replace('%', ''), errors='coerce')
     
-        if 'dd' not in data.columns and 'nav' in data.columns:
-            data['dd'] = data['nav'] - data['nav'].cummax()
+                if 'dd' not in data.columns and 'nav' in data.columns:
+                    data['dd'] = data['nav'] - data['nav'].cummax()
     
-        data.fillna(0, inplace=True)
-        return data
+                data.fillna(0, inplace=True)
+                return data  # Fresh data successfully fetched
     
-    # Load data
+            except Exception as e:
+                st.warning(f"Data fetch attempt {attempt+1} failed: {e}")
+                time.sleep(delay)  # Wait before retrying
+    
+        st.error("Failed to fetch fresh data after multiple attempts.")
+        return pd.DataFrame()  # Return empty DataFrame in case of failure
+    
+    # Google Sheet URL
+    google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyGRVZuafIk2s7moScIn5PAUcPYEyYIOOYJj54RXYUeugWmOP0iIToljSEMhHrg_Zp8Vab6YvBJDV/pub?output=csv"
+    
+    # Fetch fresh data without caching
     data = load_data(google_sheets_url)
+    
+    # If old data loads, force rerun once
+    if st.button("Force Refresh"):
+        st.experimental_rerun()
     
     # Helper function to fetch Nifty50 data
     def get_nifty50_data(start_date, end_date):
