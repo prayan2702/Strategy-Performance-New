@@ -93,7 +93,7 @@ def app_content():
     
     # If old data loads, force rerun once
     if st.button("Force Refresh"):
-        st.experimental_rerun()
+        st.rerun()
     
     # Helper function to fetch Nifty50 data
     def get_nifty50_data(start_date, end_date):
