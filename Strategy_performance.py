@@ -49,7 +49,7 @@ def app_content():
     # google_sheets_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyGRVZuafIk2s7moScIn5PAUcPYEyYIOOYJj54RXYUeugWmOP0iIToljSEMhHrg_Zp8Vab6YvBJDV/pub?output=csv"
 
     # # Clear cache before fetching data to ensure fresh data on each run
-    # st.cache_data.clear()
+    st.cache_data.clear()
     
     # @st.cache_data(ttl=0)  # Caching har baar bypass hoga
     # Google Sheets CSV URL ko modify kar ke unique banayenge taaki cache na ho
