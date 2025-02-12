@@ -754,39 +754,6 @@ def app_content():
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
 
-    #******************************
-        st.info("##### Indian and World Indices (Live)")
-
-        indices = ['^NSEI', '^BSESN', '^GSPC', '^DJI', '^IXIC']
-    
-        # Create a placeholder for the table
-        index_data_placeholder = st.empty() 
-    
-        while True:  # Update periodically
-            # Get current date and time in India timezone
-            india_tz = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
-            now = datetime.datetime.now(india_tz)
-            yesterday = now - datetime.timedelta(days=1)
-    
-            # Calculate the start and end date for `yf.download`
-            start_date = yesterday.strftime("%Y-%m-%d")
-            end_date = now.strftime("%Y-%m-%d")
-    
-            # Download only the Close value
-            data = yf.download(indices, start=start_date, end=end_date, interval='1m')['Close']
-            
-            # Get the latest values
-            index_data = pd.DataFrame(data.iloc[-1]).reset_index()
-            index_data.columns = ['Index', 'CMP']
-           
-            # Get the previous day's close prices
-            previous_close = data.iloc[0] # Corrected line
-            index_data['% Change'] = ((index_data['CMP'] - previous_close) / previous_close) * 100
-    
-    
-            index_data_placeholder.table(index_data.style.format({"% Change": "{:.2f}%"}))
-    
-            time.sleep(60)  # Update every 60 seconds
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
