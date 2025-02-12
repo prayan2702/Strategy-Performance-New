@@ -754,10 +754,10 @@ def app_content():
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
          # *******************************
-        # Add Market Indices Table
-        st.info("##### Global & Indian Market Indices")
+        # Add Market Indices Table with Live Data
+        st.info("##### Major Indices (Live)")
 
-        # Define the indices to fetch from Yahoo Finance
+        # Define indices to fetch from Yahoo Finance
         indices_dict = {
             "NIFTY 50": "^NSEI",
             "SENSEX": "^BSESN",
@@ -773,11 +773,13 @@ def app_content():
         for name, ticker in indices_dict.items():
             try:
                 index = yf.Ticker(ticker)
-                info = index.history(period="1d")
+                info = index.info
                 
-                if not info.empty:
-                    cmp = info['Close'].iloc[-1]
-                    prev_close = info['Open'].iloc[0]
+                # Get Live CMP and Previous Close
+                cmp = info.get("regularMarketPrice", "N/A")  # Live Current Market Price
+                prev_close = info.get("regularMarketPreviousClose", "N/A")  # Previous Close
+                
+                if isinstance(cmp, (int, float)) and isinstance(prev_close, (int, float)):
                     percent_change = ((cmp - prev_close) / prev_close) * 100
                     index_data.append([name, f"{cmp:.2f}", f"{percent_change:.2f}%"])
                 else:
@@ -804,7 +806,6 @@ def app_content():
 
         # Display the table
         st.dataframe(styled_indices_df, hide_index=True)
-
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
