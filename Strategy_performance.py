@@ -762,7 +762,7 @@ def app_content():
             "NIFTY 50": "^NSEI",
             "NIFTY 500": "^CRSLDX",
             "INDIA VIX": "^INDIAVIX",
-            "S&P 500": "^GSPC",
+            "MIDCAP 100": "NIFTY_MIDCAP_100.NS",
             "NASDAQ 100": "^IXIC",
             "Dow Jones": "^DJI",
             "Gold": "GC=F",
