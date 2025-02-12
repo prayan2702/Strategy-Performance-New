@@ -802,6 +802,9 @@ def app_content():
         # Convert to DataFrame (WITHOUT CMP COLUMN)
         indices_df = pd.DataFrame(index_data, columns=["Indices", "% Change"])
 
+        # Remove None values and sort by % Change in descending order
+        indices_df = indices_df.dropna().sort_values(by="% Change", ascending=False)
+
         # Apply styling for color coding
         def color_format(val):
             """Style positive values green and negative values red."""
