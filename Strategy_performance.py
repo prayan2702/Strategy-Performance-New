@@ -772,7 +772,7 @@ def app_content():
             "INDIA VIX": "^INDIAVIX",
             "Dow Jones": "^DJI",
         }
-   
+        
         # Fetch live data
         index_data = []
         for name, ticker in indices_dict.items():
@@ -815,8 +815,8 @@ def app_content():
 
         styled_indices_df = indices_df.style.map(color_format, subset=["% Change"])
 
-        # Display the table in full width without scroll
-        st.table(indices_df)  # Use st.table() for full-length display without scroll
+        # Display the table
+        st.dataframe(styled_indices_df, hide_index=True)
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
