@@ -753,6 +753,28 @@ def app_content():
         
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
+
+    #******************************
+        st.info("##### Indian and World Indices (Live)")
+
+        indices = ['^NSEI', '^BSESN', '^GSPC', '^DJI', '^IXIC']
+    
+        # Create a placeholder for the table
+        index_data_placeholder = st.empty() 
+    
+        while True:  # Update periodically
+            data = yf.download(indices, period='1d', interval='1m')['Close']  # 1-minute interval
+    
+            index_data = pd.DataFrame(data.iloc[-1]).reset_index()
+            index_data.columns = ['Index', 'CMP']
+    
+            previous_close = yf.download(indices, period='2d', interval='1m')['Close'].iloc[0]  # Previous close for % change
+            index_data['% Change'] = ((index_data['CMP'] - previous_close) / previous_close) * 100
+    
+            index_data_placeholder.table(index_data.style.format({"% Change": "{:.2f}%"}))
+    
+            time.sleep(60)  # Update every 60 seconds
+
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
