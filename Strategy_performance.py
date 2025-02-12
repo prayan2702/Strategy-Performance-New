@@ -792,14 +792,14 @@ def app_content():
                 # Ensure valid numbers before calculation
                 if isinstance(cmp, (int, float)) and isinstance(prev_close, (int, float)) and prev_close > 0:
                     percent_change = ((cmp - prev_close) / prev_close) * 100
-                    index_data.append([name, f"{cmp:.2f}", f"{percent_change:.2f}%"])
+                    index_data.append([name, f"{percent_change:.2f}%"])
                 else:
-                    index_data.append([name, "N/A", "N/A"])
+                    index_data.append([name, "N/A"])
             
             except Exception as e:
-                index_data.append([name, "Error", "Error"])
+                index_data.append([name, "Error"])
         
-        # Convert to DataFrame
+        # Convert to DataFrame (WITHOUT CMP COLUMN)
         indices_df = pd.DataFrame(index_data, columns=["Indices", "% Change"])
 
         # Apply styling for color coding
