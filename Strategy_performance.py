@@ -822,7 +822,7 @@ def app_content():
         styled_indices_df = indices_df.style.map(color_format, subset=["% Change"])
 
         # Display the table
-        st.dataframe(styled_indices_df, hide_index=True)
+        st.dataframe(styled_indices_df, height=500, hide_index=True, use_container_width=True)
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
