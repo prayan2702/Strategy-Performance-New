@@ -761,6 +761,7 @@ def app_content():
         indices_dict = {
             "NIFTY 50": "^NSEI",
             "NIFTY 500": "^CRSLDX",
+            "INDIA VIX": "^INDIAVIX",
             "S&P 500": "^GSPC",
             "NASDAQ 100": "^IXIC",
             "Dow Jones": "^DJI",
