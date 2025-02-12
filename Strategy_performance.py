@@ -755,7 +755,7 @@ def app_content():
         st.dataframe(styled_table, hide_index=True)
          # *******************************
          # Add Market Indices Table with Live Data
-        st.info("##### Global & Indian Market Indices (Live)")
+        st.info("##### Broader Market Indices (Live)")
 
         # Define indices to fetch from Yahoo Finance
         indices_dict = {
