@@ -800,7 +800,7 @@ def app_content():
                 index_data.append([name, "Error", "Error"])
         
         # Convert to DataFrame
-        indices_df = pd.DataFrame(index_data, columns=["Indices", "CMP", "% Change"])
+        indices_df = pd.DataFrame(index_data, columns=["Indices", "% Change"])
 
         # Apply styling for color coding
         def color_format(val):
