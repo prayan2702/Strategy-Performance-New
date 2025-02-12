@@ -753,6 +753,57 @@ def app_content():
         
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
+         # *******************************
+        # Add Market Indices Table
+        st.info("##### Global & Indian Market Indices")
+
+        # Define the indices to fetch from Yahoo Finance
+        indices_dict = {
+            "NIFTY 50": "^NSEI",
+            "SENSEX": "^BSESN",
+            "S&P 500": "^GSPC",
+            "NASDAQ 100": "^NDX",
+            "Dow Jones": "^DJI",
+            "Gold": "GC=F",
+            "Crude Oil": "CL=F"
+        }
+
+        # Fetch live data
+        index_data = []
+        for name, ticker in indices_dict.items():
+            try:
+                index = yf.Ticker(ticker)
+                info = index.history(period="1d")
+                
+                if not info.empty:
+                    cmp = info['Close'].iloc[-1]
+                    prev_close = info['Open'].iloc[0]
+                    percent_change = ((cmp - prev_close) / prev_close) * 100
+                    index_data.append([name, f"{cmp:.2f}", f"{percent_change:.2f}%"])
+                else:
+                    index_data.append([name, "N/A", "N/A"])
+            
+            except Exception as e:
+                index_data.append([name, "Error", "Error"])
+        
+        # Convert to DataFrame
+        indices_df = pd.DataFrame(index_data, columns=["Indices", "CMP", "% Change"])
+
+        # Apply styling for color coding
+        def color_format(val):
+            """Style positive values green and negative values red."""
+            try:
+                if val.endswith("%"):
+                    num_val = float(val.replace("%", ""))
+                    color = "green" if num_val > 0 else "red"
+                    return f"color: {color}"
+            except:
+                return ""  # No formatting for errors or 'N/A'
+
+        styled_indices_df = indices_df.style.map(color_format, subset=["% Change"])
+
+        # Display the table
+        st.dataframe(styled_indices_df, hide_index=True)
 
     # ***************************************************************
 if not st.session_state.logged_in:
