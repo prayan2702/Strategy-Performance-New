@@ -762,7 +762,7 @@ def app_content():
             "NIFTY 50": "^NSEI",
             "SENSEX": "^BSESN",
             "S&P 500": "^GSPC",
-            "NASDAQ 100": "^NDX",
+            "NASDAQ 100": "^IXIC",
             "Dow Jones": "^DJI",
             "Gold": "GC=F",
             "Crude Oil": "CL=F"
