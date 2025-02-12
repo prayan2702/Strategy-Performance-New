@@ -754,8 +754,8 @@ def app_content():
         # Show dataframe properly in Streamlit
         st.dataframe(styled_table, hide_index=True)
          # *******************************
-        # Add Market Indices Table with Live Data
-        st.info("##### Major Indices (Live)")
+         # Add Market Indices Table with Live Data
+        st.info("##### Global & Indian Market Indices (Live)")
 
         # Define indices to fetch from Yahoo Finance
         indices_dict = {
@@ -775,11 +775,17 @@ def app_content():
                 index = yf.Ticker(ticker)
                 info = index.info
                 
-                # Get Live CMP and Previous Close
-                cmp = info.get("regularMarketPrice", "N/A")  # Live Current Market Price
-                prev_close = info.get("regularMarketPreviousClose", "N/A")  # Previous Close
+                # Get Live CMP with fallback
+                cmp = info.get("regularMarketPrice")  # Live CMP
+                if cmp is None:
+                    hist = index.history(period="1d")
+                    cmp = hist['Close'].iloc[-1] if not hist.empty else "N/A"  # Use last close if live price is missing
+
+                # Get Previous Close
+                prev_close = info.get("regularMarketPreviousClose", cmp)  # Use CMP if previous close is missing
                 
-                if isinstance(cmp, (int, float)) and isinstance(prev_close, (int, float)):
+                # Ensure valid numbers before calculation
+                if isinstance(cmp, (int, float)) and isinstance(prev_close, (int, float)) and prev_close > 0:
                     percent_change = ((cmp - prev_close) / prev_close) * 100
                     index_data.append([name, f"{cmp:.2f}", f"{percent_change:.2f}%"])
                 else:
