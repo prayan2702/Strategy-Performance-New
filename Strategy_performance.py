@@ -760,13 +760,17 @@ def app_content():
         # Define indices to fetch from Yahoo Finance
         indices_dict = {
             "NIFTY 50": "^NSEI",
+            "NIFTY BANK": "^NSEBANK",
+            "NIFTY NEXT 50": "^NSMIDCP",
             "NIFTY 500": "^CRSLDX",
-            "INDIA VIX": "^INDIAVIX",
+            "NIFTY TOTAL MKT": "NIFTY_TOTAL_MKT.NS",
+            "N200MOMENTM30": "NIFTY200MOMENTM30.NS",
+            "NIFTY ALPHA 50": "NIFTYALPHA50.NS",
             "MIDCAP 100": "NIFTY_MIDCAP_100.NS",
             "SMLCAP 100": "^CNXSC",
+            "NIFTY MICROCAP250": "NIFTY_MICROCAP250.NS",
+            "INDIA VIX": "^INDIAVIX",
             "Dow Jones": "^DJI",
-            "Gold": "GC=F",
-            "Crude Oil": "CL=F"
         }
 
         # Fetch live data
