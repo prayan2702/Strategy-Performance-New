@@ -792,18 +792,21 @@ def app_content():
                 # Ensure valid numbers before calculation
                 if isinstance(cmp, (int, float)) and isinstance(prev_close, (int, float)) and prev_close > 0:
                     percent_change = ((cmp - prev_close) / prev_close) * 100
-                    index_data.append([name, f"{percent_change:.2f}%"])
+                    index_data.append([name, percent_change])  # Store as float for sorting
                 else:
-                    index_data.append([name, "N/A"])
+                    index_data.append([name, None])  # Handle missing values
             
             except Exception as e:
-                index_data.append([name, "Error"])
+                index_data.append([name, None])  # Handle errors
         
         # Convert to DataFrame (WITHOUT CMP COLUMN)
         indices_df = pd.DataFrame(index_data, columns=["Indices", "% Change"])
 
         # Remove None values and sort by % Change in descending order
         indices_df = indices_df.dropna().sort_values(by="% Change", ascending=False)
+
+        # Format % Change column to show 2 decimal places
+        indices_df["% Change"] = indices_df["% Change"].apply(lambda x: f"{x:.2f}%")
 
         # Apply styling for color coding
         def color_format(val):
