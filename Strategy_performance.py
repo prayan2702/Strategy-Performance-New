@@ -760,7 +760,7 @@ def app_content():
         # Define indices to fetch from Yahoo Finance
         indices_dict = {
             "NIFTY 50": "^NSEI",
-            "SENSEX": "^BSESN",
+            "NIFTY 500": "^CRSLDX",
             "S&P 500": "^GSPC",
             "NASDAQ 100": "^IXIC",
             "Dow Jones": "^DJI",
