@@ -712,6 +712,10 @@ def app_content():
         # Now, fetch the data using the session
         response = session.get(url, headers=headers)
         
+        # Debugging: Print status code and response text
+        print("Status Code:", response.status_code)
+        print("Response Text:", response.text)
+        
         # Check if the request was successful
         if response.status_code == 200:
             try:
