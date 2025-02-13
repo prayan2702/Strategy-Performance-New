@@ -824,7 +824,7 @@ def app_content():
 
         # Display the table
         st.dataframe(styled_indices_df, height=450, hide_index=True, use_container_width=True)
-        #*****************
+                #*****************
         # NSE API URL
         url = "https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050"
         
@@ -836,8 +836,14 @@ def app_content():
             "Connection": "keep-alive"
         }
         
-        # Fetch data from NSE
-        response = requests.get(url, headers=headers)
+        # Create a session
+        session = requests.Session()
+        
+        # First, make a request to the main page to get cookies
+        session.get("https://www.nseindia.com", headers=headers)
+        
+        # Now, fetch the data using the session
+        response = session.get(url, headers=headers)
         
         # Check if the request was successful
         if response.status_code == 200:
@@ -845,9 +851,9 @@ def app_content():
             
             # Extract advance-decline data
             advance_decline_data = {
-                "Advances": data["advance"],
-                "Declines": data["decline"],
-                "Unchanged": data["unchanged"]
+                "Advances": data["advance"]["advances"],
+                "Declines": data["advance"]["declines"],
+                "Unchanged": data["advance"]["unchanged"]
             }
             
             # Display data in a table
