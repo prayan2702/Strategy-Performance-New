@@ -11,6 +11,7 @@ import locale
 import streamlit.components.v1 as components  # Import the components module
 import time
 import random
+import requests
 
 #***********************
 # Hard-coded credentials
@@ -823,6 +824,37 @@ def app_content():
 
         # Display the table
         st.dataframe(styled_indices_df, height=450, hide_index=True, use_container_width=True)
+        #*****************
+        # NSE API URL
+        url = "https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050"
+        
+        # Headers to mimic a browser request
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive"
+        }
+        
+        # Fetch data from NSE
+        response = requests.get(url, headers=headers)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            data = response.json()
+            
+            # Extract advance-decline data
+            advance_decline_data = {
+                "Advances": data["advance"],
+                "Declines": data["decline"],
+                "Unchanged": data["unchanged"]
+            }
+            
+            # Display data in a table
+            df = pd.DataFrame(list(advance_decline_data.items()), columns=["Category", "Count"])
+            print(df)
+        else:
+            print("Failed to fetch data. Status code:", response.status_code)
     # ***************************************************************
 if not st.session_state.logged_in:
     login()
