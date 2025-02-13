@@ -824,9 +824,9 @@ def app_content():
 
         # Display the table
         st.dataframe(styled_indices_df, height=450, hide_index=True, use_container_width=True)
-                #*****************
+        #*****************
         # NSE API URL
-        url = "https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050"
+        url = "https://www.nseindia.com/api/market-data-pre-open?key=NIFTY"
         
         # Headers to mimic a browser request
         headers = {
@@ -855,9 +855,9 @@ def app_content():
                 
                 # Extract advance-decline data
                 advance_decline_data = {
-                    "Advances": data["advance"]["advances"],
-                    "Declines": data["advance"]["declines"],
-                    "Unchanged": data["advance"]["unchanged"]
+                    "Advances": data["advance"],
+                    "Declines": data["decline"],
+                    "Unchanged": data["unchanged"]
                 }
                 
                 # Display data in a table
