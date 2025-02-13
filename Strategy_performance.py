@@ -197,18 +197,18 @@ def app_content():
             return formatted_value
     
     # Try to set locale, but handle potential errors
-    try:
-        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-    except locale.Error:
-        print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
-    # Display the Last Update Time
-    desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
-    utc_now = datetime.datetime.now(pytz.utc)
-    local_now = utc_now.astimezone(desired_timezone)
-    formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
-    # st.info for the Last Update
-    st.write(f"Last Update: {formatted_time}")
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    # try:
+    #     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    # except locale.Error:
+    #     print("Warning: 'en_US.UTF-8' locale not supported. Number formatting might be incorrect.")
+    # # Display the Last Update Time
+    # desired_timezone = pytz.timezone('Asia/Kolkata')  # India Standard Time (IST)
+    # utc_now = datetime.datetime.now(pytz.utc)
+    # local_now = utc_now.astimezone(desired_timezone)
+    # formatted_time = local_now.strftime('%d-%m-%Y %H:%M:%S')
+    # # st.info for the Last Update
+    # st.write(f"Last Update: {formatted_time}")
+    # st.markdown("<br><br>", unsafe_allow_html=True)
     #**********************************
     # Function to fetch portfolio stock list dynamically
     def fetch_stock_list():
