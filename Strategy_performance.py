@@ -842,23 +842,29 @@ def app_content():
         # First, make a request to the main page to get cookies
         session.get("https://www.nseindia.com", headers=headers)
         
+        # Add a delay to avoid being blocked
+        time.sleep(5)
+        
         # Now, fetch the data using the session
         response = session.get(url, headers=headers)
         
         # Check if the request was successful
         if response.status_code == 200:
-            data = response.json()
-            
-            # Extract advance-decline data
-            advance_decline_data = {
-                "Advances": data["advance"]["advances"],
-                "Declines": data["advance"]["declines"],
-                "Unchanged": data["advance"]["unchanged"]
-            }
-            
-            # Display data in a table
-            df = pd.DataFrame(list(advance_decline_data.items()), columns=["Category", "Count"])
-            print(df)
+            try:
+                data = response.json()
+                
+                # Extract advance-decline data
+                advance_decline_data = {
+                    "Advances": data["advance"]["advances"],
+                    "Declines": data["advance"]["declines"],
+                    "Unchanged": data["advance"]["unchanged"]
+                }
+                
+                # Display data in a table
+                df = pd.DataFrame(list(advance_decline_data.items()), columns=["Category", "Count"])
+                print(df)
+            except ValueError as e:
+                print("Failed to decode JSON. Response Text:", response.text)
         else:
             print("Failed to fetch data. Status code:", response.status_code)
     # ***************************************************************
