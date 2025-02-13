@@ -826,7 +826,7 @@ def app_content():
         st.dataframe(styled_indices_df, height=450, hide_index=True, use_container_width=True)
         #*****************
         # NSE API URL
-        url = "https://www.nseindia.com/api/market-data-pre-open?key=NIFTY"
+        url = "https://www.nseindia.com/api/live-analysis-advance-decline"
         
         # Headers to mimic a browser request
         headers = {
@@ -855,8 +855,8 @@ def app_content():
                 
                 # Extract advance-decline data
                 advance_decline_data = {
-                    "Advances": data["advance"],
-                    "Declines": data["decline"],
+                    "Advances": data["advances"],
+                    "Declines": data["declines"],
                     "Unchanged": data["unchanged"]
                 }
                 
