@@ -95,7 +95,7 @@ def app_content():
     # Helper function to fetch Nifty50 data
     def get_nifty50_data(start_date, end_date):
         """Fetches Nifty50 data from Yahoo Finance."""
-        nifty = yf.Ticker("^NSEI")  # Nifty50 ticker symbol
+        nifty = yf.Ticker("^NSEI", multi_level_index=False)  # Nifty50 ticker symbol
         hist = nifty.history(start=start_date, end=end_date)
         return hist
     
@@ -112,7 +112,7 @@ def app_content():
     nifty_today_data = get_nifty50_data(today, today + timedelta(days=1))
     
     # Get current Nifty50 value
-    nifty = yf.Ticker("^NSEI")
+    nifty = yf.Ticker("^NSEI", multi_level_index=False)
     nifty_info = nifty.info
     
     # Get yesterday's closing price
