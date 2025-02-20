@@ -218,9 +218,21 @@ def app_content():
         else:
             st.error("Portfolio column not found in Google Sheet.")
             return []
+
+    # Get the full stock list
+    full_stock_list = fetch_stock_list()
     
-    # Fetch stock list from Google Sheet
-    stock_list = fetch_stock_list()
+    # Extract the middle 10 stocks (excluding top 10 losers and top 10 gainers)
+    middle_stocks = [stock for stock in full_stock_list if stock not in top_10_loosers["Symbol"].tolist() and stock not in top_10_gainers["Symbol"].tolist()]
+    
+    # Combine the lists in the desired order: top 10 losers → middle 10 stocks → top 10 gainers
+    combined_stock_list = top_10_loosers["Symbol"].tolist() + middle_stocks + top_10_gainers["Symbol"].tolist()
+    
+    # Update the stock_list variable with the combined list
+    stock_list = combined_stock_list
+    
+    # # Fetch stock list from Google Sheet
+    # stock_list = fetch_stock_list()
     #******************************
     # Function to fetch portfolio data from Google Sheets
     def fetch_portfolio_data():
