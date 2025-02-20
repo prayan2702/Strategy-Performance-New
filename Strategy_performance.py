@@ -210,6 +210,16 @@ def app_content():
     # st.write(f"Last Update: {formatted_time}")
     # st.markdown("<br><br>", unsafe_allow_html=True)
     #**********************************
+    # Extract the top 10 losers and top 10 gainers
+    top_10_gainers = data.iloc[:, [14, 15, 16]].head(10)  # Columns O, P, Q
+    top_10_gainers.columns = ["Symbol", "CMP", "Change%"]
+    top_10_loosers = data.iloc[:, [18, 19, 20]].head(10)  # Columns S, T, U
+    top_10_loosers.columns = ["Symbol", "CMP", "Change%"]
+    
+    # Ensure "Change%" column is numeric after removing '%'
+    top_10_gainers["Change%"] = top_10_gainers["Change%"].str.replace('%', '').astype(float)
+    top_10_loosers["Change%"] = top_10_loosers["Change%"].str.replace('%', '').astype(float)
+
     # Function to fetch portfolio stock list dynamically
     def fetch_stock_list():
         df = pd.read_csv(google_sheets_url)
