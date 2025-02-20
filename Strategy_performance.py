@@ -239,7 +239,7 @@ def app_content():
     top_10_gainers_reversed = top_10_gainers["Symbol"].tolist()[::-1]
 
     # Combine the lists in the desired order: top 10 losers → middle 10 stocks → reversed top 10 gainers
-    combined_stock_list = top_10_loosers["Symbol"].tolist() + middle_stocks + top_10_gainers_reversed
+    combined_stock_list =  top_10_gainers_reversed + middle_stocks + top_10_loosers["Symbol"].tolist()
   
     # Update the stock_list variable with the combined list
     stock_list = combined_stock_list
