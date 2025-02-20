@@ -234,10 +234,13 @@ def app_content():
     
     # Extract the middle 10 stocks (excluding top 10 losers and top 10 gainers)
     middle_stocks = [stock for stock in full_stock_list if stock not in top_10_loosers["Symbol"].tolist() and stock not in top_10_gainers["Symbol"].tolist()]
-    
-    # Combine the lists in the desired order: top 10 losers → middle 10 stocks → top 10 gainers
-    combined_stock_list = top_10_loosers["Symbol"].tolist() + middle_stocks + top_10_gainers["Symbol"].tolist()
-    
+
+    # Reverse the order of top 10 gainers (highest gainer at the bottom)
+    top_10_gainers_reversed = top_10_gainers["Symbol"].tolist()[::-1]
+
+    # Combine the lists in the desired order: top 10 losers → middle 10 stocks → reversed top 10 gainers
+    combined_stock_list = top_10_loosers["Symbol"].tolist() + middle_stocks + top_10_gainers_reversed
+  
     # Update the stock_list variable with the combined list
     stock_list = combined_stock_list
     
